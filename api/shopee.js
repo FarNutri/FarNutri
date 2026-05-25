@@ -9,66 +9,55 @@ export default async function handler(req, res) {
 
     const timestamp = Math.floor(Date.now() / 1000)
 
-    const query = {
-      query: `
-      {
-        productOfferV2(
-          listType: 2,
-          limit: 20,
-          page: 1
-        ) {
-          nodes {
-            productName
-            imageUrl
-            priceMin
-            priceMax
-            productLink
-            ratingStar
-            sales
-            shopName
-            discount
-          }
-        }
-      }
-      `
-    }
+    const path = '/api/v1/item_list'
 
-    const payload = JSON.stringify(query)
+    const baseString =
+      `${APP_ID}${path}${timestamp}`
 
-    const signString =
-      `${APP_ID}${timestamp}${payload}`
-
-    const signature = crypto
+    const sign = crypto
       .createHmac('sha256', SECRET)
-      .update(signString)
+      .update(baseString)
       .digest('hex')
 
-    const response = await fetch(
-      'https://open-api.affiliate.shopee.com.br/graphql',
-      {
-        method: 'POST',
+    const url =
+      `https://open-api.affiliate.shopee.com.br${path}?` +
+      `app_id=${APP_ID}&timestamp=${timestamp}&sign=${sign}`
 
-        headers: {
-          'Content-Type': 'application/json',
-
-          'Authorization':
-            `SHA256 app_id=${APP_ID}&timestamp=${timestamp}&payload_digest=${signature}`
-        },
-
-        body: payload
-      }
-    )
+    const response = await fetch(url)
 
     const data = await response.json()
 
-    const products =
-      data?.data?.productOfferV2?.nodes || []
+    console.log(data)
+
+    const items = data?.data?.list || []
+
+    const products = items.map((item) => ({
+
+      productName: item.item_name,
+
+      imageUrl: item.image,
+
+      priceMin: item.price / 100000,
+
+      priceMax: item.price_before_discount / 100000,
+
+      ratingStar: 4.8,
+
+      sales: item.sales,
+
+      shopName: item.shop_name || 'Shopee',
+
+      productLink: item.offer_link
+
+    }))
 
     res.status(200).json({
       products
     })
 
   } catch (error) {
+
+    console.log(error)
 
     res.status(500).json({
       error: error.message
