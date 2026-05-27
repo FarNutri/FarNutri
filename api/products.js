@@ -1,30 +1,38 @@
-const { createClient } = require('@supabase/supabase-js')
+export default async function handler(req,res){
 
-module.exports = async (req, res) => {
-  try {
-    const supabase = createClient(
-      process.env.SUPABASE_URL,
-      process.env.SUPABASE_SERVICE_KEY
-    )
+  try{
 
-    const { data, error } = await supabase
-      .from('products')
-      .select('*')
-      .order('id', { ascending: false })
+    const response = await fetch(
 
-    if (error) {
-      return res.status(500).json({
-        success: false,
-        error: error.message
-      })
-    }
+      `${process.env.SUPABASE_URL}/rest/v1/products?select=*`,
 
-    return res.status(200).json(data)
+      {
 
-  } catch (err) {
+        headers:{
+
+          apikey:
+          process.env.SUPABASE_SERVICE_KEY,
+
+          Authorization:
+          `Bearer ${process.env.SUPABASE_SERVICE_KEY}`
+
+        }
+
+      }
+
+    );
+
+    const data = await response.json();
+
+    return res.status(200).json(data);
+
+  }catch(error){
+
     return res.status(500).json({
-      success: false,
-      error: err.message
-    })
+      success:false,
+      error:error.message
+    });
+
   }
+
 }
