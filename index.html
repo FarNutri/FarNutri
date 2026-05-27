@@ -1,100 +1,268 @@
-<script>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FarNutri</title>
 
-const SUPABASE_URL =
-"https://qmdpnbbwtqsaabxmumot.supabase.co";
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
 
-const SUPABASE_KEY =
-"sb_publishable_HouxuKG3CFe1ddcr5zRiSw_RZGxbp_L";
+    body {
+      background: #f3f3f3;
+      color: #222;
+    }
 
-async function carregarProdutos(){
+    .header {
+      background: #08c51a;
+      padding: 30px 20px;
+      color: white;
+    }
 
-  const produtosContainer =
-    document.getElementById("produtos");
+    .perfil {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
 
-  produtosContainer.innerHTML =
-    "<p>Carregando produtos...</p>";
+    .perfil img {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid white;
+    }
 
-  try {
+    .perfil-info h1 {
+      font-size: 60px;
+      font-weight: bold;
+    }
 
-    const response = await fetch(
-      `${SUPABASE_URL}/rest/v1/products?select=*`,
-      {
-        method: "GET",
-        headers: {
-          "apikey": SUPABASE_KEY,
-          "Authorization": `Bearer ${SUPABASE_KEY}`,
-          "Content-Type": "application/json"
-        }
+    .perfil-info p {
+      font-size: 22px;
+      margin-top: 5px;
+    }
+
+    .descricao {
+      margin-top: 30px;
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    .container {
+      padding: 30px 20px;
+    }
+
+    .titulo {
+      color: #049b12;
+      font-size: 55px;
+      margin-bottom: 30px;
+      font-weight: bold;
+    }
+
+    .produtos {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .produto {
+      background: white;
+      border-radius: 18px;
+      padding: 12px;
+      text-align: center;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    .produto img {
+      width: 100%;
+      height: 150px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    .produto h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+      min-height: 42px;
+    }
+
+    .preco {
+      color: #08a317;
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .botao {
+      display: inline-block;
+      background: #08c51a;
+      color: white;
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: bold;
+      width: 100%;
+    }
+
+    .footer {
+      background: #067d11;
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 40px;
+    }
+
+    .footer h2 {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    .footer p {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .instagram {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      .perfil-info h1 {
+        font-size: 38px;
       }
-    );
 
-    if(!response.ok){
+      .perfil-info p {
+        font-size: 18px;
+      }
 
-      produtosContainer.innerHTML =
-        `Erro API: ${response.status}`;
+      .titulo {
+        font-size: 36px;
+      }
 
-      console.log(await response.text());
+      .produto img {
+        height: 120px;
+      }
 
-      return;
+      .produto h3 {
+        font-size: 14px;
+      }
+
+      .preco {
+        font-size: 18px;
+      }
+
+      .botao {
+        font-size: 13px;
+        padding: 9px;
+      }
+
+      .footer h2 {
+        font-size: 34px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="perfil">
+      <img src="https://i.imgur.com/1X4Q9ZP.jpeg" alt="FarNutri">
+
+      <div class="perfil-info">
+        <h1>FarNutri</h1>
+        <p>@farnutri.suplementos</p>
+      </div>
+    </div>
+
+    <div class="descricao">
+      🌿 Suplementos e saúde com os melhores preços<br>
+      💊 Produtos verificados da Shopee<br>
+      ✅ Links de afiliado atualizados automaticamente
+    </div>
+  </header>
+
+  <main class="container">
+
+    <h2 class="titulo">Suplementos em Destaque:</h2>
+
+    <div class="produtos" id="produtos">
+      <p>Carregando produtos...</p>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <h2>FarNutri</h2>
+
+    <p>Saúde & Nutrição ao seu alcance 🌿</p>
+
+    <div class="instagram">
+      📸 @farnutri.suplementos
+    </div>
+
+    <p style="margin-top: 25px;">
+      © FarNutri - Todos os direitos reservados.
+    </p>
+  </footer>
+
+  <script>
+    async function carregarProdutos() {
+      try {
+
+        const response = await fetch('/api/products')
+
+        const produtos = await response.json()
+
+        const container = document.getElementById('produtos')
+
+        container.innerHTML = ''
+
+        produtos.forEach(produto => {
+
+          container.innerHTML += `
+            <div class="produto">
+
+              <img src="${produto.image}" alt="${produto.name}">
+
+              <h3>${produto.name}</h3>
+
+              <div class="preco">
+                R$ ${produto.price}
+              </div>
+
+              <a
+                href="${produto.link}"
+                target="_blank"
+                class="botao"
+              >
+                Comprar
+              </a>
+
+            </div>
+          `
+        })
+
+      } catch (error) {
+
+        document.getElementById('produtos').innerHTML =
+          '<p>Erro ao carregar produtos.</p>'
+
+        console.error(error)
+      }
     }
 
-    const data = await response.json();
+    carregarProdutos()
+  </script>
 
-    console.log("Produtos:", data);
-
-    produtosContainer.innerHTML = "";
-
-    if(data.length === 0){
-
-      produtosContainer.innerHTML =
-        "<p>Nenhum produto encontrado.</p>";
-
-      return;
-    }
-
-    data.forEach(produto => {
-
-      produtosContainer.innerHTML += `
-
-        <div class="produto-card">
-
-          <img
-            src="${produto.image || ''}"
-            class="produto-img"
-          >
-
-          <h3>
-            ${produto.name || 'Sem nome'}
-          </h3>
-
-          <p class="preco">
-            ${produto.price || ''}
-          </p>
-
-          <a
-            href="${produto.link || '#'}"
-            target="_blank"
-            class="btn-comprar"
-          >
-            Comprar
-          </a>
-
-        </div>
-
-      `;
-    });
-
-  } catch(error){
-
-    console.log(error);
-
-    produtosContainer.innerHTML =
-      "Erro ao carregar produtos.";
-
-  }
-
-}
-
-carregarProdutos();
-
-</script>
+</body>
+</html>
