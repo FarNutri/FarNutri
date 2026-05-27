@@ -14,10 +14,12 @@ export default async function handler(req, res) {
       "https://open-api.affiliate.shopee.com.br/graphql",
       {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${process.env.SHOPEE_TOKEN}`
         },
+
         body: JSON.stringify({
           query: `
             query {
@@ -51,28 +53,62 @@ export default async function handler(req, res) {
 
     for (const item of products) {
 
-      if (!seen.has(item.productLink)) {
+      // NORMALIZA O LINK
+      const cleanLink =
+        item.productLink
+          ? item.productLink.split("?")[0]
+          : "#";
 
-        seen.add(item.productLink);
+      // EVITA DUPLICADOS
+      if (!seen.has(cleanLink)) {
+
+        seen.add(cleanLink);
 
         uniqueProducts.push({
-          name: item.productName,
-          image: item.imageUrl,
-          price: Number(item.price) || 0,
-          original_price: Number(item.originalPrice) || 0,
-          category: "Proteína",
-          affiliate_link: item.productLink,
-          store: item.shopName || "FarNutri",
-          updated_at: new Date()
+
+          name:
+            item.productName || "Produto",
+
+          image:
+            item.imageUrl || "",
+
+          price:
+            Number(
+              item.finalPrice ||
+              item.priceMin ||
+              item.price ||
+              0
+            ),
+
+          original_price:
+            Number(
+              item.originalPrice ||
+              item.price ||
+              0
+            ),
+
+          category:
+            "Proteína",
+
+          affiliate_link:
+            cleanLink,
+
+          store:
+            item.shopName || "FarNutri",
+
+          updated_at:
+            new Date()
+
         });
 
       }
 
       // LIMITA A 8 PRODUTOS
       if (uniqueProducts.length >= 8) break;
+
     }
 
-    // UPSERT = ATUALIZA SE JÁ EXISTIR
+    // ATUALIZA SEM DUPLICAR
     const { error } = await supabase
       .from("products")
       .upsert(uniqueProducts, {
@@ -80,9 +116,12 @@ export default async function handler(req, res) {
       });
 
     if (error) {
+
       return res.status(500).json({
+        success: false,
         error: error.message
       });
+
     }
 
     return res.status(200).json({
@@ -93,6 +132,7 @@ export default async function handler(req, res) {
   } catch (err) {
 
     return res.status(500).json({
+      success: false,
       error: err.message
     });
 
