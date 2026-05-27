@@ -6,51 +6,81 @@ const supabase = createClient(
 );
 
 export default async function handler(req, res) {
+
   try {
+
+    // BUSCA PRODUTOS DA API SHOPEE
     const response = await fetch(
-      "https://open-api.affiliate.shopee.com.br/graphql"
+      "https://open-api.affiliate.shopee.com.br/graphql",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.SHOPEE_TOKEN}`
+        },
+        body: JSON.stringify({
+          query: `
+            query {
+              productOfferV2(
+                keyword: "whey protein"
+                limit: 30
+              ) {
+                nodes {
+                  productName
+                  imageUrl
+                  price
+                  originalPrice
+                  productLink
+                  shopName
+                }
+              }
+            }
+          `
+        })
+      }
     );
 
-    const data = await response.json();
+    const result = await response.json();
 
-    const products = data?.products || [];
+    const products =
+      result?.data?.productOfferV2?.nodes || [];
 
+    // REMOVE DUPLICADOS
     const uniqueProducts = [];
     const seen = new Set();
 
     for (const item of products) {
-      if (!seen.has(item.productName)) {
-        seen.add(item.productName);
+
+      if (!seen.has(item.productLink)) {
+
+        seen.add(item.productLink);
 
         uniqueProducts.push({
-          name: item.productName || "Produto",
-          image: item.imageUrl || "",
-          price:
-            item.finalPrice ||
-            item.priceMin ||
-            item.price ||
-            0,
-          original_price:
-            item.originalPrice ||
-            item.price ||
-            0,
+          name: item.productName,
+          image: item.imageUrl,
+          price: Number(item.price) || 0,
+          original_price: Number(item.originalPrice) || 0,
           category: "Proteína",
-          affiliate_link: item.productLink || "#",
+          affiliate_link: item.productLink,
           store: item.shopName || "FarNutri",
           updated_at: new Date()
         });
+
       }
 
+      // LIMITA A 8 PRODUTOS
       if (uniqueProducts.length >= 8) break;
     }
 
+    // UPSERT = ATUALIZA SE JÁ EXISTIR
     const { error } = await supabase
       .from("products")
-      .upsert(uniqueProducts);
+      .upsert(uniqueProducts, {
+        onConflict: "affiliate_link"
+      });
 
     if (error) {
       return res.status(500).json({
-        success: false,
         error: error.message
       });
     }
@@ -60,10 +90,12 @@ export default async function handler(req, res) {
       total: uniqueProducts.length
     });
 
-  } catch (error) {
+  } catch (err) {
+
     return res.status(500).json({
-      success: false,
-      error: error.message
+      error: err.message
     });
+
   }
+
 }
