@@ -184,7 +184,7 @@ async function carregarProdutos(){
 
 function editarProduto(produto){
 
-  produtoEditando = produto.id
+  produtoEditando = Number(produto.id)
 
   document.getElementById('name').value = produto.name || ''
   document.getElementById('image').value = produto.image || ''
