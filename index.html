@@ -43,11 +43,81 @@
 
       color:var(--grafite-verde);
 
+      transition:
+      background .25s,
+      color .25s;
+
+    }
+
+    /* DARK MODE */
+
+    body.dark{
+      background:#0B1510;
+      color:#F4FAF5;
+    }
+
+    body.dark .card{
+
+      background:#132019;
+
+      border-color:#203126;
+
+      box-shadow:
+      0 10px 25px rgba(0,0,0,.22);
+
+    }
+
+    body.dark .product-name{
+      color:#F4FAF5;
+    }
+
+    body.dark .description{
+      color:#B7C6B8;
+    }
+
+    body.dark .category{
+
+      background:#1E3B2A;
+
+      color:#B8E4BC;
+
+    }
+
+    body.dark .categories button{
+
+      background:#132019;
+
+      color:#F4FAF5;
+
+      box-shadow:none;
+
+    }
+
+    body.dark .categories button.active{
+
+      background:var(--verde-marca);
+
+      color:white;
+
+    }
+
+    body.dark .card img{
+      background:#1B2A21;
+    }
+
+    body.dark footer{
+      background:#08110C;
+    }
+
+    body.dark .section-title{
+      color:#F4FAF5;
     }
 
     /* HERO */
 
     .hero{
+
+      position:relative;
 
       background:
       linear-gradient(
@@ -66,6 +136,41 @@
       box-shadow:
       0 10px 25px rgba(0,0,0,.15);
 
+    }
+
+    /* DARK BUTTON */
+
+    .theme-toggle{
+
+      position:absolute;
+
+      top:20px;
+      right:20px;
+
+      width:50px;
+      height:50px;
+
+      border:none;
+
+      border-radius:50%;
+
+      background:
+      rgba(255,255,255,.15);
+
+      backdrop-filter:blur(10px);
+
+      color:white;
+
+      font-size:22px;
+
+      cursor:pointer;
+
+      transition:.2s;
+
+    }
+
+    .theme-toggle:hover{
+      transform:scale(1.08);
     }
 
     .perfil{
@@ -88,6 +193,9 @@
       object-fit:cover;
 
       border:4px solid white;
+
+      box-shadow:
+      0 8px 20px rgba(0,0,0,.20);
 
     }
 
@@ -178,7 +286,7 @@
 
       border-radius:999px;
 
-      font-size:15px;
+      font-size:14px;
 
       font-weight:700;
 
@@ -205,14 +313,14 @@
 
     .products{
 
-      padding:20px 25px;
+      padding:20px 18px;
 
       display:grid;
 
       grid-template-columns:
-      repeat(auto-fit,minmax(170px,1fr));
+      repeat(2,minmax(0,1fr));
 
-      gap:22px;
+      gap:16px;
 
     }
 
@@ -224,16 +332,16 @@
 
       background:white;
 
-      border-radius:28px;
+      border-radius:24px;
 
-      padding:20px;
+      padding:16px;
 
       box-shadow:
       0 10px 25px rgba(0,0,0,.06);
 
       border:1px solid #E8F1EA;
 
-      transition:.2s;
+      transition:.25s;
 
     }
 
@@ -252,14 +360,14 @@
 
       position:absolute;
 
-      top:14px;
-      left:14px;
+      top:12px;
+      left:12px;
 
-      padding:7px 12px;
+      padding:6px 10px;
 
       border-radius:999px;
 
-      font-size:12px;
+      font-size:11px;
 
       font-weight:700;
 
@@ -297,7 +405,7 @@
 
       width:100%;
 
-      height:190px;
+      height:150px;
 
       object-fit:contain;
 
@@ -311,29 +419,31 @@
 
     .product-name{
 
-      margin-top:18px;
+      margin-top:14px;
 
-      font-size:22px;
+      font-size:17px;
 
       font-weight:700;
 
       color:var(--verde-floresta);
 
-      min-height:58px;
+      min-height:46px;
+
+      line-height:1.3;
 
     }
 
     .description{
 
-      margin-top:10px;
+      margin-top:8px;
 
       color:var(--cinza-salvia);
 
-      font-size:14px;
+      font-size:13px;
 
-      line-height:1.5;
+      line-height:1.4;
 
-      min-height:42px;
+      min-height:38px;
 
     }
 
@@ -347,11 +457,11 @@
 
       color:var(--verde-logo);
 
-      padding:6px 14px;
+      padding:5px 12px;
 
       border-radius:999px;
 
-      font-size:13px;
+      font-size:11px;
 
       font-weight:700;
 
@@ -361,13 +471,13 @@
 
     .buttons{
 
-      margin-top:20px;
+      margin-top:16px;
 
       display:flex;
 
       flex-direction:column;
 
-      gap:12px;
+      gap:10px;
 
     }
 
@@ -377,9 +487,9 @@
 
       border:none;
 
-      border-radius:16px;
+      border-radius:14px;
 
-      padding:14px;
+      padding:12px;
 
       color:white;
 
@@ -387,7 +497,7 @@
 
       font-weight:700;
 
-      font-size:15px;
+      font-size:14px;
 
       text-align:center;
 
@@ -427,7 +537,7 @@
 
     footer{
 
-      margin-top:50px;
+      margin-top:80px;
 
       background:var(--verde-floresta);
 
@@ -487,7 +597,7 @@
 
       font-weight:700;
 
-      font-size:18px;
+      font-size:17px;
 
       box-shadow:
       0 8px 20px rgba(0,0,0,.18);
@@ -515,8 +625,6 @@
 
     }
 
-    /* LOADING */
-
     .loading{
 
       padding:20px;
@@ -536,6 +644,15 @@
   <!-- HERO -->
 
   <section class="hero">
+
+    <!-- DARK MODE BUTTON -->
+
+    <button
+      class="theme-toggle"
+      id="themeToggle"
+    >
+      🌙
+    </button>
 
     <div class="perfil">
 
@@ -574,9 +691,7 @@
   <!-- TITULO -->
 
   <h2 class="section-title">
-
     Produtos
-
   </h2>
 
   <!-- CATEGORIAS -->
@@ -664,6 +779,45 @@
   <script>
 
     let todosProdutos = [];
+
+    /* DARK MODE */
+
+    const themeToggle =
+    document.getElementById('themeToggle');
+
+    if(
+      localStorage.getItem('darkMode')
+      === 'true'
+    ){
+
+      document.body.classList.add('dark');
+
+      themeToggle.innerHTML = '☀️';
+
+    }
+
+    themeToggle.onclick = () => {
+
+      document.body.classList.toggle('dark');
+
+      const isDark =
+      document.body.classList.contains('dark');
+
+      localStorage.setItem(
+        'darkMode',
+        isDark
+      );
+
+      themeToggle.innerHTML =
+      isDark
+      ?
+      '☀️'
+      :
+      '🌙';
+
+    };
+
+    /* BADGES */
 
     function getBadgeClass(badge){
 
