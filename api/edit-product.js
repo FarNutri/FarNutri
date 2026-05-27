@@ -5,18 +5,18 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_KEY
 )
 
-export default async function handler(req, res){
+export default async function handler(req, res) {
 
-  if(req.method !== 'POST'){
+  if (req.method !== 'POST') {
 
     return res.status(405).json({
-      success:false,
-      error:'Método não permitido'
+      success: false,
+      error: 'Método não permitido'
     })
 
   }
 
-  try{
+  try {
 
     const {
       id,
@@ -26,11 +26,13 @@ export default async function handler(req, res){
       link
     } = req.body
 
-    if(!id){
+    console.log('EDITANDO ID:', id)
+
+    if (!id) {
 
       return res.status(400).json({
-        success:false,
-        error:'ID não enviado'
+        success: false,
+        error: 'ID não enviado'
       })
 
     }
@@ -38,33 +40,33 @@ export default async function handler(req, res){
     const { data, error } = await supabase
       .from('products')
       .update({
-        name,
-        image,
-        price,
-        link
+        name: name || '',
+        image: image || '',
+        price: price || '',
+        link: link || ''
       })
-      .eq('id', id)
+      .eq('id', Number(id))
       .select()
 
-    if(error){
+    if (error) {
 
       return res.status(500).json({
-        success:false,
-        error:error.message
+        success: false,
+        error: error.message
       })
 
     }
 
     return res.status(200).json({
-      success:true,
+      success: true,
       data
     })
 
-  }catch(err){
+  } catch (err) {
 
     return res.status(500).json({
-      success:false,
-      error:err.message
+      success: false,
+      error: err.message
     })
 
   }
