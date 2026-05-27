@@ -1,261 +1,10 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-<title>FarNutri</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<style>
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial,sans-serif;
-}
-
-body{
-  background:#f3f3f3;
-  color:#222;
-}
-
-/* HEADER */
-
-header{
-  background:#08b321;
-  color:white;
-  padding:25px 20px;
-}
-
-.perfil{
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-
-.perfil img{
-  width:95px;
-  height:95px;
-  border-radius:50%;
-  object-fit:cover;
-  border:4px solid white;
-}
-
-.perfil-info h1{
-  font-size:32px;
-  margin-bottom:5px;
-}
-
-.perfil-info p{
-  font-size:18px;
-}
-
-.bio{
-  margin-top:25px;
-  line-height:1.8;
-  font-size:18px;
-}
-
-/* TITULO */
-
-.titulo{
-  padding:30px 20px 10px;
-}
-
-.titulo h2{
-  color:#05961b;
-  font-size:34px;
-}
-
-/* PRODUTOS */
-
-#produtos{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
-  padding:20px;
-}
-
-.produto-card{
-  background:white;
-  border-radius:18px;
-  overflow:hidden;
-  padding:12px;
-  box-shadow:0 2px 10px rgba(0,0,0,0.08);
-  display:flex;
-  flex-direction:column;
-}
-
-.produto-img{
-  width:100%;
-  height:150px;
-  object-fit:contain;
-  margin-bottom:10px;
-}
-
-.produto-card h3{
-  font-size:18px;
-  margin-bottom:8px;
-  min-height:42px;
-}
-
-.preco{
-  color:#08b321;
-  font-weight:bold;
-  font-size:20px;
-  margin-bottom:10px;
-}
-
-.btn-comprar{
-  margin-top:auto;
-  background:#08b321;
-  color:white;
-  text-decoration:none;
-  text-align:center;
-  padding:12px;
-  border-radius:12px;
-  font-weight:bold;
-  font-size:15px;
-}
-
-/* FOOTER */
-
-footer{
-  background:#067516;
-  color:white;
-  text-align:center;
-  padding:40px 20px;
-  margin-top:40px;
-}
-
-footer h2{
-  font-size:32px;
-  margin-bottom:10px;
-}
-
-footer p{
-  margin-bottom:18px;
-  font-size:16px;
-}
-
-.instagram{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-  margin-bottom:20px;
-}
-
-.instagram img{
-  width:45px;
-}
-
-.instagram a{
-  color:white;
-  text-decoration:none;
-  font-size:18px;
-  font-weight:bold;
-}
-
-/* MOBILE */
-
-@media(max-width:480px){
-
-  .perfil-info h1{
-    font-size:28px;
-  }
-
-  .titulo h2{
-    font-size:30px;
-  }
-
-  .produto-img{
-    height:130px;
-  }
-
-  .produto-card h3{
-    font-size:16px;
-  }
-
-  .btn-comprar{
-    font-size:14px;
-    padding:10px;
-  }
-
-}
-
-</style>
-</head>
-<body>
-
-<header>
-
-  <div class="perfil">
-
-    <img src="https://i.imgur.com/8Km9tLL.png">
-
-    <div class="perfil-info">
-      <h1>FarNutri</h1>
-      <p>@farnutri.suplementos</p>
-    </div>
-
-  </div>
-
-  <div class="bio">
-    🌿 Suplementos e saúde com os melhores preços<br>
-    💊 Produtos verificados da Shopee<br>
-    ✅ Links de afiliado atualizados automaticamente
-  </div>
-
-</header>
-
-<section class="titulo">
-  <h2>Suplementos em Destaque:</h2>
-</section>
-
-<section id="produtos">
-
-</section>
-
-<footer>
-
-  <h2>FarNutri</h2>
-
-  <p>
-    Saúde & Nutrição ao seu alcance 🌿
-  </p>
-
-  <div class="instagram">
-
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png">
-
-    <a href="https://instagram.com/farnutri.suplementos" target="_blank">
-      @farnutri.suplementos
-    </a>
-
-  </div>
-
-  <p>
-    © FarNutri - Todos os direitos reservados.
-  </p>
-
-</footer>
-
 <script>
 
 const SUPABASE_URL =
 "https://qmdpnbbwtqsaabxmumot.supabase.co";
 
 const SUPABASE_KEY =
-"SUA_PUBLISHABLE_KEY_AQUI";
-
-const supabaseClient = supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+"sb_publishable_HouxuKG3CFe1ddcr5zRiSw_RZGxbp_L";
 
 async function carregarProdutos(){
 
@@ -265,58 +14,87 @@ async function carregarProdutos(){
   produtosContainer.innerHTML =
     "<p>Carregando produtos...</p>";
 
-  const { data, error } = await supabaseClient
-    .from("products")
-    .select("*")
-    .order("id", { ascending:false });
+  try {
 
-  if(error){
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/products?select=*`,
+      {
+        method: "GET",
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization": `Bearer ${SUPABASE_KEY}`,
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    if(!response.ok){
+
+      produtosContainer.innerHTML =
+        `Erro API: ${response.status}`;
+
+      console.log(await response.text());
+
+      return;
+    }
+
+    const data = await response.json();
+
+    console.log("Produtos:", data);
+
+    produtosContainer.innerHTML = "";
+
+    if(data.length === 0){
+
+      produtosContainer.innerHTML =
+        "<p>Nenhum produto encontrado.</p>";
+
+      return;
+    }
+
+    data.forEach(produto => {
+
+      produtosContainer.innerHTML += `
+
+        <div class="produto-card">
+
+          <img
+            src="${produto.image || ''}"
+            class="produto-img"
+          >
+
+          <h3>
+            ${produto.name || 'Sem nome'}
+          </h3>
+
+          <p class="preco">
+            ${produto.price || ''}
+          </p>
+
+          <a
+            href="${produto.link || '#'}"
+            target="_blank"
+            class="btn-comprar"
+          >
+            Comprar
+          </a>
+
+        </div>
+
+      `;
+    });
+
+  } catch(error){
 
     console.log(error);
 
     produtosContainer.innerHTML =
-      "<p>Erro ao carregar produtos.</p>";
+      "Erro ao carregar produtos.";
 
-    return;
   }
-
-  produtosContainer.innerHTML = "";
-
-  data.forEach(produto => {
-
-    produtosContainer.innerHTML += `
-
-      <div class="produto-card">
-
-        <img
-          src="${produto.image}"
-          class="produto-img"
-        >
-
-        <h3>${produto.name}</h3>
-
-        <p class="preco">
-          ${produto.price || ""}
-        </p>
-
-        <a
-          href="${produto.link}"
-          target="_blank"
-          class="btn-comprar"
-        >
-          Comprar
-        </a>
-
-      </div>
-
-    `;
-  });
 
 }
 
 carregarProdutos();
 
 </script>
-
-</body>
-</html>
