@@ -1,141 +1,144 @@
-import { createClient } from "@supabase/supabase-js";
+import axios from "axios";
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_ANON_KEY
-);
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_KEY = process.env.SUPABASE_KEY;
 
 export default async function handler(req, res) {
 
-  try {
+    try {
 
-    // BUSCA PRODUTOS DA API SHOPEE
-    const response = await fetch(
-      "https://open-api.affiliate.shopee.com.br/graphql",
-      {
-        method: "POST",
+        // BUSCA PRODUTOS DA API LOCAL
+        const response = await axios.get(
+            `${req.headers.origin || "https://far-nutri.vercel.app"}/api/shopee`
+        );
 
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.SHOPEE_TOKEN}`
-        },
+        const products = response.data || [];
 
-        body: JSON.stringify({
-          query: `
-            query {
-              productOfferV2(
-                keyword: "whey protein"
-                limit: 30
-              ) {
-                nodes {
-                  productName
-                  imageUrl
-                  price
-                  originalPrice
-                  productLink
-                  shopName
+        console.log("Produtos recebidos:", products.length);
+
+        // REMOVE DUPLICADOS
+        const uniqueProducts = [];
+        const seen = new Set();
+
+        for (const item of products) {
+
+            // LINK LIMPO
+            const cleanLink = item.productLink
+                ?.split("?")[0]
+                ?.trim();
+
+            // IGNORA SEM LINK
+            if (!cleanLink) continue;
+
+            // VERIFICA DUPLICADO
+            if (seen.has(cleanLink)) continue;
+
+            seen.add(cleanLink);
+
+            uniqueProducts.push({
+
+                name: item.productName || "Produto",
+
+                image: item.imageUrl || "",
+
+                price: Number(item.price) || 0,
+
+                original_price:
+                    Number(item.originalPrice) || 0,
+
+                category: "Proteína",
+
+                affiliate_link: cleanLink,
+
+                store: item.shopName || "FarNutri",
+
+                updated_at: new Date()
+
+            });
+
+        }
+
+        console.log(
+            "Produtos únicos:",
+            uniqueProducts.length
+        );
+
+        // SEM PRODUTOS
+        if (uniqueProducts.length === 0) {
+
+            return res.status(200).json({
+                success: true,
+                total: 0,
+                message: "Nenhum produto encontrado"
+            });
+
+        }
+
+        // REMOVE DUPLICADOS DO SUPABASE
+        for (const product of uniqueProducts) {
+
+            await axios.delete(
+                `${SUPABASE_URL}/rest/v1/products?affiliate_link=eq.${encodeURIComponent(product.affiliate_link)}`,
+                {
+                    headers: {
+                        apikey: SUPABASE_KEY,
+                        Authorization:
+                            `Bearer ${SUPABASE_KEY}`
+                    }
                 }
-              }
+            );
+
+        }
+
+        // INSERE NOVOS PRODUTOS
+        const insertResponse = await axios.post(
+
+            `${SUPABASE_URL}/rest/v1/products`,
+
+            uniqueProducts,
+
+            {
+                headers: {
+                    apikey: SUPABASE_KEY,
+                    Authorization:
+                        `Bearer ${SUPABASE_KEY}`,
+                    "Content-Type":
+                        "application/json",
+                    Prefer: "return=minimal"
+                }
             }
-          `
-        })
-      }
-    );
 
-    const result = await response.json();
+        );
 
-    const products =
-      result?.data?.productOfferV2?.nodes || [];
+        console.log(
+            "Produtos inseridos:",
+            uniqueProducts.length
+        );
 
-    // REMOVE DUPLICADOS
-    const uniqueProducts = [];
-    const seen = new Set();
+        return res.status(200).json({
 
-    for (const item of products) {
+            success: true,
 
-      // NORMALIZA O LINK
-      const cleanLink =
-        item.productLink
-          ? item.productLink.split("?")[0]
-          : "#";
-
-      // EVITA DUPLICADOS
-      if (!seen.has(cleanLink)) {
-
-        seen.add(cleanLink);
-
-        uniqueProducts.push({
-
-          name:
-            item.productName || "Produto",
-
-          image:
-            item.imageUrl || "",
-
-          price:
-            Number(
-              item.finalPrice ||
-              item.priceMin ||
-              item.price ||
-              0
-            ),
-
-          original_price:
-            Number(
-              item.originalPrice ||
-              item.price ||
-              0
-            ),
-
-          category:
-            "Proteína",
-
-          affiliate_link:
-            cleanLink,
-
-          store:
-            item.shopName || "FarNutri",
-
-          updated_at:
-            new Date()
+            total: uniqueProducts.length
 
         });
 
-      }
+    } catch (error) {
 
-      // LIMITA A 8 PRODUTOS
-      if (uniqueProducts.length >= 8) break;
+        console.log(
+            "ERRO UPDATE PRODUCTS:",
+            error.response?.data || error.message
+        );
 
-    }
+        return res.status(500).json({
 
-    // ATUALIZA SEM DUPLICAR
-    const { error } = await supabase
-      .from("products")
-      .upsert(uniqueProducts, {
-        onConflict: "affiliate_link"
-      });
+            success: false,
 
-    if (error) {
+            error:
+                error.response?.data || error.message
 
-      return res.status(500).json({
-        success: false,
-        error: error.message
-      });
+        });
 
     }
-
-    return res.status(200).json({
-      success: true,
-      total: uniqueProducts.length
-    });
-
-  } catch (err) {
-
-    return res.status(500).json({
-      success: false,
-      error: err.message
-    });
-
-  }
 
 }
