@@ -1,73 +1,73 @@
-import { createClient } from '@supabase/supabase-js'
-
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_KEY
-)
-
 export default async function handler(req, res) {
 
   if (req.method !== 'POST') {
-
     return res.status(405).json({
-      success: false,
-      error: 'Método não permitido'
-    })
-
+      success: false
+    });
   }
+
+  const {
+    id,
+    name,
+    image,
+    category,
+    shopee_link,
+    mercadolivre_link,
+    amazon_link,
+    tiktok_link
+  } = req.body;
 
   try {
 
-    const {
-      id,
-      name,
-      image,
-      price,
-      link
-    } = req.body
+    const response = await fetch(
+      `${process.env.SUPABASE_URL}/rest/v1/products?id=eq.${id}`,
+      {
+        method: 'PATCH',
 
-    console.log('EDITANDO ID:', id)
+        headers: {
+          apikey: process.env.SUPABASE_SERVICE_KEY,
 
-    if (!id) {
+          Authorization:
+            `Bearer ${process.env.SUPABASE_SERVICE_KEY}`,
 
-      return res.status(400).json({
-        success: false,
-        error: 'ID não enviado'
-      })
+          'Content-Type': 'application/json',
 
-    }
+          Prefer: 'return=minimal'
+        },
 
-    const { data, error } = await supabase
-      .from('products')
-      .update({
-        name: name || '',
-        image: image || '',
-        price: price || '',
-        link: link || ''
-      })
-      .eq('id', Number(id))
-      .select()
+        body: JSON.stringify({
+          name,
+          image,
+          category,
+          shopee_link,
+          mercadolivre_link,
+          amazon_link,
+          tiktok_link
+        })
+      }
+    );
 
-    if (error) {
+    if (!response.ok) {
+
+      const error = await response.text();
 
       return res.status(500).json({
         success: false,
-        error: error.message
-      })
+        error
+      });
 
     }
 
     return res.status(200).json({
-      success: true,
-      data
-    })
+      success: true
+    });
 
-  } catch (err) {
+  } catch (error) {
 
     return res.status(500).json({
       success: false,
-      error: err.message
-    })
+      error: error.message
+    });
 
   }
 
