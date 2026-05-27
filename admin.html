@@ -115,6 +115,8 @@
 
       transition:.2s;
 
+      background:white;
+
     }
 
     .input:focus{
@@ -131,6 +133,14 @@
       padding:18px;
 
       resize:none;
+
+    }
+
+    select.input{
+
+      appearance:none;
+
+      cursor:pointer;
 
     }
 
@@ -212,7 +222,7 @@
 
     }
 
-    /* BADGE */
+    /* BADGES */
 
     .badge{
 
@@ -425,12 +435,42 @@
       placeholder="Descrição curta"
     ></textarea>
 
-    <input
+    <!-- BADGE SELECT -->
+
+    <select
       class="input"
-      type="text"
       id="badge"
-      placeholder="Badge (🔥 Mais Vendido)"
-    />
+    >
+
+      <option value="">
+        Sem badge
+      </option>
+
+      <option value="🔥 Mais Vendido">
+        🔥 Mais Vendido
+      </option>
+
+      <option value="✅ Verificado">
+        ✅ Verificado
+      </option>
+
+      <option value="⭐ Melhor Avaliado">
+        ⭐ Melhor Avaliado
+      </option>
+
+      <option value="💪 Alta Performance">
+        💪 Alta Performance
+      </option>
+
+      <option value="⚡ Energia Extra">
+        ⚡ Energia Extra
+      </option>
+
+      <option value="🚀 Envio Rápido">
+        🚀 Envio Rápido
+      </option>
+
+    </select>
 
     <input
       class="input"
@@ -598,74 +638,6 @@
               }
 
               <div class="buttons">
-
-                ${
-                  product.shopee_link
-                  ?
-                  `
-                  <a
-                    href="${product.shopee_link}"
-                    target="_blank"
-                  >
-                    <button class="market-btn shopee">
-                      🛒 Shopee
-                    </button>
-                  </a>
-                  `
-                  :
-                  ''
-                }
-
-                ${
-                  product.mercadolivre_link
-                  ?
-                  `
-                  <a
-                    href="${product.mercadolivre_link}"
-                    target="_blank"
-                  >
-                    <button class="market-btn mercado">
-                      Mercado Livre
-                    </button>
-                  </a>
-                  `
-                  :
-                  ''
-                }
-
-                ${
-                  product.amazon_link
-                  ?
-                  `
-                  <a
-                    href="${product.amazon_link}"
-                    target="_blank"
-                  >
-                    <button class="market-btn amazon">
-                      Amazon
-                    </button>
-                  </a>
-                  `
-                  :
-                  ''
-                }
-
-                ${
-                  product.tiktok_link
-                  ?
-                  `
-                  <a
-                    href="${product.tiktok_link}"
-                    target="_blank"
-                  >
-                    <button class="market-btn tiktok">
-                      TikTok Shop
-                    </button>
-                  </a>
-                  `
-                  :
-                  ''
-                }
 
                 <button
                   class="market-btn edit"
