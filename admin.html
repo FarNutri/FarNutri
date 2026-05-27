@@ -11,8 +11,14 @@
 
 <style>
 
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
 body{
-    font-family:Arial;
     background:#f3f3f3;
     padding:20px;
 }
@@ -20,28 +26,69 @@ body{
 .container{
     max-width:500px;
     margin:auto;
-    background:white;
-    padding:20px;
-    border-radius:12px;
+    background:#fff;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 4px 20px rgba(0,0,0,0.08);
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.logo h1{
+    color:#0a8f2d;
+    font-size:42px;
+}
+
+.logo p{
+    color:#666;
+    margin-top:6px;
 }
 
 input{
     width:100%;
-    padding:12px;
-    margin-bottom:12px;
+    padding:14px;
+    margin-bottom:14px;
     border:1px solid #ccc;
-    border-radius:8px;
+    border-radius:10px;
+    font-size:15px;
 }
 
 button{
     width:100%;
-    padding:14px;
+    padding:16px;
     background:#0a8f2d;
     color:white;
     border:none;
-    border-radius:8px;
-    font-size:16px;
+    border-radius:12px;
+    font-size:17px;
     font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+button:hover{
+    opacity:.9;
+}
+
+.success{
+    margin-top:18px;
+    background:#dff5e4;
+    color:#14732d;
+    padding:12px;
+    border-radius:10px;
+    display:none;
+}
+
+.error{
+    margin-top:18px;
+    background:#ffe4e4;
+    color:#b42323;
+    padding:12px;
+    border-radius:10px;
+    display:none;
 }
 
 </style>
@@ -51,29 +98,59 @@ button{
 
 <div class="container">
 
-<h1>Adicionar Produto</h1>
+    <div class="logo">
 
-<input type="text" id="name" placeholder="Nome do produto">
+        <h1>FarNutri</h1>
 
-<input type="text" id="image" placeholder="URL da imagem">
+        <p>Painel Administrativo</p>
 
-<input type="text" id="price" placeholder="Preço">
+    </div>
 
-<input type="text" id="link" placeholder="Link afiliado">
+    <input 
+        type="text" 
+        id="name" 
+        placeholder="Nome do produto"
+    >
 
-<button onclick="addProduct()">
-Adicionar Produto
-</button>
+    <input 
+        type="text" 
+        id="image" 
+        placeholder="URL da imagem"
+    >
+
+    <input 
+        type="number" 
+        id="price" 
+        placeholder="Preço"
+    >
+
+    <input 
+        type="text" 
+        id="link" 
+        placeholder="Link afiliado"
+    >
+
+    <button onclick="addProduct()">
+        Adicionar Produto
+    </button>
+
+    <div class="success" id="success">
+        Produto adicionado com sucesso!
+    </div>
+
+    <div class="error" id="error">
+        Erro ao adicionar produto.
+    </div>
 
 </div>
 
 <script>
 
 const SUPABASE_URL =
-'https://SEU-PROJETO.supabase.co';
+'https://qmdpnbbwtqsaabxmumot.supabase.co';
 
 const SUPABASE_KEY =
-'SUA_PUBLISHABLE_KEY';
+'sb_publishable_HouxuKG3CFe1ddcr5zRiSw_RZGxbp_L';
 
 const client =
 supabase.createClient(
@@ -82,6 +159,15 @@ supabase.createClient(
 );
 
 async function addProduct(){
+
+    const success =
+        document.getElementById('success');
+
+    const errorDiv =
+        document.getElementById('error');
+
+    success.style.display = 'none';
+    errorDiv.style.display = 'none';
 
     const name =
         document.getElementById('name').value;
@@ -95,26 +181,53 @@ async function addProduct(){
     const link =
         document.getElementById('link').value;
 
+    if(!name || !image || !price || !link){
+
+        errorDiv.innerHTML =
+            'Preencha todos os campos';
+
+        errorDiv.style.display = 'block';
+
+        return;
+
+    }
+
     const { error } =
         await client
         .from('products')
         .insert([{
 
-            name,
-            image,
-            price,
-            affiliate_link: link
+            name: name,
+
+            image: image,
+
+            price: Number(price),
+
+            affiliate_link: link,
+
+            store: 'FarNutri',
+
+            category: 'Suplementos'
 
         }]);
 
     if(error){
 
-        alert(error.message);
+        errorDiv.innerHTML =
+            error.message;
+
+        errorDiv.style.display = 'block';
+
         return;
 
     }
 
-    alert('Produto adicionado!');
+    success.style.display = 'block';
+
+    document.getElementById('name').value = '';
+    document.getElementById('image').value = '';
+    document.getElementById('price').value = '';
+    document.getElementById('link').value = '';
 
 }
 
