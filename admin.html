@@ -1,397 +1,283 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <title>FarNutri Admin</title>
+<title>FarNutri Admin</title>
 
-  <style>
+<style>
 
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial, sans-serif;
-    }
+body{
+  margin:0;
+  padding:30px;
+  background:#f3f3f3;
+  font-family:Arial;
+}
 
-    body{
-      background:#f3f3f3;
-      padding:20px;
-    }
+.painel{
+  max-width:700px;
+  margin:auto;
+  background:#fff;
+  padding:30px;
+  border-radius:25px;
+}
 
-    .container{
-      max-width:700px;
-      margin:auto;
-      background:white;
-      padding:30px;
-      border-radius:25px;
-      box-shadow:0 5px 20px rgba(0,0,0,0.08);
-    }
+h1{
+  text-align:center;
+  color:#00a321;
+  font-size:60px;
+  margin:0;
+}
 
-    h1{
-      color:#08a317;
-      font-size:60px;
-      text-align:center;
-      margin-bottom:10px;
-    }
+.sub{
+  text-align:center;
+  color:#666;
+  margin-bottom:40px;
+}
 
-    .sub{
-      text-align:center;
-      color:#666;
-      margin-bottom:35px;
-      font-size:22px;
-    }
+input{
+  width:100%;
+  height:65px;
+  margin-bottom:20px;
+  border-radius:20px;
+  border:1px solid #ccc;
+  padding:0 20px;
+  font-size:26px;
+  box-sizing:border-box;
+}
 
-    input{
-      width:100%;
-      padding:18px;
-      border-radius:15px;
-      border:1px solid #ccc;
-      margin-bottom:18px;
-      font-size:18px;
-    }
+button{
+  width:100%;
+  height:70px;
+  border:none;
+  border-radius:20px;
+  font-size:30px;
+  font-weight:bold;
+  cursor:pointer;
+}
 
-    button{
-      width:100%;
-      border:none;
-      padding:18px;
-      border-radius:15px;
-      background:#08a317;
-      color:white;
-      font-size:22px;
-      font-weight:bold;
-      cursor:pointer;
-      margin-top:10px;
-    }
+.btn{
+  background:#00b51a;
+  color:#fff;
+  margin-bottom:40px;
+}
 
-    .titulo-produtos{
-      margin-top:50px;
-      margin-bottom:25px;
-      font-size:32px;
-      color:#08a317;
-      font-weight:bold;
-    }
+h2{
+  color:#00a321;
+  font-size:55px;
+}
 
-    .produto{
-      background:#f7f7f7;
-      border-radius:20px;
-      padding:15px;
-      margin-bottom:20px;
-      display:flex;
-      gap:15px;
-      align-items:center;
-    }
+#produtos{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
 
-    .produto img{
-      width:90px;
-      height:90px;
-      object-fit:contain;
-      background:white;
-      border-radius:15px;
-      padding:8px;
-    }
+.produto-card{
+  background:#f7f7f7;
+  padding:20px;
+  border-radius:20px;
+  text-align:center;
+}
 
-    .produto-info{
-      flex:1;
-    }
+.produto-card img{
+  width:120px;
+  height:120px;
+  object-fit:cover;
+  border-radius:15px;
+}
 
-    .produto-info h3{
-      font-size:18px;
-      margin-bottom:8px;
-    }
+.produto-card h3{
+  font-size:35px;
+}
 
-    .produto-info p{
-      color:#08a317;
-      font-size:20px;
-      font-weight:bold;
-    }
+.produto-card p{
+  font-size:30px;
+  color:#00a321;
+  font-weight:bold;
+}
 
-    .acoes{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
+.editar{
+  background:#ffb300;
+  color:#fff;
+  margin-bottom:10px;
+}
 
-    .btn-editar{
-      background:#f4a100;
-      color:white;
-      border:none;
-      padding:10px 15px;
-      border-radius:10px;
-      cursor:pointer;
-      font-weight:bold;
-    }
+.excluir{
+  background:#ff2a2a;
+  color:#fff;
+}
 
-    .btn-excluir{
-      background:#d40000;
-      color:white;
-      border:none;
-      padding:10px 15px;
-      border-radius:10px;
-      cursor:pointer;
-      font-weight:bold;
-    }
-
-    @media(max-width:768px){
-
-      h1{
-        font-size:40px;
-      }
-
-      .sub{
-        font-size:18px;
-      }
-
-      .produto{
-        flex-direction:column;
-        text-align:center;
-      }
-
-      .acoes{
-        width:100%;
-      }
-
-      .btn-editar,
-      .btn-excluir{
-        width:100%;
-      }
-
-    }
-
-  </style>
+</style>
 </head>
-
 <body>
 
-  <div class="container">
+<div class="painel">
 
-    <h1>FarNutri</h1>
+<h1>FarNutri</h1>
+<p class="sub">Painel Administrativo</p>
 
-    <div class="sub">
-      Painel Administrativo
-    </div>
+<input type="text" id="name" placeholder="Nome do produto">
 
-    <input type="hidden" id="produtoId">
+<input type="text" id="image" placeholder="URL da imagem">
 
-    <input
-      type="text"
-      id="name"
-      placeholder="Nome do produto"
-    >
+<input type="text" id="price" placeholder="Preço">
 
-    <input
-      type="text"
-      id="image"
-      placeholder="URL da imagem"
-    >
+<input type="text" id="link" placeholder="Link afiliado">
 
-    <input
-      type="text"
-      id="price"
-      placeholder="Preço"
-    >
+<button class="btn" id="btn" onclick="salvarProduto()">
+Adicionar Produto
+</button>
 
-    <input
-      type="text"
-      id="link"
-      placeholder="Link afiliado"
-    >
+<h2>Produtos cadastrados</h2>
 
-    <button onclick="salvarProduto()">
-      Salvar Produto
-    </button>
+<div id="produtos"></div>
 
-    <div class="titulo-produtos">
-      Produtos cadastrados
-    </div>
+</div>
 
-    <div id="listaProdutos">
-      Carregando produtos...
-    </div>
+<script>
 
-  </div>
+let produtoEditando = null
 
-  <script>
+async function carregarProdutos(){
 
-    async function carregarProdutos(){
+  const res = await fetch('/api/products')
 
-      const response = await fetch('/api/products')
+  const produtos = await res.json()
 
-      const produtos = await response.json()
+  const container = document.getElementById('produtos')
 
-      const lista = document.getElementById('listaProdutos')
+  container.innerHTML = ''
 
-      lista.innerHTML = ''
+  produtos.forEach(produto => {
 
-      produtos.forEach(produto => {
+    container.innerHTML += `
+      <div class="produto-card">
 
-        lista.innerHTML += `
+        <img src="${produto.image}" />
 
-          <div class="produto">
+        <h3>${produto.name}</h3>
 
-            <img src="${produto.image}">
+        <p>R$ ${produto.price}</p>
 
-            <div class="produto-info">
+        <button
+          class="editar"
+          onclick='editarProduto(${JSON.stringify(produto)})'
+        >
+          Editar
+        </button>
 
-              <h3>${produto.name}</h3>
+        <button
+          class="excluir"
+          onclick="deletarProduto(${produto.id})"
+        >
+          Excluir
+        </button>
 
-              <p>R$ ${produto.price}</p>
+      </div>
+    `
 
-            </div>
+  })
 
-            <div class="acoes">
+}
 
-              <button
-                class="btn-editar"
-                onclick='editarProduto(${JSON.stringify(produto)})'
-              >
-                Editar
-              </button>
+function editarProduto(produto){
 
-              <button
-                class="btn-excluir"
-                onclick='excluirProduto(${produto.id})'
-              >
-                Excluir
-              </button>
+  produtoEditando = produto.id
 
-            </div>
+  document.getElementById('name').value = produto.name || ''
+  document.getElementById('image').value = produto.image || ''
+  document.getElementById('price').value = produto.price || ''
+  document.getElementById('link').value = produto.link || ''
 
-          </div>
+  document.getElementById('btn').innerText = 'Salvar Produto'
 
-        `
+}
 
-      })
+async function salvarProduto(){
 
-    }
+  const body = {
+    name: document.getElementById('name').value,
+    image: document.getElementById('image').value,
+    price: document.getElementById('price').value,
+    link: document.getElementById('link').value
+  }
 
-    function editarProduto(produto){
+  let url = '/api/update-products'
 
-      document.getElementById('produtoId').value = produto.id
+  if(produtoEditando){
 
-      document.getElementById('name').value = produto.name
+    url = '/api/edit-product'
 
-      document.getElementById('image').value = produto.image
+    body.id = produtoEditando
 
-      document.getElementById('price').value = produto.price
+  }
 
-      document.getElementById('link').value = produto.link
+  const res = await fetch(url,{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json'
+    },
+    body: JSON.stringify(body)
+  })
 
-      window.scrollTo({
-        top:0,
-        behavior:'smooth'
-      })
+  const data = await res.json()
 
-    }
+  if(data.success){
 
-    async function salvarProduto(){
+    alert('Produto salvo com sucesso')
 
-      const id = document.getElementById('produtoId').value
+    produtoEditando = null
 
-      const produto = {
+    document.getElementById('btn').innerText = 'Adicionar Produto'
 
-        name: document.getElementById('name').value,
-
-        image: document.getElementById('image').value,
-
-        price: document.getElementById('price').value,
-
-        link: document.getElementById('link').value
-
-      }
-
-      let url = '/api/update-products'
-
-      if(id){
-
-        produto.id = id
-
-        url = '/api/edit-product'
-
-      }
-
-      const response = await fetch(url, {
-
-        method:'POST',
-
-        headers:{
-          'Content-Type':'application/json'
-        },
-
-        body: JSON.stringify(produto)
-
-      })
-
-      const result = await response.json()
-
-      if(result.success){
-
-        alert('Produto salvo com sucesso!')
-
-        limparFormulario()
-
-        carregarProdutos()
-
-      }else{
-
-        alert('Erro ao salvar produto')
-
-      }
-
-    }
-
-    async function excluirProduto(id){
-
-      const confirmar = confirm('Deseja excluir este produto?')
-
-      if(!confirmar) return
-
-      const response = await fetch('/api/delete-product', {
-
-        method:'POST',
-
-        headers:{
-          'Content-Type':'application/json'
-        },
-
-        body: JSON.stringify({ id })
-
-      })
-
-      const result = await response.json()
-
-      if(result.success){
-
-        alert('Produto excluído!')
-
-        carregarProdutos()
-
-      }else{
-
-        alert('Erro ao excluir')
-
-      }
-
-    }
-
-    function limparFormulario(){
-
-      document.getElementById('produtoId').value = ''
-
-      document.getElementById('name').value = ''
-
-      document.getElementById('image').value = ''
-
-      document.getElementById('price').value = ''
-
-      document.getElementById('link').value = ''
-
-    }
+    document.getElementById('name').value = ''
+    document.getElementById('image').value = ''
+    document.getElementById('price').value = ''
+    document.getElementById('link').value = ''
 
     carregarProdutos()
 
-  </script>
+  }else{
+
+    alert(data.error || 'Erro ao salvar produto')
+
+  }
+
+}
+
+async function deletarProduto(id){
+
+  if(!confirm('Deseja excluir este produto?')) return
+
+  const res = await fetch('/api/delete-product',{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json'
+    },
+    body: JSON.stringify({ id })
+  })
+
+  const data = await res.json()
+
+  if(data.success){
+
+    alert('Produto excluído')
+
+    carregarProdutos()
+
+  }else{
+
+    alert('Erro ao excluir')
+
+  }
+
+}
+
+carregarProdutos()
+
+</script>
 
 </body>
 </html>
