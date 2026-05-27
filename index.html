@@ -2,562 +2,248 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-
-  <title>FarNutri – Saúde & Nutrição</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Nunito:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FarNutri</title>
 
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    :root{
-      --green-dark:#1a4a1a;
-      --green-mid:#2d7a2d;
-      --green-light:#4caf50;
-      --green-bright:#6fcf6f;
-      --bg:#f4f9f4;
-      --card-bg:#ffffff;
-      --text:#1a2e1a;
-      --subtext:#5a7a5a;
-      --accent:#e8f5e8;
-      --shadow:0 4px 20px rgba(45,122,45,.12);
-      --radius:16px;
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
     }
 
     body{
-      font-family:'Nunito',sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      min-height:100vh;
-      max-width:480px;
-      margin:0 auto;
+      background:#f5f5f5;
+      color:#222;
     }
 
-    .profile-header{
-      background:linear-gradient(160deg,var(--green-dark) 0%,var(--green-mid) 60%,var(--green-light) 100%);
-      padding:36px 20px 28px;
-      text-align:center;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .profile-avatar{
-      width:96px;
-      height:96px;
-      border-radius:50%;
-      border:3px solid rgba(255,255,255,.6);
-      object-fit:cover;
-      background:white;
-      padding:4px;
-      box-shadow:0 6px 24px rgba(0,0,0,.25);
-      position:relative;
-      z-index:1;
-    }
-
-    .profile-name{
-      font-family:'Montserrat',sans-serif;
-      font-weight:900;
-      font-size:1.5rem;
-      color:#fff;
-      margin-top:12px;
-    }
-
-    .profile-handle{
-      font-size:.85rem;
-      color:rgba(255,255,255,.7);
-      margin-top:2px;
-    }
-
-    .profile-bio{
-      margin-top:12px;
-      font-size:.9rem;
-      color:rgba(255,255,255,.88);
-      line-height:1.6;
-      max-width:320px;
-      margin-left:auto;
-      margin-right:auto;
-    }
-
-    .affiliate-badge{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      background:linear-gradient(90deg,#fff7e6,#fff3d6);
-      border:1.5px solid #f0c040;
-      border-radius:40px;
-      padding:8px 16px;
-      margin:16px;
-      font-size:.8rem;
-      color:#7a5a00;
-      font-weight:600;
-    }
-
-    .status-bar{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      padding:10px 16px;
-      font-size:.78rem;
-      color:var(--subtext);
-    }
-
-    .dot{
-      width:8px;
-      height:8px;
-      border-radius:50%;
-      background:var(--green-light);
-      animation:pulse 1.5s infinite;
-    }
-
-    @keyframes pulse{
-      0%,100%{
-        opacity:1;
-        transform:scale(1);
-      }
-      50%{
-        opacity:.4;
-        transform:scale(.8);
-      }
-    }
-
-    .section-header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:18px 16px 10px;
-    }
-
-    .section-title{
-      font-family:'Montserrat',sans-serif;
-      font-weight:800;
-      font-size:1.1rem;
-      color:var(--green-dark);
-    }
-
-    .section-count{
-      font-size:.78rem;
-      background:var(--accent);
-      color:var(--green-mid);
-      padding:3px 10px;
-      border-radius:20px;
-      font-weight:600;
-    }
-
-    .filter-row{
-      display:flex;
-      gap:8px;
-      padding:0 16px 12px;
-      overflow-x:auto;
-      scrollbar-width:none;
-    }
-
-    .filter-row::-webkit-scrollbar{
-      display:none;
-    }
-
-    .pill{
-      white-space:nowrap;
-      padding:6px 14px;
-      border-radius:20px;
-      font-size:.78rem;
-      font-weight:600;
-      border:1.5px solid var(--green-light);
-      color:var(--green-mid);
-      background:white;
-      cursor:pointer;
-      transition:.2s;
-    }
-
-    .pill.active{
-      background:var(--green-mid);
+    .hero{
+      background:linear-gradient(180deg,#1c8f2e,#48c857);
       color:white;
-      border-color:var(--green-mid);
+      padding:40px 20px;
+      text-align:center;
     }
 
-    .product-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-      padding:0 12px 16px;
-    }
-
-    .product-card{
-      background:white;
-      border-radius:var(--radius);
-      overflow:hidden;
-      box-shadow:var(--shadow);
-      text-decoration:none;
-      color:inherit;
-      display:flex;
-      flex-direction:column;
-      position:relative;
-    }
-
-    .product-img-wrap{
-      width:100%;
-      aspect-ratio:1;
-      overflow:hidden;
-      background:#f0f5f0;
-    }
-
-    .product-img{
-      width:100%;
-      height:100%;
+    .hero img{
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      border:5px solid white;
+      margin-bottom:15px;
       object-fit:cover;
     }
 
-    .product-info{
-      padding:10px;
-      display:flex;
-      flex-direction:column;
-      gap:4px;
-      flex:1;
+    .hero h1{
+      font-size:42px;
+      margin-bottom:5px;
+    }
+
+    .hero p{
+      margin:8px 0;
+      font-size:18px;
+    }
+
+    .container{
+      max-width:1200px;
+      margin:auto;
+      padding:30px 20px;
+    }
+
+    .title{
+      font-size:36px;
+      font-weight:bold;
+      margin-bottom:30px;
+      color:#1c8f2e;
+    }
+
+    .products{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+    }
+
+    .card{
+      background:white;
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 5px 15px rgba(0,0,0,0.08);
+      transition:0.2s;
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+    }
+
+    .card img{
+      width:100%;
+      height:220px;
+      object-fit:cover;
+    }
+
+    .card-content{
+      padding:16px;
     }
 
     .product-name{
-      font-size:.8rem;
-      font-weight:700;
-      line-height:1.35;
+      font-size:18px;
+      font-weight:bold;
+      margin-bottom:10px;
+      min-height:48px;
     }
 
-    .product-store{
-      font-size:.7rem;
-      color:var(--subtext);
-    }
-
-    .product-price{
-      font-family:'Montserrat',sans-serif;
-      font-weight:800;
-      font-size:1rem;
-      color:var(--green-dark);
-      margin-top:4px;
-    }
-
-    .product-original{
-      font-size:.7rem;
-      color:#aaa;
-      text-decoration:line-through;
-    }
-
-    .product-discount{
-      font-size:.7rem;
-      color:#e74c3c;
-      font-weight:700;
-    }
-
-    .btn-buy{
-      display:block;
-      margin:0 10px 10px;
-      padding:8px;
-      background:linear-gradient(135deg,var(--green-mid),var(--green-light));
-      color:white;
-      text-align:center;
-      border-radius:10px;
-      font-size:.78rem;
-      font-weight:700;
-      text-decoration:none;
-    }
-
-    .loader{
-      grid-column:1/-1;
-      text-align:center;
-      padding:32px 0;
-      color:var(--subtext);
-      font-size:.85rem;
-    }
-
-    .spinner{
-      width:32px;
-      height:32px;
-      border:3px solid var(--accent);
-      border-top-color:var(--green-mid);
-      border-radius:50%;
-      animation:spin .8s linear infinite;
-      margin:0 auto 10px;
-    }
-
-    @keyframes spin{
-      to{
-        transform:rotate(360deg);
-      }
-    }
-
-    .footer{
-      background:var(--green-dark);
-      color:rgba(255,255,255,.75);
-      text-align:center;
-      padding:28px 20px 36px;
-      font-size:.8rem;
-      line-height:1.8;
-      margin-top:12px;
-    }
-
-    .footer-logo{
-      font-family:'Montserrat',sans-serif;
-      font-weight:900;
-      font-size:1.3rem;
-      color:white;
+    .store{
+      color:#777;
+      font-size:14px;
       margin-bottom:10px;
     }
 
-    .footer-logo span{
-      color:var(--green-bright);
+    .price{
+      font-size:26px;
+      color:#1c8f2e;
+      font-weight:bold;
+      margin-bottom:15px;
+    }
+
+    .btn{
+      display:block;
+      width:100%;
+      text-align:center;
+      background:#1c8f2e;
+      color:white;
+      text-decoration:none;
+      padding:12px;
+      border-radius:10px;
+      font-weight:bold;
+      transition:0.2s;
+    }
+
+    .btn:hover{
+      background:#146d22;
+    }
+
+    .loading{
+      text-align:center;
+      font-size:20px;
+      margin-top:50px;
+    }
+
+    footer{
+      margin-top:60px;
+      background:#145a20;
+      color:white;
+      text-align:center;
+      padding:30px;
     }
   </style>
 </head>
+
 <body>
 
-<header class="profile-header">
+  <section class="hero">
+    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="FarNutri">
 
-  <img
-    class="profile-avatar"
-    src="https://i.imgur.com/6VBx3io.png"
-    alt="FarNutri"
-  >
+    <h1>FarNutri</h1>
 
-  <div class="profile-name">FarNutri</div>
+    <p>@farnutri.oficial</p>
 
-  <div class="profile-handle">@farnutri.oficial</div>
+    <p>🌿 Suplementos e saúde com os melhores preços</p>
+    <p>💊 Produtos verificados da Shopee</p>
+    <p>✅ Links de afiliado atualizados automaticamente</p>
+  </section>
 
-  <p class="profile-bio">
-    🌿 Suplementos e saúde com os melhores preços<br>
-    💊 Curadoria de produtos verificados na Shopee<br>
-    ✅ Links de afiliado com segurança e qualidade
-  </p>
+  <div class="container">
 
-</header>
+    <h2 class="title">Suplementos em Destaque</h2>
 
-<div class="affiliate-badge">
-  🏷️ Links de afiliado Shopee — preços atualizados automaticamente
-</div>
+    <div class="loading" id="loading">
+      Carregando produtos...
+    </div>
 
-<div class="status-bar">
-  <div class="dot"></div>
-  <span id="statusText">Carregando produtos...</span>
-</div>
+    <div class="products" id="products"></div>
 
-<div class="section-header">
-  <div class="section-title">🥗 Suplementos em Destaque</div>
-  <div class="section-count" id="countBadge">0 itens</div>
-</div>
-
-<div class="filter-row">
-
-  <div class="pill active" onclick="filterProducts('todos', this)">
-    Todos
   </div>
 
-  <div class="pill" onclick="filterProducts('proteina', this)">
-    Proteína
-  </div>
+  <footer>
+    <h2>FarNutri</h2>
+    <p>Saúde & Nutrição ao seu alcance 🌿</p>
+  </footer>
 
-  <div class="pill" onclick="filterProducts('creatina', this)">
-    Creatina
-  </div>
+  <script>
+    async function loadProducts() {
 
-  <div class="pill" onclick="filterProducts('vitaminas', this)">
-    Vitaminas
-  </div>
+      const productsContainer = document.getElementById("products");
+      const loading = document.getElementById("loading");
 
-  <div class="pill" onclick="filterProducts('omega', this)">
-    Ômega 3
-  </div>
+      try {
 
-</div>
+        const response = await fetch("/api/shopee");
 
-<div class="product-grid" id="productGrid">
+        const data = await response.json();
 
-  <div class="loader">
-    <div class="spinner"></div>
-    Buscando produtos...
-  </div>
+        loading.style.display = "none";
 
-</div>
+        if (!data.products || data.products.length === 0) {
 
-<footer class="footer">
+          productsContainer.innerHTML = `
+            <p>Nenhum produto encontrado.</p>
+          `;
 
-  <div class="footer-logo">
-    Far<span>Nutri</span>
-  </div>
+          return;
+        }
 
-  Saúde & Nutrição ao seu alcance 🌿
+        data.products.forEach(product => {
 
-</footer>
+          const card = document.createElement("div");
 
-<script>
+          card.className = "card";
 
-let allProducts = []
-let currentFilter = 'todos'
+          const price = Number(product.price || 0).toFixed(2);
 
-async function fetchProducts(){
+          card.innerHTML = `
+            <img src="${product.imageUrl}" alt="${product.productName}">
 
-  try{
+            <div class="card-content">
 
-    const response = await fetch('/api/shopee')
+              <div class="product-name">
+                ${product.productName}
+              </div>
 
-    const data = await response.json()
+              <div class="store">
+                Loja: ${product.shopName || "Shopee"}
+              </div>
 
-    const products = data?.products || []
+              <div class="price">
+                R$ ${price}
+              </div>
 
-    return products.map((p, index) => ({
+              <a 
+                href="${product.productLink}" 
+                target="_blank"
+                class="btn"
+              >
+                Comprar Agora
+              </a>
 
-      id:index,
+            </div>
+          `;
 
-      name:p.productName || 'Produto',
+          productsContainer.appendChild(card);
 
-      image:p.imageUrl,
+        });
 
-      price:Number(p.priceMin || 0),
+      } catch (error) {
 
-      original:Number(p.priceMax || 0),
+        loading.innerHTML = `
+          Erro ao carregar produtos.
+        `;
 
-      rating:Number(p.ratingStar || 4.5),
+        console.error(error);
+      }
+    }
 
-      sold:Number(p.sales || 0),
-
-      store:p.shopName || 'Shopee',
-
-      link:p.productLink || '#',
-
-      category:detectCategory(p.productName)
-
-    }))
-
-  }catch(error){
-
-    console.error(error)
-
-    return []
-
-  }
-
-}
-
-function detectCategory(name=''){
-
-  name = name.toLowerCase()
-
-  if(name.includes('whey')) return 'proteina'
-
-  if(name.includes('creatina')) return 'creatina'
-
-  if(name.includes('vitamina')) return 'vitaminas'
-
-  if(name.includes('omega') || name.includes('ômega')) return 'omega'
-
-  return 'outros'
-}
-
-function renderProducts(products){
-
-  const grid = document.getElementById('productGrid')
-
-  document.getElementById('countBadge').innerText =
-    `${products.length} itens`
-
-  if(!products.length){
-
-    grid.innerHTML = `
-      <div class="loader">
-        Nenhum produto encontrado
-      </div>
-    `
-
-    return
-  }
-
-  grid.innerHTML = ''
-
-  products.forEach(product => {
-
-    const card = document.createElement('a')
-
-    card.className = 'product-card'
-
-    card.href = product.link
-
-    card.target = '_blank'
-
-    card.innerHTML = `
-
-      <div class="product-img-wrap">
-
-        <img
-          class="product-img"
-          src="${product.image}"
-          alt="${product.name}"
-        >
-
-      </div>
-
-      <div class="product-info">
-
-        <div class="product-name">
-          ${product.name}
-        </div>
-
-        <div class="product-store">
-          🏪 ${product.store}
-        </div>
-
-        <div class="product-price">
-          R$ ${product.price.toFixed(2).replace('.', ',')}
-        </div>
-
-      </div>
-
-      <div class="btn-buy">
-        Ver na Shopee 🛒
-      </div>
-    `
-
-    grid.appendChild(card)
-
-  })
-
-}
-
-function filterProducts(category, el){
-
-  document.querySelectorAll('.pill')
-    .forEach(p => p.classList.remove('active'))
-
-  if(el) el.classList.add('active')
-
-  currentFilter = category
-
-  const filtered =
-    category === 'todos'
-      ? allProducts
-      : allProducts.filter(p => p.category === category)
-
-  renderProducts(filtered)
-}
-
-async function loadProducts(){
-
-  document.getElementById('statusText')
-    .innerText = 'Buscando produtos da Shopee...'
-
-  const products = await fetchProducts()
-
-  allProducts = products
-
-  renderProducts(products)
-
-  document.getElementById('statusText')
-    .innerText = `${products.length} produtos carregados`
-
-}
-
-loadProducts()
-
-</script>
+    loadProducts();
+  </script>
 
 </body>
 </html>
