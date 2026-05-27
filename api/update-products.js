@@ -11,6 +11,8 @@ export default async function handler(req, res){
   const {
 
     name,
+    description,
+    badge,
     image,
     category,
 
@@ -48,6 +50,8 @@ export default async function handler(req, res){
         body:JSON.stringify([{
 
           name,
+          description,
+          badge,
           image,
           category,
 
@@ -64,7 +68,8 @@ export default async function handler(req, res){
 
     if(!response.ok){
 
-      const error = await response.text();
+      const error =
+      await response.text();
 
       return res.status(500).json({
         success:false,
