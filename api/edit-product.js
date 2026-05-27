@@ -1,72 +1,94 @@
-export default async function handler(req, res) {
+export default async function handler(req, res){
 
-  if (req.method !== 'POST') {
+  if(req.method !== 'POST'){
+
     return res.status(405).json({
-      success: false
+      success:false
     });
+
   }
 
   const {
+
     id,
+
     name,
+    description,
+    badge,
     image,
     category,
+
     shopee_link,
     mercadolivre_link,
     amazon_link,
     tiktok_link
+
   } = req.body;
 
-  try {
+  try{
 
     const response = await fetch(
-      `${process.env.SUPABASE_URL}/rest/v1/products?id=eq.${id}`,
-      {
-        method: 'PATCH',
 
-        headers: {
-          apikey: process.env.SUPABASE_SERVICE_KEY,
+      `${process.env.SUPABASE_URL}/rest/v1/products?id=eq.${id}`,
+
+      {
+
+        method:'PATCH',
+
+        headers:{
+
+          apikey:
+          process.env.SUPABASE_SERVICE_KEY,
 
           Authorization:
-            `Bearer ${process.env.SUPABASE_SERVICE_KEY}`,
+          `Bearer ${process.env.SUPABASE_SERVICE_KEY}`,
 
-          'Content-Type': 'application/json',
+          'Content-Type':'application/json',
 
-          Prefer: 'return=minimal'
+          Prefer:'return=minimal'
+
         },
 
-        body: JSON.stringify({
+        body:JSON.stringify({
+
           name,
+          description,
+          badge,
           image,
           category,
+
           shopee_link,
           mercadolivre_link,
           amazon_link,
           tiktok_link
+
         })
+
       }
+
     );
 
-    if (!response.ok) {
+    if(!response.ok){
 
-      const error = await response.text();
+      const error =
+      await response.text();
 
       return res.status(500).json({
-        success: false,
+        success:false,
         error
       });
 
     }
 
     return res.status(200).json({
-      success: true
+      success:true
     });
 
-  } catch (error) {
+  }catch(error){
 
     return res.status(500).json({
-      success: false,
-      error: error.message
+      success:false,
+      error:error.message
     });
 
   }
