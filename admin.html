@@ -1,160 +1,363 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
   <title>FarNutri Admin</title>
 
   <style>
+
     :root{
-      --verde-dark:#0D3B1A;
+
+      --verde-floresta:#0D3B1A;
       --verde-logo:#1A5C2A;
-      --verde:#2E7D3F;
-      --verde-light:#4CAF65;
-      --bg:#F4FAF5;
-      --grafite:#3D4D3E;
-      --cinza:#8A9E8C;
+      --verde-marca:#2E7D3F;
+      --verde-medio:#4CAF65;
+      --verde-folha:#7DC87E;
+      --verde-menta:#B8E4BC;
+
+      --branco-natural:#F4FAF5;
+
+      --grafite-verde:#3D4D3E;
+      --cinza-salvia:#8A9E8C;
 
       --shopee:#EE4D2D;
       --mercado:#FFE600;
-      --amazon:#111111;
+      --amazon:#131A22;
       --tiktok:#000000;
+
     }
 
     *{
       margin:0;
       padding:0;
       box-sizing:border-box;
-      font-family:Arial, Helvetica, sans-serif;
+      font-family:Arial,sans-serif;
     }
 
     body{
-      background:var(--bg);
+
+      background:var(--branco-natural);
+
       padding:25px;
-      color:var(--grafite);
+
+      color:var(--grafite-verde);
+
     }
 
     .container{
-      max-width:700px;
+
+      max-width:760px;
+
       margin:auto;
+
       background:white;
+
       border-radius:30px;
+
       padding:35px;
-      box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+      box-shadow:
+      0 10px 30px rgba(0,0,0,.08);
+
     }
 
     h1{
+
       text-align:center;
-      color:var(--verde);
+
+      color:var(--verde-logo);
+
       font-size:58px;
-      margin-bottom:10px;
+
       font-weight:900;
+
     }
 
     .subtitle{
+
       text-align:center;
-      color:var(--cinza);
-      margin-bottom:40px;
-      font-size:24px;
+
+      color:var(--cinza-salvia);
+
+      margin-top:8px;
+
+      margin-bottom:35px;
+
+      font-size:20px;
+
     }
 
     .input{
+
       width:100%;
-      height:65px;
+
+      height:62px;
+
       border-radius:18px;
+
       border:2px solid #E7ECE8;
-      padding:0 20px;
-      font-size:18px;
+
+      padding:0 18px;
+
       margin-bottom:18px;
+
+      font-size:16px;
+
       outline:none;
+
       transition:.2s;
+
     }
 
     .input:focus{
-      border-color:var(--verde-light);
+
+      border-color:
+      var(--verde-medio);
+
+    }
+
+    textarea.input{
+
+      height:110px;
+
+      padding:18px;
+
+      resize:none;
+
     }
 
     .btn{
+
       width:100%;
+
       height:65px;
+
       border:none;
+
       border-radius:18px;
-      background:linear-gradient(135deg,var(--verde),var(--verde-light));
+
+      background:
+      linear-gradient(
+        135deg,
+        var(--verde-logo),
+        var(--verde-marca)
+      );
+
       color:white;
-      font-size:24px;
+
+      font-size:20px;
+
       font-weight:700;
+
       cursor:pointer;
-      margin-top:10px;
+
       transition:.2s;
+
+      margin-top:10px;
+
     }
 
     .btn:hover{
+
       transform:scale(1.01);
+
     }
 
     .section-title{
+
       margin-top:55px;
+
       margin-bottom:25px;
-      font-size:42px;
-      color:var(--verde);
-      font-weight:900;
+
+      font-size:38px;
+
+      color:var(--verde-logo);
+
+      font-weight:800;
+
     }
 
     .products{
+
       display:flex;
+
       flex-direction:column;
-      gap:25px;
+
+      gap:22px;
+
     }
 
     .card{
+
+      position:relative;
+
       background:white;
-      border-radius:25px;
-      padding:25px;
-      box-shadow:0 6px 18px rgba(0,0,0,.07);
-      border:1px solid #edf2ee;
+
+      border-radius:28px;
+
+      padding:22px;
+
+      border:1px solid #E8F1EA;
+
+      box-shadow:
+      0 8px 22px rgba(0,0,0,.06);
+
+    }
+
+    /* BADGE */
+
+    .badge{
+
+      position:absolute;
+
+      top:15px;
+      left:15px;
+
+      padding:8px 12px;
+
+      border-radius:999px;
+
+      font-size:12px;
+
+      font-weight:700;
+
+      color:white;
+
+      z-index:2;
+
+    }
+
+    .best{
+      background:#FF5A36;
+    }
+
+    .verified{
+      background:#2E7D3F;
+    }
+
+    .rated{
+      background:#F4B400;
+    }
+
+    .performance{
+      background:#146EB4;
+    }
+
+    .energy{
+      background:#7B2CBF;
+    }
+
+    .shipping{
+      background:#00A86B;
     }
 
     .card img{
+
       width:140px;
       height:140px;
-      object-fit:cover;
-      border-radius:18px;
+
+      object-fit:contain;
+
       display:block;
+
       margin:auto;
-      background:#fff;
+
+      background:var(--branco-natural);
+
+      border-radius:18px;
+
+      padding:10px;
+
     }
 
     .product-name{
-      text-align:center;
-      font-size:28px;
+
+      margin-top:18px;
+
+      font-size:26px;
+
       font-weight:800;
-      margin-top:20px;
-      color:var(--grafite);
+
+      text-align:center;
+
+      color:var(--verde-floresta);
+
+    }
+
+    .description{
+
+      margin-top:10px;
+
+      text-align:center;
+
+      color:var(--cinza-salvia);
+
+      font-size:14px;
+
+      line-height:1.5;
+
     }
 
     .category{
-      text-align:center;
-      margin-top:10px;
-      color:var(--verde);
+
+      margin-top:12px;
+
+      display:inline-block;
+
+      background:var(--verde-menta);
+
+      color:var(--verde-logo);
+
+      padding:6px 14px;
+
+      border-radius:999px;
+
+      font-size:13px;
+
       font-weight:700;
-      font-size:18px;
+
+    }
+
+    .category-wrap{
+      text-align:center;
     }
 
     .buttons{
+
+      margin-top:20px;
+
       display:flex;
+
       flex-direction:column;
-      gap:12px;
-      margin-top:25px;
+
+      gap:10px;
+
     }
 
     .market-btn{
-      height:50px;
+
       border:none;
+
+      height:48px;
+
       border-radius:14px;
-      font-size:17px;
+
+      font-size:15px;
+
       font-weight:700;
+
       cursor:pointer;
+
+      width:100%;
+
     }
 
     .shopee{
@@ -188,320 +391,509 @@
       color:white;
     }
 
-    .loading{
-      text-align:center;
-      color:var(--cinza);
-      font-size:18px;
-    }
-
   </style>
+
 </head>
+
 <body>
 
-<div class="container">
+  <div class="container">
 
-  <h1>FarNutri</h1>
-  <p class="subtitle">Painel Administrativo</p>
+    <h1>FarNutri</h1>
 
-  <input type="hidden" id="productId">
+    <p class="subtitle">
 
-  <input class="input" type="text" id="name" placeholder="Nome do produto">
+      Painel Administrativo
 
-  <input class="input" type="text" id="image" placeholder="URL da imagem">
+    </p>
 
-  <input class="input" type="text" id="category" placeholder="Categoria">
+    <input
+      type="hidden"
+      id="productId"
+    />
 
-  <input class="input" type="text" id="shopee_link" placeholder="Link Shopee">
+    <input
+      class="input"
+      type="text"
+      id="name"
+      placeholder="Nome do produto"
+    />
 
-  <input class="input" type="text" id="mercadolivre_link" placeholder="Link Mercado Livre">
+    <textarea
+      class="input"
+      id="description"
+      placeholder="Descrição curta"
+    ></textarea>
 
-  <input class="input" type="text" id="amazon_link" placeholder="Link Amazon">
+    <input
+      class="input"
+      type="text"
+      id="badge"
+      placeholder="Badge (🔥 Mais Vendido)"
+    />
 
-  <input class="input" type="text" id="tiktok_link" placeholder="Link TikTok">
+    <input
+      class="input"
+      type="text"
+      id="image"
+      placeholder="URL da imagem"
+    />
 
-  <button class="btn" onclick="saveProduct()">
-    Salvar Produto
-  </button>
+    <input
+      class="input"
+      type="text"
+      id="category"
+      placeholder="Categoria"
+    />
 
-  <h2 class="section-title">Produtos cadastrados</h2>
+    <input
+      class="input"
+      type="text"
+      id="shopee_link"
+      placeholder="Link Shopee"
+    />
 
-  <div class="products" id="products">
-    <p class="loading">Carregando produtos...</p>
+    <input
+      class="input"
+      type="text"
+      id="mercadolivre_link"
+      placeholder="Link Mercado Livre"
+    />
+
+    <input
+      class="input"
+      type="text"
+      id="amazon_link"
+      placeholder="Link Amazon"
+    />
+
+    <input
+      class="input"
+      type="text"
+      id="tiktok_link"
+      placeholder="Link TikTok"
+    />
+
+    <button
+      class="btn"
+      onclick="saveProduct()"
+    >
+      Salvar Produto
+    </button>
+
+    <h2 class="section-title">
+
+      Produtos cadastrados
+
+    </h2>
+
+    <div
+      class="products"
+      id="products"
+    ></div>
+
   </div>
 
-</div>
+  <script>
 
-<script>
+    let editingId = null;
 
-let editingId = null;
+    function getBadgeClass(badge){
 
-async function loadProducts(){
+      if(!badge) return '';
 
-  const container = document.getElementById('products');
+      if(badge.includes('Mais Vendido'))
+        return 'badge best';
 
-  try{
+      if(badge.includes('Verificado'))
+        return 'badge verified';
 
-    const response = await fetch('/api/products');
+      if(badge.includes('Melhor Avaliado'))
+        return 'badge rated';
 
-    const products = await response.json();
+      if(badge.includes('Alta Performance'))
+        return 'badge performance';
 
-    if(!products.length){
-      container.innerHTML = '<p class="loading">Nenhum produto cadastrado.</p>';
-      return;
-    }
+      if(badge.includes('Energia Extra'))
+        return 'badge energy';
 
-    container.innerHTML = '';
+      if(badge.includes('Envio Rápido'))
+        return 'badge shipping';
 
-    products.forEach(product => {
-
-      container.innerHTML += `
-      
-      <div class="card">
-
-        <img src="${product.image}" />
-
-        <div class="product-name">
-          ${product.name}
-        </div>
-
-        <div class="category">
-          ${product.category || ''}
-        </div>
-
-        <div class="buttons">
-
-          ${
-            product.shopee_link
-            ?
-            `<a href="${product.shopee_link}" target="_blank">
-              <button class="market-btn shopee">
-                🛒 Shopee
-              </button>
-            </a>`
-            :
-            ''
-          }
-
-          ${
-            product.mercadolivre_link
-            ?
-            `<a href="${product.mercadolivre_link}" target="_blank">
-              <button class="market-btn mercado">
-                Mercado Livre
-              </button>
-            </a>`
-            :
-            ''
-          }
-
-          ${
-            product.amazon_link
-            ?
-            `<a href="${product.amazon_link}" target="_blank">
-              <button class="market-btn amazon">
-                Amazon
-              </button>
-            </a>`
-            :
-            ''
-          }
-
-          ${
-            product.tiktok_link
-            ?
-            `<a href="${product.tiktok_link}" target="_blank">
-              <button class="market-btn tiktok">
-                TikTok Shop
-              </button>
-            </a>`
-            :
-            ''
-          }
-
-          <button 
-            class="market-btn edit"
-            onclick='editProduct(${JSON.stringify(product)})'
-          >
-            Editar
-          </button>
-
-          <button 
-            class="market-btn delete"
-            onclick="deleteProduct(${product.id})"
-          >
-            Excluir
-          </button>
-
-        </div>
-
-      </div>
-
-      `;
-
-    });
-
-  }catch(error){
-
-    container.innerHTML = `
-      <p class="loading">
-        Erro ao carregar produtos
-      </p>
-    `;
-
-  }
-
-}
-
-function editProduct(product){
-
-  editingId = product.id;
-
-  document.getElementById('name').value = product.name || '';
-  document.getElementById('image').value = product.image || '';
-  document.getElementById('category').value = product.category || '';
-
-  document.getElementById('shopee_link').value = product.shopee_link || '';
-
-  document.getElementById('mercadolivre_link').value = product.mercadolivre_link || '';
-
-  document.getElementById('amazon_link').value = product.amazon_link || '';
-
-  document.getElementById('tiktok_link').value = product.tiktok_link || '';
-
-  window.scrollTo({
-    top:0,
-    behavior:'smooth'
-  });
-
-}
-
-async function saveProduct(){
-
-  const data = {
-
-    id: editingId,
-
-    name: document.getElementById('name').value,
-
-    image: document.getElementById('image').value,
-
-    category: document.getElementById('category').value,
-
-    shopee_link: document.getElementById('shopee_link').value,
-
-    mercadolivre_link: document.getElementById('mercadolivre_link').value,
-
-    amazon_link: document.getElementById('amazon_link').value,
-
-    tiktok_link: document.getElementById('tiktok_link').value
-
-  };
-
-  const endpoint = editingId
-    ? '/api/edit-product'
-    : '/api/update-products';
-
-  try{
-
-    const response = await fetch(endpoint,{
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json'
-      },
-      body:JSON.stringify(data)
-    });
-
-    const result = await response.json();
-
-    if(result.success){
-
-      alert(
-        editingId
-        ? 'Produto atualizado com sucesso'
-        : 'Produto cadastrado com sucesso'
-      );
-
-      clearForm();
-
-      loadProducts();
-
-    }else{
-
-      alert('Erro ao salvar produto');
+      return 'badge';
 
     }
 
-  }catch(error){
+    async function loadProducts(){
 
-    alert('Erro ao salvar produto');
+      const container =
+      document.getElementById('products');
 
-  }
+      try{
 
-}
+        const response =
+        await fetch('/api/products');
 
-async function deleteProduct(id){
+        const products =
+        await response.json();
 
-  const confirmDelete = confirm(
-    'Deseja excluir este produto?'
-  );
+        container.innerHTML = '';
 
-  if(!confirmDelete) return;
+        products.forEach(product => {
 
-  try{
+          container.innerHTML += `
 
-    const response = await fetch('/api/delete-product',{
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json'
-      },
-      body:JSON.stringify({ id })
-    });
+            <div class="card">
 
-    const result = await response.json();
+              ${
+                product.badge
+                ?
+                `
+                <div class="${getBadgeClass(product.badge)}">
+                  ${product.badge}
+                </div>
+                `
+                :
+                ''
+              }
 
-    if(result.success){
+              <img src="${product.image}" />
 
-      alert('Produto excluído');
+              <div class="product-name">
 
-      loadProducts();
+                ${product.name}
 
-    }else{
+              </div>
 
-      alert('Erro ao excluir');
+              ${
+                product.description
+                ?
+                `
+                <div class="description">
+
+                  ${product.description}
+
+                </div>
+                `
+                :
+                ''
+              }
+
+              ${
+                product.category
+                ?
+                `
+                <div class="category-wrap">
+
+                  <div class="category">
+
+                    ${product.category}
+
+                  </div>
+
+                </div>
+                `
+                :
+                ''
+              }
+
+              <div class="buttons">
+
+                ${
+                  product.shopee_link
+                  ?
+                  `
+                  <a
+                    href="${product.shopee_link}"
+                    target="_blank"
+                  >
+                    <button class="market-btn shopee">
+                      🛒 Shopee
+                    </button>
+                  </a>
+                  `
+                  :
+                  ''
+                }
+
+                ${
+                  product.mercadolivre_link
+                  ?
+                  `
+                  <a
+                    href="${product.mercadolivre_link}"
+                    target="_blank"
+                  >
+                    <button class="market-btn mercado">
+                      Mercado Livre
+                    </button>
+                  </a>
+                  `
+                  :
+                  ''
+                }
+
+                ${
+                  product.amazon_link
+                  ?
+                  `
+                  <a
+                    href="${product.amazon_link}"
+                    target="_blank"
+                  >
+                    <button class="market-btn amazon">
+                      Amazon
+                    </button>
+                  </a>
+                  `
+                  :
+                  ''
+                }
+
+                ${
+                  product.tiktok_link
+                  ?
+                  `
+                  <a
+                    href="${product.tiktok_link}"
+                    target="_blank"
+                  >
+                    <button class="market-btn tiktok">
+                      TikTok Shop
+                    </button>
+                  </a>
+                  `
+                  :
+                  ''
+                }
+
+                <button
+                  class="market-btn edit"
+                  onclick='editProduct(${JSON.stringify(product)})'
+                >
+                  Editar
+                </button>
+
+                <button
+                  class="market-btn delete"
+                  onclick="deleteProduct(${product.id})"
+                >
+                  Excluir
+                </button>
+
+              </div>
+
+            </div>
+
+          `;
+
+        });
+
+      }catch(error){
+
+        container.innerHTML =
+        'Erro ao carregar produtos';
+
+      }
 
     }
 
-  }catch(error){
+    function editProduct(product){
 
-    alert('Erro ao excluir');
+      editingId = product.id;
 
-  }
+      document.getElementById('name').value =
+      product.name || '';
 
-}
+      document.getElementById('description').value =
+      product.description || '';
 
-function clearForm(){
+      document.getElementById('badge').value =
+      product.badge || '';
 
-  editingId = null;
+      document.getElementById('image').value =
+      product.image || '';
 
-  document.getElementById('name').value = '';
+      document.getElementById('category').value =
+      product.category || '';
 
-  document.getElementById('image').value = '';
+      document.getElementById('shopee_link').value =
+      product.shopee_link || '';
 
-  document.getElementById('category').value = '';
+      document.getElementById('mercadolivre_link').value =
+      product.mercadolivre_link || '';
 
-  document.getElementById('shopee_link').value = '';
+      document.getElementById('amazon_link').value =
+      product.amazon_link || '';
 
-  document.getElementById('mercadolivre_link').value = '';
+      document.getElementById('tiktok_link').value =
+      product.tiktok_link || '';
 
-  document.getElementById('amazon_link').value = '';
+      window.scrollTo({
+        top:0,
+        behavior:'smooth'
+      });
 
-  document.getElementById('tiktok_link').value = '';
+    }
 
-}
+    async function saveProduct(){
 
-loadProducts();
+      const data = {
 
-</script>
+        id: editingId,
+
+        name:
+        document.getElementById('name').value,
+
+        description:
+        document.getElementById('description').value,
+
+        badge:
+        document.getElementById('badge').value,
+
+        image:
+        document.getElementById('image').value,
+
+        category:
+        document.getElementById('category').value,
+
+        shopee_link:
+        document.getElementById('shopee_link').value,
+
+        mercadolivre_link:
+        document.getElementById('mercadolivre_link').value,
+
+        amazon_link:
+        document.getElementById('amazon_link').value,
+
+        tiktok_link:
+        document.getElementById('tiktok_link').value
+
+      };
+
+      const endpoint = editingId
+      ?
+      '/api/edit-product'
+      :
+      '/api/update-products';
+
+      try{
+
+        const response = await fetch(endpoint,{
+
+          method:'POST',
+
+          headers:{
+            'Content-Type':'application/json'
+          },
+
+          body:JSON.stringify(data)
+
+        });
+
+        const result =
+        await response.json();
+
+        if(result.success){
+
+          alert(
+            editingId
+            ?
+            'Produto atualizado'
+            :
+            'Produto cadastrado'
+          );
+
+          clearForm();
+
+          loadProducts();
+
+        }else{
+
+          alert('Erro ao salvar');
+
+        }
+
+      }catch(error){
+
+        alert('Erro ao salvar');
+
+      }
+
+    }
+
+    async function deleteProduct(id){
+
+      if(!confirm(
+        'Deseja excluir este produto?'
+      )) return;
+
+      try{
+
+        const response =
+        await fetch('/api/delete-product',{
+
+          method:'POST',
+
+          headers:{
+            'Content-Type':'application/json'
+          },
+
+          body:JSON.stringify({ id })
+
+        });
+
+        const result =
+        await response.json();
+
+        if(result.success){
+
+          alert('Produto excluído');
+
+          loadProducts();
+
+        }else{
+
+          alert('Erro ao excluir');
+
+        }
+
+      }catch(error){
+
+        alert('Erro ao excluir');
+
+      }
+
+    }
+
+    function clearForm(){
+
+      editingId = null;
+
+      document.getElementById('name').value = '';
+
+      document.getElementById('description').value = '';
+
+      document.getElementById('badge').value = '';
+
+      document.getElementById('image').value = '';
+
+      document.getElementById('category').value = '';
+
+      document.getElementById('shopee_link').value = '';
+
+      document.getElementById('mercadolivre_link').value = '';
+
+      document.getElementById('amazon_link').value = '';
+
+      document.getElementById('tiktok_link').value = '';
+
+    }
+
+    loadProducts();
+
+  </script>
 
 </body>
+
 </html>
