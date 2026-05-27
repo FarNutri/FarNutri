@@ -11,52 +11,74 @@
       margin:0;
       padding:0;
       box-sizing:border-box;
-      font-family:Arial, sans-serif;
+      font-family:Arial,sans-serif;
     }
 
     body{
-      background:#f5f5f5;
+      background:#f3f3f3;
       color:#222;
     }
 
-    .hero{
-      background:linear-gradient(180deg,#1b8d2b,#45c655);
-      color:white;
-      padding:40px 20px;
-      text-align:center;
+    /* HEADER */
+
+    header{
+      background:linear-gradient(135deg,#16a128,#0d6e1c);
+      padding:30px 20px;
+      color:#fff;
     }
 
-    .hero img{
-      width:120px;
-      height:120px;
+    .profile{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      max-width:1200px;
+      margin:auto;
+    }
+
+    .profile img{
+      width:90px;
+      height:90px;
       border-radius:50%;
-      border:5px solid white;
       object-fit:cover;
-      margin-bottom:15px;
+      border:3px solid #fff;
+      background:#fff;
     }
 
-    .hero h1{
-      font-size:48px;
-      margin-bottom:10px;
+    .profile-info h1{
+      font-size:42px;
+      margin-bottom:5px;
     }
 
-    .hero p{
+    .profile-info p{
+      font-size:20px;
+      opacity:.9;
+    }
+
+    .benefits{
+      display:flex;
+      flex-wrap:wrap;
+      gap:25px;
+      margin-top:30px;
+      justify-content:center;
       font-size:18px;
-      margin:8px 0;
     }
+
+    /* CONTAINER */
 
     .container{
       max-width:1200px;
       margin:auto;
-      padding:30px 20px;
+      padding:40px 20px;
     }
 
     .title{
-      font-size:48px;
-      color:#138b2a;
-      margin-bottom:30px;
+      font-size:58px;
+      color:#118d28;
+      margin-bottom:40px;
       font-weight:bold;
     }
+
+    /* PRODUCTS */
 
     .products{
       display:grid;
@@ -65,85 +87,82 @@
     }
 
     .card{
-      background:white;
+      background:#fff;
       border-radius:20px;
       overflow:hidden;
-      box-shadow:0 5px 20px rgba(0,0,0,0.08);
-      transition:0.2s;
+      box-shadow:0 4px 18px rgba(0,0,0,.08);
+      transition:.2s;
     }
 
     .card:hover{
-      transform:translateY(-5px);
+      transform:translateY(-4px);
     }
 
     .card img{
       width:100%;
-      height:260px;
-      object-fit:cover;
-      background:#eee;
+      height:320px;
+      object-fit:contain;
+      background:#fff;
+      padding:15px;
     }
 
-    .card-content{
-      padding:20px;
+    .content{
+      padding:22px;
     }
 
     .product-name{
-      font-size:24px;
+      font-size:32px;
       font-weight:bold;
-      margin-bottom:15px;
-      min-height:60px;
+      margin-bottom:18px;
+      min-height:70px;
     }
 
     .store{
       color:#777;
-      margin-bottom:15px;
-      font-size:16px;
+      font-size:20px;
+      margin-bottom:20px;
+    }
+
+    .old-price{
+      color:#999;
+      text-decoration:line-through;
+      margin-bottom:10px;
+      font-size:20px;
     }
 
     .price{
-      font-size:40px;
-      color:#15952c;
+      color:#16a128;
+      font-size:54px;
       font-weight:bold;
-      margin-bottom:20px;
+      margin-bottom:25px;
     }
 
     .btn{
       display:block;
       width:100%;
+      background:#18a82b;
+      color:#fff;
       text-align:center;
-      background:#16952c;
-      color:white;
       text-decoration:none;
-      padding:16px;
+      padding:18px;
       border-radius:14px;
-      font-size:22px;
+      font-size:28px;
       font-weight:bold;
-      transition:0.2s;
+      transition:.2s;
     }
 
     .btn:hover{
-      background:#0f6f20;
+      background:#128621;
     }
 
-    .loading{
-      text-align:center;
-      font-size:24px;
-      margin-top:50px;
-    }
-
-    .error{
-      color:red;
-      text-align:center;
-      font-size:20px;
-      margin-top:40px;
-    }
+    /* FOOTER */
 
     footer{
-      background:#145b20;
-      color:white;
-      text-align:center;
-      padding:40px 20px;
       margin-top:60px;
+      background:linear-gradient(135deg,#0d6e1c,#063d10);
+      color:#fff;
+      text-align:center;
+      padding:60px 20px;
     }
 
     footer h2{
@@ -152,7 +171,81 @@
     }
 
     footer p{
-      font-size:22px;
+      font-size:24px;
+      margin-bottom:12px;
+    }
+
+    .instagram{
+      margin-top:25px;
+    }
+
+    .instagram a{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      color:#fff;
+      font-size:24px;
+      font-weight:bold;
+    }
+
+    .instagram img{
+      width:36px;
+      height:36px;
+    }
+
+    .copyright{
+      margin-top:35px;
+      font-size:18px;
+      opacity:.8;
+    }
+
+    /* MOBILE */
+
+    @media(max-width:768px){
+
+      .profile{
+        align-items:flex-start;
+      }
+
+      .profile img{
+        width:75px;
+        height:75px;
+      }
+
+      .profile-info h1{
+        font-size:34px;
+      }
+
+      .profile-info p{
+        font-size:18px;
+      }
+
+      .benefits{
+        font-size:15px;
+        gap:15px;
+      }
+
+      .title{
+        font-size:42px;
+      }
+
+      .product-name{
+        font-size:24px;
+      }
+
+      .price{
+        font-size:42px;
+      }
+
+      .btn{
+        font-size:22px;
+      }
+
+      footer h2{
+        font-size:38px;
+      }
+
     }
 
   </style>
@@ -160,159 +253,193 @@
 
 <body>
 
-  <section class="hero">
+  <!-- HEADER -->
 
-    <img
-      src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-      alt="FarNutri"
-    />
+  <header>
 
-    <h1>FarNutri</h1>
+    <div class="profile">
 
-    <p>@farnutri.oficial</p>
+      <img 
+        src="https://i.imgur.com/5cLDe8k.png"
+        alt="FarNutri"
+      >
 
-    <p>🌿 Suplementos e saúde com os melhores preços</p>
-    <p>💊 Produtos verificados da Shopee</p>
-    <p>✅ Links de afiliado atualizados automaticamente</p>
+      <div class="profile-info">
+        <h1>FarNutri</h1>
+        <p>@farnutri.suplementos</p>
+      </div>
 
-  </section>
+    </div>
+
+    <div class="benefits">
+      <span>🌿 Suplementos e saúde com os melhores preços</span>
+      <span>💊 Produtos verificados da Shopee</span>
+      <span>✅ Links de afiliado atualizados automaticamente</span>
+    </div>
+
+  </header>
+
+  <!-- CONTAINER -->
 
   <div class="container">
 
-    <h2 class="title">
+    <div class="title">
       Suplementos em Destaque
-    </h2>
+    </div>
 
-    <div class="loading" id="loading">
+    <div class="products" id="products">
       Carregando produtos...
     </div>
 
-    <div class="products" id="products"></div>
-
   </div>
 
+  <!-- FOOTER -->
+
   <footer>
+
     <h2>FarNutri</h2>
+
     <p>Saúde & Nutrição ao seu alcance 🌿</p>
+
+    <div class="instagram">
+
+      <a 
+        href="https://instagram.com/farnutri.suplementos"
+        target="_blank"
+      >
+
+        <img 
+          src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+          alt="Instagram"
+        >
+
+        @farnutri.suplementos
+
+      </a>
+
+    </div>
+
+    <div class="copyright">
+      © FarNutri - Todos os direitos reservados.
+    </div>
+
   </footer>
+
+  <!-- SCRIPT -->
 
   <script>
 
-    async function loadProducts(){
+    async function loadProducts() {
 
-      const productsContainer =
+      const container =
         document.getElementById("products");
 
-      const loading =
-        document.getElementById("loading");
+      try {
 
-      try{
+        const response = await fetch(
+          "https://qmdpnbbwtqsaabxmumot.supabase.co/rest/v1/products?select=*",
+          {
+            headers: {
+              apikey:
+                "sb_publishable_HouxuKG3CFe1ddcr5zRiSw_RZGxbp_L",
 
-        const response =
-          await fetch("/api/shopee");
+              Authorization:
+                "Bearer sb_publishable_HouxuKG3CFe1ddcr5zRiSw_RZGxbp_L"
+            }
+          }
+        );
 
-        const data =
+        let products =
           await response.json();
 
-        console.log(data);
+        // REMOVE DUPLICADOS
+        const uniqueProducts = [];
+        const seen = new Set();
 
-        loading.style.display = "none";
+        products.forEach(product => {
 
-        if(
-          !data.products ||
-          data.products.length === 0
-        ){
+          if (
+            !seen.has(product.affiliate_link)
+          ) {
 
-          productsContainer.innerHTML = `
-            <p class="error">
-              Nenhum produto encontrado.
-            </p>
-          `;
+            seen.add(product.affiliate_link);
 
-          return;
-        }
+            uniqueProducts.push(product);
 
-        data.products.forEach(product => {
+          }
 
-          const card =
-            document.createElement("div");
+        });
 
-          card.className = "card";
+        products =
+          uniqueProducts.slice(0,8);
 
-          const image =
-            product.imageUrl ||
-            product.image ||
-            "https://via.placeholder.com/400x400?text=Produto";
+        container.innerHTML = "";
 
-          const price =
-            Number(
-              product.price ||
-              product.salePrice ||
-              product.priceMin ||
-              0
-            ).toFixed(2);
+        products.forEach(product => {
 
-          const productName =
-            product.productName ||
-            product.name ||
-            "Produto Shopee";
+          container.innerHTML += `
 
-          const shopName =
-            product.shopName ||
-            product.store ||
-            "Shopee";
+            <div class="card">
 
-          const productLink =
-            product.productLink ||
-            product.link ||
-            "#";
-
-          card.innerHTML = `
-
-            <img
-              src="${image}"
-              alt="${productName}"
-            >
-
-            <div class="card-content">
-
-              <div class="product-name">
-                ${productName}
-              </div>
-
-              <div class="store">
-                Loja: ${shopName}
-              </div>
-
-              <div class="price">
-                R$ ${price}
-              </div>
-
-              <a
-                href="${productLink}"
-                target="_blank"
-                class="btn"
+              <img
+                src="${product.image}"
+                alt="${product.name}"
               >
-                Comprar Agora
-              </a>
+
+              <div class="content">
+
+                <div class="product-name">
+                  ${product.name}
+                </div>
+
+                <div class="store">
+                  Loja: ${product.store || "FarNutri"}
+                </div>
+
+                ${
+                  product.original_price >
+                  product.price
+
+                  ?
+
+                  `
+                  <div class="old-price">
+                    R$ ${Number(product.original_price).toFixed(2)}
+                  </div>
+                  `
+
+                  :
+
+                  ""
+                }
+
+                <div class="price">
+                  R$ ${Number(product.price).toFixed(2)}
+                </div>
+
+                <a
+                  href="${product.affiliate_link}"
+                  target="_blank"
+                  class="btn"
+                >
+                  Comprar Agora
+                </a>
+
+              </div>
 
             </div>
 
           `;
 
-          productsContainer.appendChild(card);
-
         });
 
-      }catch(error){
+      } catch(error) {
+
+        container.innerHTML =
+          "<p>Erro ao carregar produtos.</p>";
 
         console.error(error);
 
-        loading.innerHTML = `
-          <p class="error">
-            Erro ao carregar produtos.
-          </p>
-        `;
       }
 
     }
