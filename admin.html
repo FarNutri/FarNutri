@@ -1,281 +1,505 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>FarNutri Admin</title>
+  <title>FarNutri Admin</title>
 
-<style>
+  <style>
+    :root{
+      --verde-dark:#0D3B1A;
+      --verde-logo:#1A5C2A;
+      --verde:#2E7D3F;
+      --verde-light:#4CAF65;
+      --bg:#F4FAF5;
+      --grafite:#3D4D3E;
+      --cinza:#8A9E8C;
 
-body{
-  margin:0;
-  padding:30px;
-  background:#f3f3f3;
-  font-family:Arial;
-}
+      --shopee:#EE4D2D;
+      --mercado:#FFE600;
+      --amazon:#111111;
+      --tiktok:#000000;
+    }
 
-.painel{
-  max-width:700px;
-  margin:auto;
-  background:#fff;
-  padding:30px;
-  border-radius:25px;
-}
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
 
-h1{
-  text-align:center;
-  color:#00a321;
-  font-size:60px;
-  margin:0;
-}
+    body{
+      background:var(--bg);
+      padding:25px;
+      color:var(--grafite);
+    }
 
-.sub{
-  text-align:center;
-  color:#666;
-  margin-bottom:40px;
-}
+    .container{
+      max-width:700px;
+      margin:auto;
+      background:white;
+      border-radius:30px;
+      padding:35px;
+      box-shadow:0 8px 25px rgba(0,0,0,.08);
+    }
 
-input{
-  width:100%;
-  height:65px;
-  margin-bottom:20px;
-  border-radius:20px;
-  border:1px solid #ccc;
-  padding:0 20px;
-  font-size:26px;
-  box-sizing:border-box;
-}
+    h1{
+      text-align:center;
+      color:var(--verde);
+      font-size:58px;
+      margin-bottom:10px;
+      font-weight:900;
+    }
 
-button{
-  width:100%;
-  height:70px;
-  border:none;
-  border-radius:20px;
-  font-size:30px;
-  font-weight:bold;
-  cursor:pointer;
-}
+    .subtitle{
+      text-align:center;
+      color:var(--cinza);
+      margin-bottom:40px;
+      font-size:24px;
+    }
 
-.btn{
-  background:#00b51a;
-  color:#fff;
-  margin-bottom:40px;
-}
+    .input{
+      width:100%;
+      height:65px;
+      border-radius:18px;
+      border:2px solid #E7ECE8;
+      padding:0 20px;
+      font-size:18px;
+      margin-bottom:18px;
+      outline:none;
+      transition:.2s;
+    }
 
-h2{
-  color:#00a321;
-  font-size:55px;
-}
+    .input:focus{
+      border-color:var(--verde-light);
+    }
 
-#produtos{
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-}
+    .btn{
+      width:100%;
+      height:65px;
+      border:none;
+      border-radius:18px;
+      background:linear-gradient(135deg,var(--verde),var(--verde-light));
+      color:white;
+      font-size:24px;
+      font-weight:700;
+      cursor:pointer;
+      margin-top:10px;
+      transition:.2s;
+    }
 
-.produto-card{
-  background:#f7f7f7;
-  padding:20px;
-  border-radius:20px;
-  text-align:center;
-}
+    .btn:hover{
+      transform:scale(1.01);
+    }
 
-.produto-card img{
-  width:120px;
-  height:120px;
-  object-fit:cover;
-  border-radius:15px;
-}
+    .section-title{
+      margin-top:55px;
+      margin-bottom:25px;
+      font-size:42px;
+      color:var(--verde);
+      font-weight:900;
+    }
 
-.produto-card h3{
-  font-size:35px;
-}
+    .products{
+      display:flex;
+      flex-direction:column;
+      gap:25px;
+    }
 
-.produto-card p{
-  font-size:30px;
-  color:#00a321;
-  font-weight:bold;
-}
+    .card{
+      background:white;
+      border-radius:25px;
+      padding:25px;
+      box-shadow:0 6px 18px rgba(0,0,0,.07);
+      border:1px solid #edf2ee;
+    }
 
-.editar{
-  background:#ffb300;
-  color:#fff;
-  margin-bottom:10px;
-}
+    .card img{
+      width:140px;
+      height:140px;
+      object-fit:cover;
+      border-radius:18px;
+      display:block;
+      margin:auto;
+      background:#fff;
+    }
 
-.excluir{
-  background:#ff2a2a;
-  color:#fff;
-}
+    .product-name{
+      text-align:center;
+      font-size:28px;
+      font-weight:800;
+      margin-top:20px;
+      color:var(--grafite);
+    }
 
-</style>
+    .category{
+      text-align:center;
+      margin-top:10px;
+      color:var(--verde);
+      font-weight:700;
+      font-size:18px;
+    }
+
+    .buttons{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      margin-top:25px;
+    }
+
+    .market-btn{
+      height:50px;
+      border:none;
+      border-radius:14px;
+      font-size:17px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .shopee{
+      background:var(--shopee);
+      color:white;
+    }
+
+    .mercado{
+      background:var(--mercado);
+      color:black;
+    }
+
+    .amazon{
+      background:var(--amazon);
+      color:white;
+    }
+
+    .tiktok{
+      background:var(--tiktok);
+      color:white;
+      border:1px solid #25F4EE;
+    }
+
+    .edit{
+      background:#C9A84C;
+      color:white;
+    }
+
+    .delete{
+      background:#d62828;
+      color:white;
+    }
+
+    .loading{
+      text-align:center;
+      color:var(--cinza);
+      font-size:18px;
+    }
+
+  </style>
 </head>
 <body>
 
-<div class="painel">
+<div class="container">
 
-<h1>FarNutri</h1>
-<p class="sub">Painel Administrativo</p>
+  <h1>FarNutri</h1>
+  <p class="subtitle">Painel Administrativo</p>
 
-<input type="text" id="name" placeholder="Nome do produto">
+  <input type="hidden" id="productId">
 
-<input type="text" id="image" placeholder="URL da imagem">
+  <input class="input" type="text" id="name" placeholder="Nome do produto">
 
-<input type="text" id="price" placeholder="Preço">
+  <input class="input" type="text" id="image" placeholder="URL da imagem">
 
-<input type="text" id="link" placeholder="Link afiliado">
+  <input class="input" type="text" id="category" placeholder="Categoria">
 
-<button class="btn" id="btn" onclick="salvarProduto()">
-Adicionar Produto
-</button>
+  <input class="input" type="text" id="shopee_link" placeholder="Link Shopee">
 
-<h2>Produtos cadastrados</h2>
+  <input class="input" type="text" id="mercadolivre_link" placeholder="Link Mercado Livre">
 
-<div id="produtos"></div>
+  <input class="input" type="text" id="amazon_link" placeholder="Link Amazon">
+
+  <input class="input" type="text" id="tiktok_link" placeholder="Link TikTok">
+
+  <button class="btn" onclick="saveProduct()">
+    Salvar Produto
+  </button>
+
+  <h2 class="section-title">Produtos cadastrados</h2>
+
+  <div class="products" id="products">
+    <p class="loading">Carregando produtos...</p>
+  </div>
 
 </div>
 
 <script>
 
-let produtoEditando = null
+let editingId = null;
 
-async function carregarProdutos(){
+async function loadProducts(){
 
-  const res = await fetch('/api/products')
+  const container = document.getElementById('products');
 
-  const produtos = await res.json()
+  try{
 
-  const container = document.getElementById('produtos')
+    const response = await fetch('/api/products');
 
-  container.innerHTML = ''
+    const products = await response.json();
 
-  produtos.forEach(produto => {
+    if(!products.length){
+      container.innerHTML = '<p class="loading">Nenhum produto cadastrado.</p>';
+      return;
+    }
 
-    container.innerHTML += `
-      <div class="produto-card">
+    container.innerHTML = '';
 
-        <img src="${produto.image}" />
+    products.forEach(product => {
 
-        <h3>${produto.name}</h3>
+      container.innerHTML += `
+      
+      <div class="card">
 
-        <p>R$ ${produto.price}</p>
+        <img src="${product.image}" />
 
-        <button
-          class="editar"
-          onclick='editarProduto(${JSON.stringify(produto)})'
-        >
-          Editar
-        </button>
+        <div class="product-name">
+          ${product.name}
+        </div>
 
-        <button
-          class="excluir"
-          onclick="deletarProduto(${produto.id})"
-        >
-          Excluir
-        </button>
+        <div class="category">
+          ${product.category || ''}
+        </div>
+
+        <div class="buttons">
+
+          ${
+            product.shopee_link
+            ?
+            `<a href="${product.shopee_link}" target="_blank">
+              <button class="market-btn shopee">
+                🛒 Shopee
+              </button>
+            </a>`
+            :
+            ''
+          }
+
+          ${
+            product.mercadolivre_link
+            ?
+            `<a href="${product.mercadolivre_link}" target="_blank">
+              <button class="market-btn mercado">
+                Mercado Livre
+              </button>
+            </a>`
+            :
+            ''
+          }
+
+          ${
+            product.amazon_link
+            ?
+            `<a href="${product.amazon_link}" target="_blank">
+              <button class="market-btn amazon">
+                Amazon
+              </button>
+            </a>`
+            :
+            ''
+          }
+
+          ${
+            product.tiktok_link
+            ?
+            `<a href="${product.tiktok_link}" target="_blank">
+              <button class="market-btn tiktok">
+                TikTok Shop
+              </button>
+            </a>`
+            :
+            ''
+          }
+
+          <button 
+            class="market-btn edit"
+            onclick='editProduct(${JSON.stringify(product)})'
+          >
+            Editar
+          </button>
+
+          <button 
+            class="market-btn delete"
+            onclick="deleteProduct(${product.id})"
+          >
+            Excluir
+          </button>
+
+        </div>
 
       </div>
-    `
 
-  })
+      `;
 
-}
+    });
 
-function editarProduto(produto){
+  }catch(error){
 
-  produtoEditando = Number(produto.id)
+    container.innerHTML = `
+      <p class="loading">
+        Erro ao carregar produtos
+      </p>
+    `;
 
-  document.getElementById('name').value = produto.name || ''
-  document.getElementById('image').value = produto.image || ''
-  document.getElementById('price').value = produto.price || ''
-  document.getElementById('link').value = produto.link || ''
-
-  document.getElementById('btn').innerText = 'Salvar Produto'
+  }
 
 }
 
-async function salvarProduto(){
+function editProduct(product){
 
-  const body = {
+  editingId = product.id;
+
+  document.getElementById('name').value = product.name || '';
+  document.getElementById('image').value = product.image || '';
+  document.getElementById('category').value = product.category || '';
+
+  document.getElementById('shopee_link').value = product.shopee_link || '';
+
+  document.getElementById('mercadolivre_link').value = product.mercadolivre_link || '';
+
+  document.getElementById('amazon_link').value = product.amazon_link || '';
+
+  document.getElementById('tiktok_link').value = product.tiktok_link || '';
+
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
+
+}
+
+async function saveProduct(){
+
+  const data = {
+
+    id: editingId,
+
     name: document.getElementById('name').value,
+
     image: document.getElementById('image').value,
-    price: document.getElementById('price').value,
-    link: document.getElementById('link').value
-  }
 
-  let url = '/api/update-products'
+    category: document.getElementById('category').value,
 
-  if(produtoEditando){
+    shopee_link: document.getElementById('shopee_link').value,
 
-    url = '/api/edit-product'
+    mercadolivre_link: document.getElementById('mercadolivre_link').value,
 
-    body.id = produtoEditando
+    amazon_link: document.getElementById('amazon_link').value,
 
-  }
+    tiktok_link: document.getElementById('tiktok_link').value
 
-  const res = await fetch(url,{
-    method:'POST',
-    headers:{
-      'Content-Type':'application/json'
-    },
-    body: JSON.stringify(body)
-  })
+  };
 
-  const data = await res.json()
+  const endpoint = editingId
+    ? '/api/edit-product'
+    : '/api/update-products';
 
-  if(data.success){
+  try{
 
-    alert('Produto salvo com sucesso')
+    const response = await fetch(endpoint,{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify(data)
+    });
 
-    produtoEditando = null
+    const result = await response.json();
 
-    document.getElementById('btn').innerText = 'Adicionar Produto'
+    if(result.success){
 
-    document.getElementById('name').value = ''
-    document.getElementById('image').value = ''
-    document.getElementById('price').value = ''
-    document.getElementById('link').value = ''
+      alert(
+        editingId
+        ? 'Produto atualizado com sucesso'
+        : 'Produto cadastrado com sucesso'
+      );
 
-    carregarProdutos()
+      clearForm();
 
-  }else{
+      loadProducts();
 
-    alert(data.error || 'Erro ao salvar produto')
+    }else{
 
-  }
+      alert('Erro ao salvar produto');
 
-}
+    }
 
-async function deletarProduto(id){
+  }catch(error){
 
-  if(!confirm('Deseja excluir este produto?')) return
-
-  const res = await fetch('/api/delete-product',{
-    method:'POST',
-    headers:{
-      'Content-Type':'application/json'
-    },
-    body: JSON.stringify({ id })
-  })
-
-  const data = await res.json()
-
-  if(data.success){
-
-    alert('Produto excluído')
-
-    carregarProdutos()
-
-  }else{
-
-    alert('Erro ao excluir')
+    alert('Erro ao salvar produto');
 
   }
 
 }
 
-carregarProdutos()
+async function deleteProduct(id){
+
+  const confirmDelete = confirm(
+    'Deseja excluir este produto?'
+  );
+
+  if(!confirmDelete) return;
+
+  try{
+
+    const response = await fetch('/api/delete-product',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({ id })
+    });
+
+    const result = await response.json();
+
+    if(result.success){
+
+      alert('Produto excluído');
+
+      loadProducts();
+
+    }else{
+
+      alert('Erro ao excluir');
+
+    }
+
+  }catch(error){
+
+    alert('Erro ao excluir');
+
+  }
+
+}
+
+function clearForm(){
+
+  editingId = null;
+
+  document.getElementById('name').value = '';
+
+  document.getElementById('image').value = '';
+
+  document.getElementById('category').value = '';
+
+  document.getElementById('shopee_link').value = '';
+
+  document.getElementById('mercadolivre_link').value = '';
+
+  document.getElementById('amazon_link').value = '';
+
+  document.getElementById('tiktok_link').value = '';
+
+}
+
+loadProducts();
 
 </script>
 
