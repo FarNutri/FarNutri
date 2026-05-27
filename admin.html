@@ -1,237 +1,397 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FarNutri Admin</title>
 
-<title>Admin FarNutri</title>
+  <style>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
 
-<style>
+    body{
+      background:#f3f3f3;
+      padding:20px;
+    }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
-}
+    .container{
+      max-width:700px;
+      margin:auto;
+      background:white;
+      padding:30px;
+      border-radius:25px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.08);
+    }
 
-body{
-    background:#f3f3f3;
-    padding:20px;
-}
+    h1{
+      color:#08a317;
+      font-size:60px;
+      text-align:center;
+      margin-bottom:10px;
+    }
 
-.container{
-    max-width:500px;
-    margin:auto;
-    background:#fff;
-    padding:25px;
-    border-radius:18px;
-    box-shadow:0 4px 20px rgba(0,0,0,0.08);
-}
+    .sub{
+      text-align:center;
+      color:#666;
+      margin-bottom:35px;
+      font-size:22px;
+    }
 
-.logo{
-    text-align:center;
-    margin-bottom:25px;
-}
+    input{
+      width:100%;
+      padding:18px;
+      border-radius:15px;
+      border:1px solid #ccc;
+      margin-bottom:18px;
+      font-size:18px;
+    }
 
-.logo h1{
-    color:#0a8f2d;
-    font-size:42px;
-}
+    button{
+      width:100%;
+      border:none;
+      padding:18px;
+      border-radius:15px;
+      background:#08a317;
+      color:white;
+      font-size:22px;
+      font-weight:bold;
+      cursor:pointer;
+      margin-top:10px;
+    }
 
-.logo p{
-    color:#666;
-    margin-top:6px;
-}
+    .titulo-produtos{
+      margin-top:50px;
+      margin-bottom:25px;
+      font-size:32px;
+      color:#08a317;
+      font-weight:bold;
+    }
 
-input{
-    width:100%;
-    padding:14px;
-    margin-bottom:14px;
-    border:1px solid #ccc;
-    border-radius:10px;
-    font-size:15px;
-}
+    .produto{
+      background:#f7f7f7;
+      border-radius:20px;
+      padding:15px;
+      margin-bottom:20px;
+      display:flex;
+      gap:15px;
+      align-items:center;
+    }
 
-button{
-    width:100%;
-    padding:16px;
-    background:#0a8f2d;
-    color:white;
-    border:none;
-    border-radius:12px;
-    font-size:17px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:.2s;
-}
+    .produto img{
+      width:90px;
+      height:90px;
+      object-fit:contain;
+      background:white;
+      border-radius:15px;
+      padding:8px;
+    }
 
-button:hover{
-    opacity:.9;
-}
+    .produto-info{
+      flex:1;
+    }
 
-.success{
-    margin-top:18px;
-    background:#dff5e4;
-    color:#14732d;
-    padding:12px;
-    border-radius:10px;
-    display:none;
-}
+    .produto-info h3{
+      font-size:18px;
+      margin-bottom:8px;
+    }
 
-.error{
-    margin-top:18px;
-    background:#ffe4e4;
-    color:#b42323;
-    padding:12px;
-    border-radius:10px;
-    display:none;
-}
+    .produto-info p{
+      color:#08a317;
+      font-size:20px;
+      font-weight:bold;
+    }
 
-</style>
+    .acoes{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
 
+    .btn-editar{
+      background:#f4a100;
+      color:white;
+      border:none;
+      padding:10px 15px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:bold;
+    }
+
+    .btn-excluir{
+      background:#d40000;
+      color:white;
+      border:none;
+      padding:10px 15px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:bold;
+    }
+
+    @media(max-width:768px){
+
+      h1{
+        font-size:40px;
+      }
+
+      .sub{
+        font-size:18px;
+      }
+
+      .produto{
+        flex-direction:column;
+        text-align:center;
+      }
+
+      .acoes{
+        width:100%;
+      }
+
+      .btn-editar,
+      .btn-excluir{
+        width:100%;
+      }
+
+    }
+
+  </style>
 </head>
+
 <body>
 
-<div class="container">
+  <div class="container">
 
-    <div class="logo">
+    <h1>FarNutri</h1>
 
-        <h1>FarNutri</h1>
-
-        <p>Painel Administrativo</p>
-
+    <div class="sub">
+      Painel Administrativo
     </div>
 
-    <input 
-        type="text" 
-        id="name" 
-        placeholder="Nome do produto"
+    <input type="hidden" id="produtoId">
+
+    <input
+      type="text"
+      id="name"
+      placeholder="Nome do produto"
     >
 
-    <input 
-        type="text" 
-        id="image" 
-        placeholder="URL da imagem"
+    <input
+      type="text"
+      id="image"
+      placeholder="URL da imagem"
     >
 
-    <input 
-        type="number" 
-        id="price" 
-        placeholder="Preço"
+    <input
+      type="text"
+      id="price"
+      placeholder="Preço"
     >
 
-    <input 
-        type="text" 
-        id="link" 
-        placeholder="Link afiliado"
+    <input
+      type="text"
+      id="link"
+      placeholder="Link afiliado"
     >
 
-    <button onclick="addProduct()">
-        Adicionar Produto
+    <button onclick="salvarProduto()">
+      Salvar Produto
     </button>
 
-    <div class="success" id="success">
-        Produto adicionado com sucesso!
+    <div class="titulo-produtos">
+      Produtos cadastrados
     </div>
 
-    <div class="error" id="error">
-        Erro ao adicionar produto.
+    <div id="listaProdutos">
+      Carregando produtos...
     </div>
 
-</div>
+  </div>
 
-<script>
+  <script>
 
-const SUPABASE_URL =
-'https://qmdpnbbwtqsaabxmumot.supabase.co';
+    async function carregarProdutos(){
 
-const SUPABASE_KEY =
-'sb_publishable_HouxuKG3CFe1ddcr5zRiSw_RZGxbp_L';
+      const response = await fetch('/api/products')
 
-const client =
-supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
+      const produtos = await response.json()
 
-async function addProduct(){
+      const lista = document.getElementById('listaProdutos')
 
-    const success =
-        document.getElementById('success');
+      lista.innerHTML = ''
 
-    const errorDiv =
-        document.getElementById('error');
+      produtos.forEach(produto => {
 
-    success.style.display = 'none';
-    errorDiv.style.display = 'none';
+        lista.innerHTML += `
 
-    const name =
-        document.getElementById('name').value;
+          <div class="produto">
 
-    const image =
-        document.getElementById('image').value;
+            <img src="${produto.image}">
 
-    const price =
-        document.getElementById('price').value;
+            <div class="produto-info">
 
-    const link =
-        document.getElementById('link').value;
+              <h3>${produto.name}</h3>
 
-    if(!name || !image || !price || !link){
+              <p>R$ ${produto.price}</p>
 
-        errorDiv.innerHTML =
-            'Preencha todos os campos';
+            </div>
 
-        errorDiv.style.display = 'block';
+            <div class="acoes">
 
-        return;
+              <button
+                class="btn-editar"
+                onclick='editarProduto(${JSON.stringify(produto)})'
+              >
+                Editar
+              </button>
+
+              <button
+                class="btn-excluir"
+                onclick='excluirProduto(${produto.id})'
+              >
+                Excluir
+              </button>
+
+            </div>
+
+          </div>
+
+        `
+
+      })
 
     }
 
-    const { error } =
-        await client
-        .from('products')
-        .insert([{
+    function editarProduto(produto){
 
-            name: name,
+      document.getElementById('produtoId').value = produto.id
 
-            image: image,
+      document.getElementById('name').value = produto.name
 
-            price: Number(price),
+      document.getElementById('image').value = produto.image
 
-            affiliate_link: link,
+      document.getElementById('price').value = produto.price
 
-            store: 'FarNutri',
+      document.getElementById('link').value = produto.link
 
-            category: 'Suplementos'
-
-        }]);
-
-    if(error){
-
-        errorDiv.innerHTML =
-            error.message;
-
-        errorDiv.style.display = 'block';
-
-        return;
+      window.scrollTo({
+        top:0,
+        behavior:'smooth'
+      })
 
     }
 
-    success.style.display = 'block';
+    async function salvarProduto(){
 
-    document.getElementById('name').value = '';
-    document.getElementById('image').value = '';
-    document.getElementById('price').value = '';
-    document.getElementById('link').value = '';
+      const id = document.getElementById('produtoId').value
 
-}
+      const produto = {
 
-</script>
+        name: document.getElementById('name').value,
+
+        image: document.getElementById('image').value,
+
+        price: document.getElementById('price').value,
+
+        link: document.getElementById('link').value
+
+      }
+
+      let url = '/api/update-products'
+
+      if(id){
+
+        produto.id = id
+
+        url = '/api/edit-product'
+
+      }
+
+      const response = await fetch(url, {
+
+        method:'POST',
+
+        headers:{
+          'Content-Type':'application/json'
+        },
+
+        body: JSON.stringify(produto)
+
+      })
+
+      const result = await response.json()
+
+      if(result.success){
+
+        alert('Produto salvo com sucesso!')
+
+        limparFormulario()
+
+        carregarProdutos()
+
+      }else{
+
+        alert('Erro ao salvar produto')
+
+      }
+
+    }
+
+    async function excluirProduto(id){
+
+      const confirmar = confirm('Deseja excluir este produto?')
+
+      if(!confirmar) return
+
+      const response = await fetch('/api/delete-product', {
+
+        method:'POST',
+
+        headers:{
+          'Content-Type':'application/json'
+        },
+
+        body: JSON.stringify({ id })
+
+      })
+
+      const result = await response.json()
+
+      if(result.success){
+
+        alert('Produto excluído!')
+
+        carregarProdutos()
+
+      }else{
+
+        alert('Erro ao excluir')
+
+      }
+
+    }
+
+    function limparFormulario(){
+
+      document.getElementById('produtoId').value = ''
+
+      document.getElementById('name').value = ''
+
+      document.getElementById('image').value = ''
+
+      document.getElementById('price').value = ''
+
+      document.getElementById('link').value = ''
+
+    }
+
+    carregarProdutos()
+
+  </script>
 
 </body>
 </html>
