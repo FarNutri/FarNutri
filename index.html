@@ -25,8 +25,6 @@
 
       --branco-natural:#F4FAF5;
 
-      --dourado:#C9A84C;
-
       --grafite-verde:#3D4D3E;
       --cinza-salvia:#8A9E8C;
 
@@ -222,6 +220,8 @@
 
     .card{
 
+      position:relative;
+
       background:white;
 
       border-radius:28px;
@@ -244,6 +244,53 @@
       box-shadow:
       0 14px 35px rgba(0,0,0,.10);
 
+    }
+
+    /* BADGES */
+
+    .badge{
+
+      position:absolute;
+
+      top:14px;
+      left:14px;
+
+      padding:7px 12px;
+
+      border-radius:999px;
+
+      font-size:12px;
+
+      font-weight:700;
+
+      color:white;
+
+      z-index:2;
+
+    }
+
+    .best{
+      background:#FF5A36;
+    }
+
+    .verified{
+      background:#2E7D3F;
+    }
+
+    .rated{
+      background:#F4B400;
+    }
+
+    .performance{
+      background:#146EB4;
+    }
+
+    .energy{
+      background:#7B2CBF;
+    }
+
+    .shipping{
+      background:#00A86B;
     }
 
     .card img{
@@ -273,6 +320,20 @@
       color:var(--verde-floresta);
 
       min-height:58px;
+
+    }
+
+    .description{
+
+      margin-top:10px;
+
+      color:var(--cinza-salvia);
+
+      font-size:14px;
+
+      line-height:1.5;
+
+      min-height:42px;
 
     }
 
@@ -350,11 +411,12 @@
     }
 
     .amazon{
+      background:#131A22;
+      color:white;
+    }
 
-  background:#131A22;
-
-  color:white;
-
+    .amazon:hover{
+      background:#232F3E;
     }
 
     .tiktok{
@@ -406,9 +468,16 @@
       gap:12px;
 
       background:
-      rgba(255,255,255,.08);
+      linear-gradient(
+        135deg,
+        #833AB4,
+        #C13584,
+        #E1306C,
+        #FD1D1D,
+        #F77737
+      );
 
-      padding:14px 20px;
+      padding:14px 22px;
 
       border-radius:18px;
 
@@ -419,6 +488,20 @@
       font-weight:700;
 
       font-size:18px;
+
+      box-shadow:
+      0 8px 20px rgba(0,0,0,.18);
+
+      transition:.2s;
+
+    }
+
+    .instagram:hover{
+
+      transform:translateY(-2px);
+
+      box-shadow:
+      0 12px 28px rgba(0,0,0,.25);
 
     }
 
@@ -473,11 +556,11 @@
     <div class="bio">
 
       <span>
-        🌿 Suplementos e saúde com os melhores preços
+        🌿 Suplementos e saúde com curadoria premium
       </span>
 
       <span>
-        💊 Produtos verificados
+        💊 Produtos verificados e selecionados
       </span>
 
       <span>
@@ -531,7 +614,43 @@
       href="https://instagram.com/farnutri.suplementos"
       target="_blank"
     >
-      📸 @farnutri.suplementos
+
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+
+        <rect
+          x="2"
+          y="2"
+          width="20"
+          height="20"
+          rx="5"
+          ry="5"
+        ></rect>
+
+        <path
+          d="M16 11.37a4 4 0 1 1-2.83-2.83"
+        ></path>
+
+        <line
+          x1="17.5"
+          y1="6.5"
+          x2="17.51"
+          y2="6.5"
+        ></line>
+
+      </svg>
+
+      @farnutri.suplementos
+
     </a>
 
     <div class="copyright">
@@ -545,6 +664,32 @@
   <script>
 
     let todosProdutos = [];
+
+    function getBadgeClass(badge){
+
+      if(!badge) return '';
+
+      if(badge.includes('Mais Vendido'))
+        return 'badge best';
+
+      if(badge.includes('Verificado'))
+        return 'badge verified';
+
+      if(badge.includes('Melhor Avaliado'))
+        return 'badge rated';
+
+      if(badge.includes('Alta Performance'))
+        return 'badge performance';
+
+      if(badge.includes('Energia Extra'))
+        return 'badge energy';
+
+      if(badge.includes('Envio Rápido'))
+        return 'badge shipping';
+
+      return 'badge';
+
+    }
 
     async function carregarProdutos(){
 
@@ -668,6 +813,18 @@
 
           <div class="card">
 
+            ${
+              produto.badge
+              ?
+              `
+              <div class="${getBadgeClass(produto.badge)}">
+                ${produto.badge}
+              </div>
+              `
+              :
+              ''
+            }
+
             <img src="${produto.image}" />
 
             <div class="product-name">
@@ -675,6 +832,20 @@
               ${produto.name}
 
             </div>
+
+            ${
+              produto.description
+              ?
+              `
+              <div class="description">
+
+                ${produto.description}
+
+              </div>
+              `
+              :
+              ''
+            }
 
             ${
               produto.category
@@ -701,7 +872,7 @@
                   target="_blank"
                   class="btn shopee"
                 >
-                  Shopee
+                  Comprar na Shopee
                 </a>
                 `
                 :
@@ -771,4 +942,5 @@
   </script>
 
 </body>
+
 </html>
