@@ -112,11 +112,15 @@ export default async function handler(req, res){
 
     })
 
-  }catch(error){
+catch(error){
 
-    return res.status(500).json({
+  console.log('ERRO UPDATE:', error)
 
-      error:error.message
+  return res.status(500).json({
+    error:error.message
+  })
+
+}
 
     })
 
