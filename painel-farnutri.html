@@ -1,871 +1,729 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
   <meta charset="UTF-8" />
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
-
-  <title>FarNutri Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel • FarNutri</title>
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
 
   <style>
-
     :root{
-
       --verde-floresta:#0D3B1A;
       --verde-logo:#1A5C2A;
       --verde-marca:#2E7D3F;
       --verde-medio:#4CAF65;
-      --verde-folha:#7DC87E;
       --verde-menta:#B8E4BC;
-
-      --branco-natural:#F4FAF5;
-
-      --grafite-verde:#3D4D3E;
-      --cinza-salvia:#8A9E8C;
-
-      --shopee:#EE4D2D;
-      --mercado:#FFE600;
-      --amazon:#131A22;
-      --tiktok:#000000;
-
+      --branco:#F4FAF5;
+      --grafite:#3D4D3E;
+      --cinza:#8A9E8C;
+      --card:#FFFFFF;
+      --danger:#E53935;
     }
 
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial,sans-serif;
-    }
+    *{ margin:0; padding:0; box-sizing:border-box; font-family:'Nunito',sans-serif; }
 
-    body{
+    body{ background:var(--branco); color:var(--grafite); padding:20px 16px 60px; }
 
-      background:var(--branco-natural);
-
-      padding:25px;
-
-      color:var(--grafite-verde);
-
-    }
-
-    .container{
-
-      max-width:760px;
-
-      margin:auto;
-
-      background:white;
-
-      border-radius:30px;
-
-      padding:35px;
-
-      box-shadow:
-      0 10px 30px rgba(0,0,0,.08);
-
-    }
-
-    h1{
-
-      text-align:center;
-
-      color:var(--verde-logo);
-
-      font-size:58px;
-
-      font-weight:900;
-
-    }
-
-    .subtitle{
-
-      text-align:center;
-
-      color:var(--cinza-salvia);
-
-      margin-top:8px;
-
-      margin-bottom:35px;
-
-      font-size:20px;
-
-    }
-
-    .input{
-
-      width:100%;
-
-      height:62px;
-
-      border-radius:18px;
-
-      border:2px solid #E7ECE8;
-
-      padding:0 18px;
-
-      margin-bottom:18px;
-
-      font-size:16px;
-
-      outline:none;
-
-      transition:.2s;
-
-      background:white;
-
-    }
-
-    .input:focus{
-
-      border-color:
-      var(--verde-medio);
-
-    }
-
-    textarea.input{
-
-      height:110px;
-
-      padding:18px;
-
-      resize:none;
-
-    }
-
-    select.input{
-
-      appearance:none;
-
-      cursor:pointer;
-
-    }
-
-    .btn{
-
-      width:100%;
-
-      height:65px;
-
-      border:none;
-
-      border-radius:18px;
-
-      background:
-      linear-gradient(
-        135deg,
-        var(--verde-logo),
-        var(--verde-marca)
-      );
-
+    /* ── HERO ── */
+    .hero{
+      background:linear-gradient(135deg,var(--verde-logo),var(--verde-marca));
+      padding:20px;
+      border-radius:22px;
       color:white;
-
-      font-size:20px;
-
-      font-weight:700;
-
-      cursor:pointer;
-
-      transition:.2s;
-
-      margin-top:10px;
-
-    }
-
-    .btn:hover{
-
-      transform:scale(1.01);
-
-    }
-
-    .section-title{
-
-      margin-top:55px;
-
-      margin-bottom:25px;
-
-      font-size:38px;
-
-      color:var(--verde-logo);
-
-      font-weight:800;
-
-    }
-
-    .products{
-
+      box-shadow:0 10px 30px rgba(0,0,0,.12);
       display:flex;
-
-      flex-direction:column;
-
-      gap:22px;
-
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:16px;
     }
-
-    .card{
-
-      position:relative;
-
-      background:white;
-
-      border-radius:28px;
-
-      padding:22px;
-
-      border:1px solid #E8F1EA;
-
-      box-shadow:
-      0 8px 22px rgba(0,0,0,.06);
-
-    }
-
-    /* BADGES */
-
-    .badge{
-
-      position:absolute;
-
-      top:15px;
-      left:15px;
-
-      padding:8px 12px;
-
-      border-radius:999px;
-
-      font-size:12px;
-
-      font-weight:700;
-
-      color:white;
-
-      z-index:2;
-
-    }
-
-    .best{
-      background:#FF5A36;
-    }
-
-    .verified{
-      background:#2E7D3F;
-    }
-
-    .rated{
-      background:#F4B400;
-    }
-
-    .performance{
-      background:#146EB4;
-    }
-
-    .energy{
-      background:#7B2CBF;
-    }
-
-    .shipping{
-      background:#00A86B;
-    }
-
-    .card img{
-
-      width:140px;
-      height:140px;
-
-      object-fit:contain;
-
-      display:block;
-
-      margin:auto;
-
-      background:var(--branco-natural);
-
-      border-radius:18px;
-
-      padding:10px;
-
-    }
-
-    .product-name{
-
-      margin-top:18px;
-
-      font-size:26px;
-
-      font-weight:800;
-
-      text-align:center;
-
-      color:var(--verde-floresta);
-
-    }
-
-    .description{
-
-      margin-top:10px;
-
-      text-align:center;
-
-      color:var(--cinza-salvia);
-
-      font-size:14px;
-
-      line-height:1.5;
-
-    }
-
-    .category{
-
-      margin-top:12px;
-
-      display:inline-block;
-
-      background:var(--verde-menta);
-
-      color:var(--verde-logo);
-
-      padding:6px 14px;
-
-      border-radius:999px;
-
-      font-size:13px;
-
-      font-weight:700;
-
-    }
-
-    .category-wrap{
-      text-align:center;
-    }
-
-    .buttons{
-
-      margin-top:20px;
-
-      display:flex;
-
-      flex-direction:column;
-
-      gap:10px;
-
-    }
-
-    .market-btn{
-
-      border:none;
-
-      height:48px;
-
+    .hero-left{ display:flex; align-items:center; gap:12px; }
+    .hero-icon{
+      width:46px; height:46px;
+      background:rgba(255,255,255,.15);
       border-radius:14px;
-
-      font-size:15px;
-
-      font-weight:700;
-
+      display:flex; align-items:center; justify-content:center;
+      font-size:22px; flex-shrink:0;
+    }
+    .hero h1{ font-size:22px; font-weight:900; line-height:1.1; }
+    .hero p{ font-size:13px; opacity:.85; margin-top:2px; }
+    .logout-btn{
+      border:none;
+      background:rgba(255,255,255,.15);
+      color:white;
+      padding:10px 14px;
+      border-radius:12px;
+      font-size:13px;
+      font-weight:800;
       cursor:pointer;
+      white-space:nowrap;
+      transition:.2s;
+    }
+    .logout-btn:hover{ background:rgba(255,255,255,.25); }
 
+    /* ── FORM CARD ── */
+    .form-card{
+      background:var(--card);
+      border-radius:20px;
+      padding:18px;
+      box-shadow:0 6px 20px rgba(0,0,0,.06);
+      margin-bottom:28px;
+    }
+    .form-title{ font-size:18px; font-weight:900; color:var(--verde-logo); margin-bottom:16px; }
+
+    /* ── PREVIEW ── */
+    .preview-box{
       width:100%;
+      height:130px;
+      background:#F2F7F3;
+      border-radius:14px;
+      border:2px dashed #C8E6CB;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:14px;
+      transition:border-color .3s;
+    }
+    .preview-box.loaded{ border-style:solid; border-color:var(--verde-menta); }
+    .preview-box.error { border-color:#FFCDD2; }
+    .preview-empty{
+      display:flex; flex-direction:column; align-items:center;
+      gap:6px; color:var(--cinza); font-size:13px; font-weight:700;
+    }
+    .preview-empty span{ font-size:28px; }
+    #preview{ width:100%; height:100%; object-fit:contain; display:none; }
 
+    /* ── FIELDS ── */
+    .field{ margin-bottom:12px; }
+    .field label{ display:block; margin-bottom:5px; font-size:12px; font-weight:800; color:var(--grafite); letter-spacing:.2px; }
+    .field input,
+    .field textarea,
+    .field select{
+      width:100%;
+      border:1.5px solid #E2EEE5;
+      outline:none;
+      background:#F7FBF8;
+      border-radius:12px;
+      padding:12px 13px;
+      font-size:13px;
+      font-family:'Nunito',sans-serif;
+      color:var(--grafite);
+      transition:.2s;
+    }
+    .field textarea{ resize:none; min-height:72px; }
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus{
+      border-color:var(--verde-medio);
+      box-shadow:0 0 0 3px rgba(76,175,101,.12);
+    }
+    .fields-row{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+
+    .submit-btn{
+      width:100%; border:none;
+      background:linear-gradient(135deg,var(--verde-logo),var(--verde-marca));
+      color:white; padding:14px;
+      border-radius:14px; font-size:14px; font-weight:900;
+      font-family:'Nunito',sans-serif;
+      cursor:pointer; transition:.2s; letter-spacing:.2px;
+      box-shadow:0 6px 18px rgba(46,125,63,.2);
+    }
+    .submit-btn:hover{ transform:translateY(-1px); }
+    .submit-btn:active{ transform:scale(.98); }
+    .submit-btn:disabled{ opacity:.6; cursor:not-allowed; transform:none; }
+
+    .status{
+      margin-top:12px; padding:11px; border-radius:10px;
+      font-size:13px; font-weight:700; display:none; text-align:center;
+    }
+    .success{ background:#DDF5E3; color:#1B5E20; }
+    .error  { background:#FFE1E1; color:#B71C1C; }
+
+    /* ── HEADER PRODUTOS ── */
+    .products-header{
+      display:flex; align-items:center;
+      justify-content:space-between;
+      margin-bottom:14px; gap:10px; flex-wrap:wrap;
+    }
+    .products-title{ font-size:20px; font-weight:900; color:var(--verde-logo); }
+    .products-count{
+      background:var(--verde-menta); color:var(--verde-logo);
+      font-size:12px; font-weight:800; padding:4px 12px; border-radius:99px;
     }
 
-    .shopee{
-      background:var(--shopee);
-      color:white;
+    /* ── BUSCA ── */
+    .search-box{ position:relative; margin-bottom:12px; }
+    .search-icon{ position:absolute; left:14px; top:50%; transform:translateY(-50%); font-size:16px; opacity:.5; }
+    .search-input{
+      width:100%; border:1.5px solid #E2EEE5; outline:none;
+      background:white; border-radius:14px;
+      padding:12px 14px 12px 42px;
+      font-size:13px; font-family:'Nunito',sans-serif;
+      box-shadow:0 3px 10px rgba(0,0,0,.04);
+      transition:border-color .2s;
+    }
+    .search-input:focus{ border-color:var(--verde-medio); }
+
+    /* ── CATEGORIAS ── */
+    .categories{
+      display:flex; gap:8px; overflow-x:auto;
+      padding-bottom:6px; margin-bottom:14px; scrollbar-width:none;
+    }
+    .categories::-webkit-scrollbar{ display:none; }
+    .categories button{
+      border:none; background:white; color:var(--verde-logo);
+      padding:8px 14px; border-radius:99px; font-size:12px;
+      font-weight:800; font-family:'Nunito',sans-serif;
+      cursor:pointer; white-space:nowrap;
+      box-shadow:0 3px 8px rgba(0,0,0,.06); transition:.2s;
+    }
+    .categories button.active{ background:var(--verde-logo); color:white; }
+
+    /* ── GRID ── */
+    .products-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+
+    /* ── CARD ── */
+    .product-card{
+      background:white; border-radius:18px; overflow:hidden;
+      box-shadow:0 4px 14px rgba(0,0,0,.07);
+      display:flex; flex-direction:column;
+      border:1px solid rgba(0,0,0,.04);
+    }
+    .product-image{
+      background:#F2F7F3; padding:12px;
+      position:relative; display:flex;
+      align-items:center; justify-content:center;
+    }
+    .product-image img{ width:100%; height:100px; object-fit:contain; display:block; }
+    .badge{
+      position:absolute; top:8px; left:8px;
+      background:#FF5A36; color:white;
+      padding:3px 8px; border-radius:99px;
+      font-size:9px; font-weight:800;
+    }
+    .product-content{ padding:10px; display:flex; flex-direction:column; flex:1; }
+    .category{
+      display:inline-block; background:var(--verde-menta); color:var(--verde-logo);
+      padding:2px 8px; border-radius:99px; font-size:10px; font-weight:800;
+      margin-bottom:5px; width:max-content;
+    }
+    .product-name{ font-size:12px; font-weight:900; line-height:1.25; color:var(--verde-floresta); }
+    .product-description{
+      margin-top:4px; font-size:10px; color:var(--cinza); line-height:1.4;
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+    }
+    .actions{ margin-top:auto; padding-top:8px; display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+    .edit-btn, .delete-btn{
+      border:none; padding:9px 4px; border-radius:10px;
+      font-size:11px; font-weight:800; font-family:'Nunito',sans-serif;
+      cursor:pointer; text-align:center; transition:.2s;
+    }
+    .edit-btn{ background:var(--verde-logo); color:white; }
+    .delete-btn{ background:#FFF0F0; color:var(--danger); border:1px solid #FFCDD2; }
+    .edit-btn:hover{ background:var(--verde-floresta); }
+    .delete-btn:hover{ background:#FFEBEE; }
+    .edit-btn:active, .delete-btn:active{ transform:scale(.97); }
+
+    /* ── EMPTY ── */
+    .empty-state{
+      grid-column:1/-1; text-align:center;
+      padding:40px 20px; color:var(--cinza);
+    }
+    .empty-state span{ font-size:36px; display:block; margin-bottom:8px; }
+    .empty-state p{ font-size:13px; font-weight:700; }
+
+    /* ════════════════════════════════
+       MODAL DE EDIÇÃO
+    ════════════════════════════════ */
+    .modal-overlay{
+      position:fixed; inset:0;
+      background:rgba(0,0,0,.5);
+      backdrop-filter:blur(4px);
+      z-index:100;
+      display:flex; align-items:flex-end; justify-content:center;
+      opacity:0; pointer-events:none;
+      transition:opacity .3s;
+    }
+    .modal-overlay.open{ opacity:1; pointer-events:auto; }
+
+    .modal{
+      background:white;
+      width:100%; max-width:520px;
+      border-radius:28px 28px 0 0;
+      padding:24px 20px 36px;
+      max-height:90vh;
+      overflow-y:auto;
+      transform:translateY(100%);
+      transition:transform .35s cubic-bezier(.22,1,.36,1);
+    }
+    .modal-overlay.open .modal{ transform:translateY(0); }
+
+    .modal-handle{
+      width:40px; height:4px;
+      background:#E0E0E0; border-radius:2px;
+      margin:0 auto 20px;
     }
 
-    .mercado{
-      background:var(--mercado);
-      color:black;
+    .modal-header{
+      display:flex; align-items:center;
+      justify-content:space-between;
+      margin-bottom:18px;
     }
-
-    .amazon{
-      background:var(--amazon);
-      color:white;
+    .modal-title{ font-size:18px; font-weight:900; color:var(--verde-logo); }
+    .modal-close{
+      width:36px; height:36px; border-radius:50%;
+      border:none; background:#F5F5F5; cursor:pointer;
+      font-size:18px; display:flex; align-items:center; justify-content:center;
+      transition:.2s;
     }
+    .modal-close:hover{ background:#FFEBEE; }
 
-    .tiktok{
-      background:var(--tiktok);
-      color:white;
-      border:1px solid #25F4EE;
+    /* Preview do modal */
+    .modal-preview-box{
+      width:100%; height:110px;
+      background:#F2F7F3; border-radius:12px;
+      border:2px dashed #C8E6CB;
+      overflow:hidden; display:flex;
+      align-items:center; justify-content:center;
+      margin-bottom:12px; transition:border-color .3s;
     }
-
-    .edit{
-      background:#C9A84C;
-      color:white;
+    .modal-preview-box.loaded{ border-style:solid; border-color:var(--verde-menta); }
+    #modalPreview{ width:100%; height:100%; object-fit:contain; display:none; }
+    .modal-preview-empty{
+      display:flex; flex-direction:column; align-items:center;
+      gap:4px; color:var(--cinza); font-size:12px; font-weight:700;
     }
+    .modal-preview-empty span{ font-size:24px; }
 
-    .delete{
-      background:#d62828;
-      color:white;
+    .save-btn{
+      width:100%; border:none;
+      background:linear-gradient(135deg,var(--verde-logo),var(--verde-marca));
+      color:white; padding:14px;
+      border-radius:14px; font-size:14px; font-weight:900;
+      font-family:'Nunito',sans-serif;
+      cursor:pointer; transition:.2s;
+      box-shadow:0 6px 18px rgba(46,125,63,.2);
+      margin-top:4px;
     }
-
+    .save-btn:hover{ transform:translateY(-1px); }
+    .save-btn:active{ transform:scale(.98); }
+    .save-btn:disabled{ opacity:.6; cursor:not-allowed; transform:none; }
   </style>
-
 </head>
 
 <body>
 
-  <div class="container">
+  <!-- AUTH CHECK -->
+  <script>
+    (function(){
+      const auth = localStorage.getItem('adminAuth');
+      if(!auth || typeof auth !== 'string' || !auth.startsWith('fn_')){
+        window.location.href = '/entrar-farnutri.html';
+      }
+    })();
+  </script>
 
-    <h1>FarNutri</h1>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-icon">⚙️</div>
+      <div>
+        <h1>Painel FarNutri</h1>
+        <p>Gerencie seus produtos</p>
+      </div>
+    </div>
+    <button class="logout-btn" onclick="logout()">Sair</button>
+  </section>
 
-    <p class="subtitle">
+  <!-- FORM NOVO PRODUTO -->
+  <section class="form-card">
+    <h2 class="form-title">➕ Novo Produto</h2>
 
-      Painel Administrativo
+    <form id="productForm">
 
-    </p>
+      <!-- PREVIEW -->
+      <div class="preview-box" id="previewBox">
+        <div class="preview-empty" id="previewEmpty">
+          <span>🖼️</span>
+          Preview da imagem
+        </div>
+        <img id="preview" src="" alt="preview" />
+      </div>
 
-    <input
-      type="hidden"
-      id="productId"
-    />
+      <div class="fields-row">
+        <div class="field">
+          <label>Nome</label>
+          <input type="text" id="name" placeholder="Ex: Creatina Dux" required />
+        </div>
+        <div class="field">
+          <label>Categoria</label>
+          <input type="text" id="category" placeholder="Ex: Creatina" />
+        </div>
+      </div>
 
-    <input
-      class="input"
-      type="text"
-      id="name"
-      placeholder="Nome do produto"
-    />
+      <div class="field">
+        <label>URL da imagem</label>
+        <input type="url" id="image" placeholder="https://..." required oninput="prevImg(this.value)" />
+      </div>
 
-    <textarea
-      class="input"
-      id="description"
-      placeholder="Descrição curta"
-    ></textarea>
+      <div class="field">
+        <label>Descrição <span style="color:var(--cinza);font-weight:600">(opcional)</span></label>
+        <textarea id="description" placeholder="Descrição curta..."></textarea>
+      </div>
 
-    <!-- BADGE SELECT -->
+      <div class="field">
+        <label>Badge</label>
+        <select id="badge">
+          <option value="">Nenhum</option>
+          <option>🔥 Mais Vendido</option>
+          <option>✅ Verificado</option>
+          <option>⭐ Melhor Avaliado</option>
+          <option>💪 Alta Performance</option>
+          <option>⚡ Energia Extra</option>
+          <option>🚀 Envio Rápido</option>
+        </select>
+      </div>
 
-    <select
-      class="input"
-      id="badge"
-    >
+      <div class="fields-row">
+        <div class="field"><label>🛍️ Shopee</label><input type="url" id="shopee_link" placeholder="https://..." /></div>
+        <div class="field"><label>🛒 Mercado Livre</label><input type="url" id="mercadolivre_link" placeholder="https://..." /></div>
+      </div>
+      <div class="fields-row">
+        <div class="field"><label>📦 Amazon</label><input type="url" id="amazon_link" placeholder="https://..." /></div>
+        <div class="field"><label>🎵 TikTok</label><input type="url" id="tiktok_link" placeholder="https://..." /></div>
+      </div>
 
-      <option value="">
-        Sem badge
-      </option>
+      <button type="submit" class="submit-btn" id="submitBtn">Cadastrar Produto</button>
+      <div id="status" class="status"></div>
+    </form>
+  </section>
 
-      <option value="🔥 Mais Vendido">
-        🔥 Mais Vendido
-      </option>
+  <!-- PRODUTOS -->
+  <div class="products-header">
+    <h2 class="products-title">Produtos</h2>
+    <span id="productsCount" class="products-count">0 produtos</span>
+  </div>
 
-      <option value="✅ Verificado">
-        ✅ Verificado
-      </option>
+  <div class="search-box">
+    <span class="search-icon">🔍</span>
+    <input type="text" class="search-input" id="searchInput" placeholder="Buscar produto..." oninput="buscarProdutos()" />
+  </div>
 
-      <option value="⭐ Melhor Avaliado">
-        ⭐ Melhor Avaliado
-      </option>
+  <div id="categories" class="categories"></div>
+  <div id="productsGrid" class="products-grid"></div>
 
-      <option value="💪 Alta Performance">
-        💪 Alta Performance
-      </option>
+  <!-- ════ MODAL DE EDIÇÃO ════ -->
+  <div class="modal-overlay" id="modalOverlay" onclick="fecharModalClick(event)">
+    <div class="modal" id="modal">
+      <div class="modal-handle"></div>
+      <div class="modal-header">
+        <h2 class="modal-title">✏️ Editar Produto</h2>
+        <button class="modal-close" onclick="fecharModal()">✕</button>
+      </div>
 
-      <option value="⚡ Energia Extra">
-        ⚡ Energia Extra
-      </option>
+      <input type="hidden" id="editId" />
 
-      <option value="🚀 Envio Rápido">
-        🚀 Envio Rápido
-      </option>
+      <!-- PREVIEW MODAL -->
+      <div class="modal-preview-box" id="modalPreviewBox">
+        <div class="modal-preview-empty" id="modalPreviewEmpty">
+          <span>🖼️</span>
+          Preview
+        </div>
+        <img id="modalPreview" src="" alt="preview" />
+      </div>
 
-    </select>
+      <div class="fields-row">
+        <div class="field"><label>Nome</label><input type="text" id="editName" required /></div>
+        <div class="field"><label>Categoria</label><input type="text" id="editCategory" /></div>
+      </div>
+      <div class="field">
+        <label>URL da imagem</label>
+        <input type="url" id="editImage" placeholder="https://..." oninput="prevImgModal(this.value)" />
+      </div>
+      <div class="field">
+        <label>Descrição</label>
+        <textarea id="editDescription"></textarea>
+      </div>
+      <div class="field">
+        <label>Badge</label>
+        <select id="editBadge">
+          <option value="">Nenhum</option>
+          <option>🔥 Mais Vendido</option>
+          <option>✅ Verificado</option>
+          <option>⭐ Melhor Avaliado</option>
+          <option>💪 Alta Performance</option>
+          <option>⚡ Energia Extra</option>
+          <option>🚀 Envio Rápido</option>
+        </select>
+      </div>
+      <div class="fields-row">
+        <div class="field"><label>🛍️ Shopee</label><input type="url" id="editShopee" /></div>
+        <div class="field"><label>🛒 Mercado Livre</label><input type="url" id="editML" /></div>
+      </div>
+      <div class="fields-row">
+        <div class="field"><label>📦 Amazon</label><input type="url" id="editAmazon" /></div>
+        <div class="field"><label>🎵 TikTok</label><input type="url" id="editTiktok" /></div>
+      </div>
 
-    <input
-      class="input"
-      type="text"
-      id="image"
-      placeholder="URL da imagem"
-    />
-
-    <input
-      class="input"
-      type="text"
-      id="category"
-      placeholder="Categoria"
-    />
-
-    <input
-      class="input"
-      type="text"
-      id="shopee_link"
-      placeholder="Link Shopee"
-    />
-
-    <input
-      class="input"
-      type="text"
-      id="mercadolivre_link"
-      placeholder="Link Mercado Livre"
-    />
-
-    <input
-      class="input"
-      type="text"
-      id="amazon_link"
-      placeholder="Link Amazon"
-    />
-
-    <input
-      class="input"
-      type="text"
-      id="tiktok_link"
-      placeholder="Link TikTok"
-    />
-
-    <button
-      class="btn"
-      onclick="saveProduct()"
-    >
-      Salvar Produto
-    </button>
-
-    <h2 class="section-title">
-
-      Produtos cadastrados
-
-    </h2>
-
-    <div
-      class="products"
-      id="products"
-    ></div>
-
+      <button class="save-btn" id="saveBtn" onclick="salvarEdicao()">Salvar Alterações</button>
+      <div id="editStatus" class="status"></div>
+    </div>
   </div>
 
   <script>
 
-    let editingId = null;
-
-    function getBadgeClass(badge){
-
-      if(!badge) return '';
-
-      if(badge.includes('Mais Vendido'))
-        return 'badge best';
-
-      if(badge.includes('Verificado'))
-        return 'badge verified';
-
-      if(badge.includes('Melhor Avaliado'))
-        return 'badge rated';
-
-      if(badge.includes('Alta Performance'))
-        return 'badge performance';
-
-      if(badge.includes('Energia Extra'))
-        return 'badge energy';
-
-      if(badge.includes('Envio Rápido'))
-        return 'badge shipping';
-
-      return 'badge';
-
+    /* ── TOKEN ── */
+    function logout(){
+      localStorage.removeItem('adminAuth');
+      window.location.href = '/entrar-farnutri.html';
     }
 
-    async function loadProducts(){
-
-      const container =
-      document.getElementById('products');
-
-      try{
-
-        const response =
-        await fetch('/api/products');
-
-        const products =
-        await response.json();
-
-        container.innerHTML = '';
-
-        products.forEach(product => {
-
-          container.innerHTML += `
-
-            <div class="card">
-
-              ${
-                product.badge
-                ?
-                `
-                <div class="${getBadgeClass(product.badge)}">
-                  ${product.badge}
-                </div>
-                `
-                :
-                ''
-              }
-
-              <img src="${product.image}" />
-
-              <div class="product-name">
-
-                ${product.name}
-
-              </div>
-
-              ${
-                product.description
-                ?
-                `
-                <div class="description">
-
-                  ${product.description}
-
-                </div>
-                `
-                :
-                ''
-              }
-
-              ${
-                product.category
-                ?
-                `
-                <div class="category-wrap">
-
-                  <div class="category">
-
-                    ${product.category}
-
-                  </div>
-
-                </div>
-                `
-                :
-                ''
-              }
-
-              <div class="buttons">
-
-                <button
-                  class="market-btn edit"
-                  onclick='editProduct(${JSON.stringify(product)})'
-                >
-                  Editar
-                </button>
-
-                <button
-                  class="market-btn delete"
-                  onclick="deleteProduct(${product.id})"
-                >
-                  Excluir
-                </button>
-
-              </div>
-
-            </div>
-
-          `;
-
-        });
-
-      }catch(error){
-
-        container.innerHTML =
-        'Erro ao carregar produtos';
-
+    /* ── PREVIEW NOVO ── */
+    function prevImg(url){
+      const img   = document.getElementById('preview');
+      const empty = document.getElementById('previewEmpty');
+      const box   = document.getElementById('previewBox');
+      if(url && url.startsWith('http')){
+        img.src = url;
+        img.style.display = 'block';
+        empty.style.display = 'none';
+        box.className = 'preview-box loaded';
+        img.onerror = () => {
+          img.style.display = 'none';
+          empty.style.display = 'flex';
+          box.className = 'preview-box error';
+        };
+      } else {
+        img.style.display = 'none';
+        empty.style.display = 'flex';
+        box.className = 'preview-box';
       }
-
     }
 
-    function editProduct(product){
+    /* ── PREVIEW MODAL ── */
+    function prevImgModal(url){
+      const img   = document.getElementById('modalPreview');
+      const empty = document.getElementById('modalPreviewEmpty');
+      const box   = document.getElementById('modalPreviewBox');
+      if(url && url.startsWith('http')){
+        img.src = url;
+        img.style.display = 'block';
+        empty.style.display = 'none';
+        box.className = 'modal-preview-box loaded';
+        img.onerror = () => {
+          img.style.display = 'none';
+          empty.style.display = 'flex';
+          box.className = 'modal-preview-box';
+        };
+      } else {
+        img.style.display = 'none';
+        empty.style.display = 'flex';
+        box.className = 'modal-preview-box';
+      }
+    }
 
-      editingId = product.id;
+    /* ── CARREGAR ── */
+    let todosProdutos = [];
 
-      document.getElementById('name').value =
-      product.name || '';
+    async function carregarProdutos(){
+      try{
+        const res = await fetch('/api/products');
+        todosProdutos = await res.json();
+        criarCategorias();
+        renderizarProdutos(todosProdutos);
+      }catch(e){
+        document.getElementById('productsGrid').innerHTML =
+          '<div class="empty-state"><span>⚠️</span><p>Erro ao carregar.</p></div>';
+      }
+    }
 
-      document.getElementById('description').value =
-      product.description || '';
-
-      document.getElementById('badge').value =
-      product.badge || '';
-
-      document.getElementById('image').value =
-      product.image || '';
-
-      document.getElementById('category').value =
-      product.category || '';
-
-      document.getElementById('shopee_link').value =
-      product.shopee_link || '';
-
-      document.getElementById('mercadolivre_link').value =
-      product.mercadolivre_link || '';
-
-      document.getElementById('amazon_link').value =
-      product.amazon_link || '';
-
-      document.getElementById('tiktok_link').value =
-      product.tiktok_link || '';
-
-      window.scrollTo({
-        top:0,
-        behavior:'smooth'
+    function criarCategorias(){
+      const container = document.getElementById('categories');
+      const cats = ['Todos',...new Set(todosProdutos.map(p=>p.category).filter(Boolean))];
+      container.innerHTML = '';
+      cats.forEach((cat,i) => {
+        container.innerHTML += `
+          <button class="${i===0?'active':''}" onclick="filtrarCategoria('${cat}',this)">
+            ${cat}
+          </button>`;
       });
-
     }
 
-    async function saveProduct(){
+    function filtrarCategoria(cat, btn){
+      document.querySelectorAll('.categories button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const lista = cat==='Todos' ? todosProdutos : todosProdutos.filter(p=>p.category===cat);
+      renderizarProdutos(lista);
+    }
+
+    function buscarProdutos(){
+      const val = document.getElementById('searchInput').value.toLowerCase();
+      const catAtiva = document.querySelector('.categories button.active');
+      const cat = catAtiva ? catAtiva.textContent.trim() : 'Todos';
+      const base = cat==='Todos' ? todosProdutos : todosProdutos.filter(p=>p.category===cat);
+      renderizarProdutos(base.filter(p=>p.name.toLowerCase().includes(val)));
+    }
+
+    function renderizarProdutos(produtos){
+      document.getElementById('productsCount').textContent =
+        `${produtos.length} produto${produtos.length!==1?'s':''}`;
+      const grid = document.getElementById('productsGrid');
+      grid.innerHTML = '';
+      if(!produtos.length){
+        grid.innerHTML = '<div class="empty-state"><span>🌱</span><p>Nenhum produto encontrado.</p></div>';
+        return;
+      }
+      produtos.forEach(p => {
+        grid.innerHTML += `
+          <div class="product-card">
+            <div class="product-image">
+              ${p.badge?`<div class="badge">${p.badge}</div>`:''}
+              <img src="${p.image}" alt="${p.name}" />
+            </div>
+            <div class="product-content">
+              ${p.category?`<div class="category">${p.category}</div>`:''}
+              <div class="product-name">${p.name}</div>
+              ${p.description?`<div class="product-description">${p.description}</div>`:''}
+              <div class="actions">
+                <button class="edit-btn" onclick='abrirModal(${JSON.stringify(p)})'>✏️ Editar</button>
+                <button class="delete-btn" onclick="deletarProduto('${p.id}')">🗑️ Excluir</button>
+              </div>
+            </div>
+          </div>`;
+      });
+    }
+
+    /* ── MODAL ── */
+    function abrirModal(p){
+      document.getElementById('editId').value          = p.id;
+      document.getElementById('editName').value        = p.name || '';
+      document.getElementById('editCategory').value    = p.category || '';
+      document.getElementById('editImage').value       = p.image || '';
+      document.getElementById('editDescription').value = p.description || '';
+      document.getElementById('editBadge').value       = p.badge || '';
+      document.getElementById('editShopee').value      = p.shopee_link || '';
+      document.getElementById('editML').value          = p.mercadolivre_link || '';
+      document.getElementById('editAmazon').value      = p.amazon_link || '';
+      document.getElementById('editTiktok').value      = p.tiktok_link || '';
+      prevImgModal(p.image || '');
+      document.getElementById('editStatus').style.display = 'none';
+      document.getElementById('modalOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function fecharModal(){
+      document.getElementById('modalOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function fecharModalClick(e){
+      if(e.target === document.getElementById('modalOverlay')) fecharModal();
+    }
+
+    async function salvarEdicao(){
+      const btn    = document.getElementById('saveBtn');
+      const status = document.getElementById('editStatus');
+      btn.textContent = 'Salvando...';
+      btn.disabled = true;
 
       const data = {
-
-        id: editingId,
-
-        name:
-        document.getElementById('name').value,
-
-        description:
-        document.getElementById('description').value,
-
-        badge:
-        document.getElementById('badge').value,
-
-        image:
-        document.getElementById('image').value,
-
-        category:
-        document.getElementById('category').value,
-
-        shopee_link:
-        document.getElementById('shopee_link').value,
-
-        mercadolivre_link:
-        document.getElementById('mercadolivre_link').value,
-
-        amazon_link:
-        document.getElementById('amazon_link').value,
-
-        tiktok_link:
-        document.getElementById('tiktok_link').value
-
+        id:                document.getElementById('editId').value,
+        name:              document.getElementById('editName').value,
+        image:             document.getElementById('editImage').value,
+        description:       document.getElementById('editDescription').value,
+        category:          document.getElementById('editCategory').value,
+        badge:             document.getElementById('editBadge').value,
+        shopee_link:       document.getElementById('editShopee').value,
+        mercadolivre_link: document.getElementById('editML').value,
+        amazon_link:       document.getElementById('editAmazon').value,
+        tiktok_link:       document.getElementById('editTiktok').value,
       };
 
-      const endpoint = editingId
-      ?
-      '/api/edit-product'
-      :
-      '/api/update-products';
-
       try{
-
-        const response = await fetch(endpoint,{
-
+        const res = await fetch('/api/update-products',{
           method:'POST',
-
-          headers:{
-            'Content-Type':'application/json'
-          },
-
+          headers:{'Content-Type':'application/json'},
           body:JSON.stringify(data)
-
         });
-
-        const result =
-        await response.json();
-
-        if(result.success){
-
-          alert(
-            editingId
-            ?
-            'Produto atualizado'
-            :
-            'Produto cadastrado'
-          );
-
-          clearForm();
-
-          loadProducts();
-
-        }else{
-
-          alert('Erro ao salvar');
-
-        }
-
-      }catch(error){
-
-        alert('Erro ao salvar');
-
+        if(res.ok){
+          status.style.display = 'block';
+          status.className = 'status success';
+          status.textContent = '✅ Produto salvo!';
+          carregarProdutos();
+          setTimeout(fecharModal, 1200);
+        } else { throw new Error(); }
+      }catch(e){
+        status.style.display = 'block';
+        status.className = 'status error';
+        status.textContent = '❌ Erro ao salvar.';
+      }finally{
+        btn.textContent = 'Salvar Alterações';
+        btn.disabled = false;
       }
-
     }
 
-    async function deleteProduct(id){
+    /* ── DELETAR ── */
+    async function deletarProduto(id){
+      if(!confirm('Excluir este produto?')) return;
+      try{
+        await fetch('/api/delete-product',{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({id})
+        });
+        carregarProdutos();
+      }catch(e){ alert('Erro ao excluir.'); }
+    }
 
-      if(!confirm(
-        'Deseja excluir este produto?'
-      )) return;
+    /* ── CADASTRAR ── */
+    document.getElementById('productForm').addEventListener('submit', async(e)=>{
+      e.preventDefault();
+      const btn    = document.getElementById('submitBtn');
+      const status = document.getElementById('status');
+      btn.textContent = 'Salvando...';
+      btn.disabled = true;
+
+      const data = {
+        name:              document.getElementById('name').value,
+        image:             document.getElementById('image').value,
+        description:       document.getElementById('description').value,
+        category:          document.getElementById('category').value,
+        badge:             document.getElementById('badge').value,
+        shopee_link:       document.getElementById('shopee_link').value,
+        mercadolivre_link: document.getElementById('mercadolivre_link').value,
+        amazon_link:       document.getElementById('amazon_link').value,
+        tiktok_link:       document.getElementById('tiktok_link').value,
+      };
 
       try{
-
-        const response =
-        await fetch('/api/delete-product',{
-
+        const res = await fetch('/api/update-products',{
           method:'POST',
-
-          headers:{
-            'Content-Type':'application/json'
-          },
-
-          body:JSON.stringify({ id })
-
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify(data)
         });
-
-        const result =
-        await response.json();
-
-        if(result.success){
-
-          alert('Produto excluído');
-
-          loadProducts();
-
-        }else{
-
-          alert('Erro ao excluir');
-
-        }
-
-      }catch(error){
-
-        alert('Erro ao excluir');
-
+        if(res.ok){
+          status.style.display = 'block';
+          status.className = 'status success';
+          status.textContent = '✅ Produto cadastrado!';
+          document.getElementById('productForm').reset();
+          prevImg('');
+          carregarProdutos();
+          setTimeout(()=> status.style.display='none', 3500);
+        } else { throw new Error(); }
+      }catch(e){
+        status.style.display = 'block';
+        status.className = 'status error';
+        status.textContent = '❌ Erro ao cadastrar.';
+      }finally{
+        btn.textContent = 'Cadastrar Produto';
+        btn.disabled = false;
       }
+    });
 
-    }
-
-    function clearForm(){
-
-      editingId = null;
-
-      document.getElementById('name').value = '';
-
-      document.getElementById('description').value = '';
-
-      document.getElementById('badge').value = '';
-
-      document.getElementById('image').value = '';
-
-      document.getElementById('category').value = '';
-
-      document.getElementById('shopee_link').value = '';
-
-      document.getElementById('mercadolivre_link').value = '';
-
-      document.getElementById('amazon_link').value = '';
-
-      document.getElementById('tiktok_link').value = '';
-
-    }
-
-    loadProducts();
+    carregarProdutos();
 
   </script>
-
 </body>
-
 </html>
