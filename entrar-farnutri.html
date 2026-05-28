@@ -18,8 +18,6 @@
     href="/favicon.png"
   />
 
-  <!-- FONTE -->
-
   <link
     href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap"
     rel="stylesheet"
@@ -241,6 +239,14 @@
 
     }
 
+    .login-btn:disabled{
+
+      opacity:.7;
+
+      cursor:not-allowed;
+
+    }
+
     .error{
 
       margin-top:18px;
@@ -353,8 +359,15 @@
 
   <script>
 
-    // já logado
-    if(localStorage.getItem('adminAuth') === 'true'){
+    // já autenticado
+    const auth =
+    localStorage.getItem('adminAuth');
+
+    if(
+      auth &&
+      typeof auth === 'string' &&
+      auth.startsWith('fn_')
+    ){
 
       window.location.href =
       '/painel-farnutri.html';
@@ -378,6 +391,7 @@
       document.getElementById('loginBtn');
 
       btn.innerHTML = 'Entrando...';
+
       btn.disabled = true;
 
       errorBox.style.display = 'none';
@@ -405,14 +419,23 @@
         if(data.success){
 
           localStorage.setItem(
+
             'adminAuth',
-            'true'
+
+            'fn_' +
+            Math.random()
+            .toString(36)
+            .substring(2)
+
           );
 
           window.location.href =
           '/painel-farnutri.html';
 
         }else{
+
+          errorBox.innerHTML =
+          'Senha incorreta';
 
           errorBox.style.display =
           'block';
@@ -422,7 +445,7 @@
       }catch(error){
 
         errorBox.innerHTML =
-        'Erro ao conectar.';
+        'Erro ao conectar';
 
         errorBox.style.display =
         'block';
