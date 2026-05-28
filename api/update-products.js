@@ -1,93 +1,124 @@
+import { createClient } from '@supabase/supabase-js'
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY
+)
+
 export default async function handler(req, res){
 
   if(req.method !== 'POST'){
 
     return res.status(405).json({
-      success:false
-    });
+      error:'Método não permitido'
+    })
 
   }
 
-  const {
-
-    name,
-    description,
-    badge,
-    image,
-    category,
-
-    shopee_link,
-    mercadolivre_link,
-    amazon_link,
-    tiktok_link
-
-  } = req.body;
-
   try{
 
-    const response = await fetch(
+    const {
 
-      `${process.env.SUPABASE_URL}/rest/v1/products`,
+      id,
+      name,
+      image,
+      description,
+      category,
+      badge,
+      shopee_link,
+      mercadolivre_link,
+      amazon_link,
+      tiktok_link
 
-      {
+    } = req.body
 
-        method:'POST',
+    // ─────────────────────────
+    // EDITAR PRODUTO
+    // ─────────────────────────
 
-        headers:{
+    if(id){
 
-          apikey:
-          process.env.SUPABASE_SERVICE_KEY,
+      const { error } = await supabase
 
-          Authorization:
-          `Bearer ${process.env.SUPABASE_SERVICE_KEY}`,
+        .from('products')
 
-          'Content-Type':'application/json',
-
-          Prefer:'return=minimal'
-
-        },
-
-        body:JSON.stringify([{
+        .update({
 
           name,
-          description,
-          badge,
           image,
+          description,
           category,
-
+          badge,
           shopee_link,
           mercadolivre_link,
           amazon_link,
           tiktok_link
 
-        }])
+        })
+
+        .eq('id', id)
+
+      if(error){
+
+        console.log(error)
+
+        throw error
 
       }
 
-    );
+      return res.status(200).json({
 
-    if(!response.ok){
+        success:true,
+        updated:true
 
-      const error =
-      await response.text();
+      })
 
-      return res.status(500).json({
-        success:false,
-        error
-      });
+    }
+
+    // ─────────────────────────
+    // CRIAR PRODUTO
+    // ─────────────────────────
+
+    const { error } = await supabase
+
+      .from('products')
+
+      .insert([{
+
+        name,
+        image,
+        description,
+        category,
+        badge,
+        shopee_link,
+        mercadolivre_link,
+        amazon_link,
+        tiktok_link
+
+      }])
+
+    if(error){
+
+      console.log(error)
+
+      throw error
 
     }
 
     return res.status(200).json({
-      success:true
-    });
+
+      success:true,
+      created:true
+
+    })
 
   }catch(error){
 
     return res.status(500).json({
-      success:false,
+
       error:error.message
-    });
+
+    })
 
   }
 
