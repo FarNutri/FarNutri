@@ -4,736 +4,421 @@
 <head>
 
   <meta charset="UTF-8" />
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FarNutri</title>
 
-  <!-- FAVICON -->
+  <link rel="icon" type="image/png" href="/favicon.png" />
 
-  <link
-    rel="icon"
-    type="image/png"
-    href="/favicon.png"
-  />
+  <!-- FONTE MELHORADA -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
 
     :root{
-
       --verde-floresta:#0D3B1A;
       --verde-logo:#1A5C2A;
       --verde-marca:#2E7D3F;
       --verde-medio:#4CAF65;
       --verde-folha:#7DC87E;
       --verde-menta:#B8E4BC;
-
       --branco-natural:#F4FAF5;
-
       --grafite-verde:#3D4D3E;
       --cinza-salvia:#8A9E8C;
-
       --card-bg:#FFFFFF;
       --hero-text:#FFFFFF;
-
     }
 
     body.dark{
-
       --branco-natural:#0F1511;
-
       --grafite-verde:#E7F3E9;
-
       --cinza-salvia:#9EB0A1;
-
       --card-bg:#18221B;
-
       --hero-text:#FFFFFF;
-
     }
 
     *{
       margin:0;
       padding:0;
       box-sizing:border-box;
-      font-family:Arial,sans-serif;
+      font-family:'Nunito', Arial, sans-serif;
     }
 
     body{
-
       background:var(--branco-natural);
-
       color:var(--grafite-verde);
-
       transition:.25s;
-
     }
 
     /* DARK MODE */
-
     .theme-toggle{
-
       position:fixed;
-
       top:18px;
       right:18px;
-
       z-index:999;
-
       border:none;
-
       width:50px;
       height:50px;
-
       border-radius:50%;
-
-      background:white;
-
+      background:rgba(255,255,255,.92);
+      backdrop-filter:blur(10px);
       font-size:22px;
-
       cursor:pointer;
-
-      box-shadow:
-      0 8px 22px rgba(0,0,0,.15);
-
+      box-shadow:0 8px 22px rgba(0,0,0,.15);
     }
 
     body.dark .theme-toggle{
-
       background:#1F2A22;
-
       color:white;
-
     }
 
     /* HERO */
-
     .hero{
-
-      background:
-      linear-gradient(
-        135deg,
-        var(--verde-logo),
-        var(--verde-marca)
-      );
-
-      padding:40px 25px;
-
+      background:linear-gradient(135deg, var(--verde-logo), var(--verde-marca));
+      padding:30px 25px;
       color:var(--hero-text);
-
       border-bottom-left-radius:32px;
       border-bottom-right-radius:32px;
-
-      box-shadow:
-      0 10px 30px rgba(0,0,0,.15);
-
+      box-shadow:0 10px 30px rgba(0,0,0,.15);
     }
 
     .perfil{
-
       display:flex;
-
       align-items:center;
-
       gap:18px;
-
     }
 
     .perfil img{
-
       width:95px;
       height:95px;
-
       border-radius:50%;
-
       object-fit:cover;
-
       border:4px solid white;
-
+      box-shadow:0 8px 24px rgba(0,0,0,.22);
     }
 
     .perfil-info h1{
-
       font-size:52px;
-
-      font-weight:800;
-
+      font-weight:900;
       line-height:1;
-
     }
 
     .perfil-info p{
-
       margin-top:8px;
-
       font-size:18px;
-
       opacity:.92;
-
     }
 
     .bio{
-
-      margin-top:30px;
-
+      margin-top:22px;
       display:flex;
-
       flex-direction:column;
-
-      gap:12px;
-
-      font-size:17px;
-
+      gap:10px;
+      font-size:16px;
       line-height:1.5;
-
     }
 
     /* TITULO */
-
     .section-title{
-
-      padding:
-      40px 25px 18px;
-
-      font-size:42px;
-
+      padding:40px 25px 18px;
+      font-size:34px;
       line-height:1.1;
-
       color:var(--verde-logo);
-
-      font-weight:800;
-
+      font-weight:900;
     }
 
-    body.dark .section-title{
-
-      color:#B8E4BC;
-
-    }
+    body.dark .section-title{ color:#B8E4BC; }
 
     /* SEARCH */
+    .search-box{ padding:0 25px 15px; }
 
-    .search-box{
-
-      padding:0 25px 15px;
-
-    }
-
-    .search-wrapper{
-
-      position:relative;
-
-    }
+    .search-wrapper{ position:relative; }
 
     .search-icon{
-
       position:absolute;
-
       left:20px;
       top:50%;
-
       transform:translateY(-50%);
-
       font-size:22px;
-
       opacity:.5;
-
     }
 
     .search-box input{
-
       width:100%;
-
-      padding:18px 22px 18px 58px;
-
+      padding:16px 22px 16px 58px;
       border-radius:999px;
-
-      border:3px solid #B8E4BC;
-
+      border:1.5px solid #D7E9DA;
       background:white;
-
-      font-size:17px;
-
+      font-size:16px;
+      font-family:'Nunito', Arial, sans-serif;
       outline:none;
-
       color:#3D4D3E;
-
-      box-shadow:
-      0 6px 18px rgba(0,0,0,.05);
-
+      box-shadow:0 4px 14px rgba(0,0,0,.06);
+      transition:border-color .2s, box-shadow .2s;
     }
 
     body.dark .search-box input{
-
       background:#18221B;
-
       color:white;
-
       border-color:#2E7D3F;
-
     }
 
     .search-box input:focus{
-
       border-color:#2E7D3F;
-
+      box-shadow:0 0 0 4px rgba(76,175,101,0.15);
     }
 
     /* INFO */
-
     .products-count{
-
       padding:0 25px 18px;
-
       color:var(--cinza-salvia);
-
-      font-size:16px;
-
+      font-size:15px;
       font-weight:700;
-
     }
 
+    .products-count span{ color:var(--verde-marca); }
+
     .categories-title{
-
       padding:0 25px 12px;
-
-      font-size:13px;
-
+      font-size:12px;
       letter-spacing:2px;
-
       color:var(--cinza-salvia);
-
       font-weight:800;
-
     }
 
     /* CATEGORIAS */
-
     .categories{
-
       display:flex;
-
-      gap:12px;
-
+      gap:10px;
       overflow-x:auto;
-
       padding:0 25px 10px;
-
       margin-bottom:10px;
-
       scrollbar-width:none;
-
     }
 
-    .categories::-webkit-scrollbar{
-      display:none;
-    }
+    .categories::-webkit-scrollbar{ display:none; }
 
     .categories button{
-
-      border:none;
-
+      border:2px solid transparent;
       background:var(--card-bg);
-
       color:var(--verde-logo);
-
-      padding:13px 18px;
-
+      padding:10px 16px;
       border-radius:999px;
-
-      font-size:15px;
-
+      font-size:14px;
       font-weight:700;
-
+      font-family:'Nunito', Arial, sans-serif;
       cursor:pointer;
-
       white-space:nowrap;
+      box-shadow:0 3px 10px rgba(0,0,0,.06);
+      transition:all .2s;
+    }
 
-      box-shadow:
-      0 4px 12px rgba(0,0,0,.06);
-
-      transition:.2s;
-
+    .categories button:hover{
+      border-color:var(--verde-medio);
     }
 
     .categories button.active{
-
       background:var(--verde-logo);
-
       color:white;
-
+      box-shadow:0 4px 16px rgba(26,92,42,0.3);
     }
 
     /* GRID */
-
     .products{
-
-      padding:20px 25px;
-
+      padding:16px 25px;
       display:grid;
-
-      grid-template-columns:
-      repeat(auto-fit,minmax(170px,1fr));
-
-      gap:22px;
-
+      grid-template-columns:repeat(2, 1fr);
+      gap:16px;
     }
 
-    /* CARD */
-
+    /* ── CARD ── */
     .card{
-
       position:relative;
-
       background:var(--card-bg);
-
-      border-radius:28px;
-
+      border-radius:22px;
       overflow:hidden;
-
-      box-shadow:
-      0 10px 25px rgba(0,0,0,.06);
-
+      box-shadow:0 6px 20px rgba(0,0,0,.07);
       border:1px solid rgba(0,0,0,.04);
-
       transition:.2s;
-
+      display:flex;
+      flex-direction:column;
     }
 
     .card:hover{
-
       transform:translateY(-4px);
-
-      box-shadow:
-      0 14px 35px rgba(0,0,0,.10);
-
+      box-shadow:0 14px 35px rgba(0,0,0,.12);
     }
 
+    /* Área da imagem — badge fica AQUI */
     .card-top{
-
+      position:relative;
       background:#F2F7F3;
-
-      padding:25px;
-
+      padding:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
 
-    body.dark .card-top{
+    body.dark .card-top{ background:#202B22; }
 
-      background:#202B22;
-
-    }
-
-    /* BADGES */
-
+    /* BADGES — agora dentro de .card-top */
     .badge{
-
       position:absolute;
-
-      top:14px;
-      left:14px;
-
-      padding:7px 12px;
-
+      top:10px;
+      left:10px;
+      padding:5px 11px;
       border-radius:999px;
-
-      font-size:12px;
-
-      font-weight:700;
-
+      font-size:11px;
+      font-weight:800;
       color:white;
-
       z-index:2;
-
+      letter-spacing:.3px;
     }
 
-    .best{
-      background:#FF5A36;
-    }
+    .best        { background:#FF5A36; }
+    .verified    { background:#2E7D3F; }
+    .rated       { background:#F4B400; color:#333; }
+    .performance { background:#146EB4; }
+    .energy      { background:#7B2CBF; }
+    .shipping    { background:#00A86B; }
 
-    .verified{
-      background:#2E7D3F;
-    }
-
-    .rated{
-      background:#F4B400;
-    }
-
-    .performance{
-      background:#146EB4;
-    }
-
-    .energy{
-      background:#7B2CBF;
-    }
-
-    .shipping{
-      background:#00A86B;
-    }
-
+    /* IMAGEM menor */
     .card img{
-
       width:100%;
-
-      height:220px;
-
+      height:130px;            /* ← era 220px */
       object-fit:contain;
-
+      display:block;
     }
 
+    /* CONTEÚDO do card */
     .card-content{
+      padding:14px 14px 16px;
+      flex:1;
+      display:flex;
+      flex-direction:column;
+    }
 
-      padding:22px;
+    /* Categoria ACIMA do nome */
+    .category{
+      display:inline-block;
+      background:var(--verde-menta);
+      color:var(--verde-logo);
+      padding:4px 10px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:800;
+      margin-bottom:8px;       /* ← espaço até o nome */
+    }
 
+    body.dark .category{
+      background:#2A3D2C;
+      color:#7DC87E;
     }
 
     .product-name{
-
-      font-size:24px;
-
+      font-size:15px;          /* ← era 24px */
       font-weight:800;
-
       color:var(--verde-floresta);
-
-      line-height:1.2;
-
+      line-height:1.25;
+      margin-bottom:0;
     }
 
-    body.dark .product-name{
-
-      color:#E7F3E9;
-
-    }
+    body.dark .product-name{ color:#E7F3E9; }
 
     .description{
-
-      margin-top:10px;
-
+      margin-top:8px;
       color:var(--cinza-salvia);
-
-      font-size:14px;
-
-      line-height:1.5;
-
-      min-height:42px;
-
-    }
-
-    .category{
-
-      margin-top:12px;
-
-      display:inline-block;
-
-      background:var(--verde-menta);
-
-      color:var(--verde-logo);
-
-      padding:6px 14px;
-
-      border-radius:999px;
-
       font-size:13px;
-
-      font-weight:700;
-
+      line-height:1.5;
     }
 
     /* BOTÕES */
-
     .buttons{
-
-      margin-top:22px;
-
+      margin-top:auto;
+      padding-top:14px;
       display:flex;
-
       flex-direction:column;
-
-      gap:12px;
-
+      gap:9px;
     }
 
     .btn{
-
       width:100%;
-
       border:none;
-
-      border-radius:14px;
-
-      padding:15px;
-
+      border-radius:12px;
+      padding:12px;
       font-weight:800;
-
-      font-size:17px;
-
+      font-size:14px;
+      font-family:'Nunito', Arial, sans-serif;
       text-decoration:none;
-
       text-align:center;
-
       display:block;
-
       transition:.2s;
-
-      box-shadow:
-      0 4px 10px rgba(0,0,0,.10);
-
+      box-shadow:0 2px 6px rgba(0,0,0,.08);
+      cursor:pointer;
+      letter-spacing:.2px;
     }
 
-    .btn:hover{
+    .btn:active{ transform:scale(.98); }
 
-      transform:scale(1.02);
+    .btn:hover{ transform:scale(1.02); opacity:.92; }
 
-    }
-
-    .shopee{
-
-      background:#F44D2D;
-
-      color:white;
-
-    }
-
-    .mercado{
-
-      background:#FFE600;
-
-      color:#333;
-
-    }
-
-    .amazon{
-
-      background:#232F3E;
-
-      color:#FF9900;
-
-    }
-
-    .tiktok{
-
-      background:
-      linear-gradient(
-        90deg,
-        #69C9D0,
-        #EE1D52
-      );
-
-      color:white;
-
-    }
+    .shopee  { background:#F44D2D; color:white; }
+    .mercado { background:#FFE600; color:#333; }
+    .amazon  { background:#232F3E; color:#FF9900; }
+    .tiktok  { background:linear-gradient(90deg,#69C9D0,#EE1D52); color:white; }
 
     /* FOOTER */
-
     footer{
-
       margin-top:50px;
-
       background:var(--verde-floresta);
-
       color:white;
-
       padding:50px 25px;
-
       text-align:center;
-
     }
 
-    footer h2{
-
-      font-size:42px;
-
-      font-weight:800;
-
-    }
+    footer h2{ font-size:42px; font-weight:900; }
 
     footer p{
-
       margin-top:12px;
-
       color:rgba(255,255,255,.85);
-
       font-size:18px;
-
     }
 
     .instagram{
-
       margin-top:25px;
-
       display:inline-flex;
-
       align-items:center;
-
       gap:12px;
-
-      background:
-      linear-gradient(
-        135deg,
-        #833AB4,
-        #C13584,
-        #E1306C,
-        #FD1D1D,
-        #F77737
-      );
-
+      background:linear-gradient(135deg,#833AB4,#C13584,#E1306C,#FD1D1D,#F77737);
       padding:14px 22px;
-
       border-radius:18px;
-
       text-decoration:none;
-
       color:white;
-
       font-weight:700;
-
       font-size:18px;
-
-      box-shadow:
-      0 8px 20px rgba(0,0,0,.18);
-
+      box-shadow:0 8px 20px rgba(0,0,0,.18);
     }
 
     .affiliate-warning{
-
       margin-top:30px;
-
       background:rgba(255,255,255,.08);
-
       border:1px solid rgba(255,255,255,.15);
-
       padding:18px;
-
       border-radius:18px;
-
       line-height:1.6;
-
       font-size:15px;
-
       color:rgba(255,255,255,.88);
-
     }
 
     .copyright{
-
       margin-top:30px;
-
       color:rgba(255,255,255,.55);
-
       font-size:14px;
-
     }
 
     .loading{
-
       padding:20px;
-
       color:var(--cinza-salvia);
-
       font-size:18px;
-
     }
 
   </style>
@@ -742,164 +427,66 @@
 
 <body>
 
-  <!-- DARK MODE -->
-
-  <button
-    class="theme-toggle"
-    onclick="toggleTheme()"
-  >
-
-    🌙
-
-  </button>
+  <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
 
   <!-- HERO -->
-
   <section class="hero">
-
     <div class="perfil">
-
-      <img
-        src="https://i.postimg.cc/Lsz8NtCw/IMG-20260524-WA0010.jpg"
-      />
-
+      <img src="https://i.postimg.cc/Lsz8NtCw/IMG-20260524-WA0010.jpg" />
       <div class="perfil-info">
-
         <h1>FarNutri</h1>
-
         <p>@farnutri.suplementos</p>
-
       </div>
-
     </div>
-
     <div class="bio">
-
-      <span>
-        🌿 Suplementos e saúde com curadoria premium
-      </span>
-
-      <span>
-        💊 Produtos verificados e selecionados
-      </span>
-
-      <span>
-        ✅ Links somente de plataformas confiáveis
-      </span>
-
+      <span>🌿 Suplementos e saúde com curadoria premium</span>
+      <span>💊 Produtos verificados e selecionados</span>
+      <span>✅ Links somente de plataformas confiáveis</span>
     </div>
-
   </section>
 
   <!-- TITULO -->
-
-  <h2 class="section-title">
-
-    Produtos
-
-  </h2>
+  <h2 class="section-title">Produtos</h2>
 
   <!-- SEARCH -->
-
   <div class="search-box">
-
     <div class="search-wrapper">
-
-      <span class="search-icon">
-        🔍
-      </span>
-
+      <span class="search-icon">🔍</span>
       <input
         type="text"
         id="searchInput"
         placeholder="Buscar produto..."
         onkeyup="buscarProdutos()"
       />
-
     </div>
-
   </div>
 
   <!-- CONTADOR -->
-
   <div class="products-count">
-
-    <span id="productsCount">
-
-      0 produtos
-
-    </span>
-
-  </div>
-
-  <!-- TEXTO CATEGORIAS -->
-
-  <div class="categories-title">
-
-    CATEGORIAS
-
+    <span id="productsCount">0 produtos</span>
   </div>
 
   <!-- CATEGORIAS -->
-
-  <div
-    id="categories"
-    class="categories"
-  ></div>
+  <div class="categories-title">CATEGORIAS</div>
+  <div id="categories" class="categories"></div>
 
   <!-- PRODUTOS -->
-
-  <div
-    id="products"
-    class="products"
-  >
-
-    <div class="loading">
-
-      Carregando produtos...
-
-    </div>
-
+  <div id="products" class="products">
+    <div class="loading">Carregando produtos...</div>
   </div>
 
   <!-- FOOTER -->
-
   <footer>
-
     <h2>FarNutri</h2>
-
-    <p>
-
-      Saúde & Nutrição ao seu alcance
-
-    </p>
-
-    <a
-      class="instagram"
-      href="https://instagram.com/farnutri.suplementos"
-      target="_blank"
-    >
-
+    <p>Saúde & Nutrição ao seu alcance</p>
+    <a class="instagram" href="https://instagram.com/farnutri.suplementos" target="_blank">
       Instagram
-
     </a>
-
     <div class="affiliate-warning">
-
-      ⚠️ Aviso de afiliado:
-      ao comprar pelos links da FarNutri,
-      você não paga nada a mais por isso.
-      A plataforma pode repassar uma pequena
-      comissão que ajuda a manter nosso projeto ativo.
-
+      ⚠️ Aviso de afiliado: ao comprar pelos links da FarNutri, você não paga nada a mais por isso.
+      A plataforma pode repassar uma pequena comissão que ajuda a manter nosso projeto ativo.
     </div>
-
-    <div class="copyright">
-
-      © FarNutri 2026 - Todos os direitos reservados.
-
-    </div>
-
+    <div class="copyright">© FarNutri 2026 - Todos os direitos reservados.</div>
   </footer>
 
   <script>
@@ -907,353 +494,151 @@
     let todosProdutos = [];
 
     function toggleTheme(){
-
       document.body.classList.toggle('dark');
-
-      const botao =
-
-      document.querySelector('.theme-toggle');
-
-      botao.innerHTML =
-
-      document.body.classList.contains('dark')
-
-      ? '☀️'
-
-      : '🌙';
-
+      const isDark = document.body.classList.contains('dark');
+      document.querySelector('.theme-toggle').innerHTML = isDark ? '☀️' : '🌙';
+      localStorage.setItem('darkMode', isDark);
     }
 
     function getBadgeClass(badge){
-
       if(!badge) return '';
-
-      if(badge.includes('Mais Vendido'))
-        return 'badge best';
-
-      if(badge.includes('Verificado'))
-        return 'badge verified';
-
-      if(badge.includes('Melhor Avaliado'))
-        return 'badge rated';
-
-      if(badge.includes('Alta Performance'))
-        return 'badge performance';
-
-      if(badge.includes('Energia Extra'))
-        return 'badge energy';
-
-      if(badge.includes('Envio Rápido'))
-        return 'badge shipping';
-
+      if(badge.includes('Mais Vendido'))   return 'badge best';
+      if(badge.includes('Verificado'))     return 'badge verified';
+      if(badge.includes('Melhor Avaliado'))return 'badge rated';
+      if(badge.includes('Alta Performance'))return 'badge performance';
+      if(badge.includes('Energia Extra'))  return 'badge energy';
+      if(badge.includes('Envio Rápido'))   return 'badge shipping';
       return 'badge';
-
     }
 
     function iconeCategoria(categoria){
-
-      const nome = categoria.toLowerCase();
-
-      if(nome.includes('vit'))
-        return '🍋';
-
-      if(nome.includes('prote'))
-        return '🏋️';
-
-      if(nome.includes('creatina'))
-        return '💪';
-
-      if(nome.includes('pré'))
-        return '⚡';
-
-      if(nome.includes('termo'))
-        return '🔥';
-
+      const n = (categoria||'').toLowerCase();
+      if(n.includes('vit'))     return '🍋';
+      if(n.includes('prote'))   return '🏋️';
+      if(n.includes('creatina'))return '💪';
+      if(n.includes('pré'))     return '⚡';
+      if(n.includes('termo'))   return '🔥';
       return '🌿';
-
     }
 
     async function carregarProdutos(){
-
       try{
-
-        const response =
-        await fetch('/api/products');
-
-        todosProdutos =
-        await response.json();
-
+        const response = await fetch('/api/products');
+        todosProdutos  = await response.json();
         criarCategorias();
-
         renderizarProdutos(todosProdutos);
-
       }catch(error){
-
-        document
-        .getElementById('products')
-        .innerHTML = `
-
-          <div class="loading">
-
-            Erro ao carregar produtos.
-
-          </div>
-
-        `;
-
+        document.getElementById('products').innerHTML =
+          '<div class="loading">Erro ao carregar produtos.</div>';
       }
-
     }
 
     function criarCategorias(){
-
-      const container =
-      document.getElementById('categories');
-
+      const container = document.getElementById('categories');
       const categorias = [
-
         'Todos',
-
-        ...new Set(
-
-          todosProdutos
-
-          .map(p => p.category)
-
-          .filter(Boolean)
-
-        )
-
+        ...new Set(todosProdutos.map(p => p.category).filter(Boolean))
       ];
-
       container.innerHTML = '';
-
-      categorias.forEach((categoria,index) => {
-
+      categorias.forEach((categoria, index) => {
         container.innerHTML += `
-
           <button
-
             class="${index === 0 ? 'active' : ''}"
-
-            onclick="filtrarCategoria('${categoria}',this)"
-
+            onclick="filtrarCategoria('${categoria}', this)"
           >
-
-            ${iconeCategoria(categoria)}
-            ${categoria}
-
+            ${iconeCategoria(categoria)} ${categoria}
           </button>
-
         `;
-
       });
-
     }
 
-    function filtrarCategoria(categoria,botao){
-
-      document
-
-      .querySelectorAll('.categories button')
-
-      .forEach(btn => {
-
-        btn.classList.remove('active');
-
-      });
-
+    function filtrarCategoria(categoria, botao){
+      document.querySelectorAll('.categories button')
+        .forEach(btn => btn.classList.remove('active'));
       botao.classList.add('active');
 
-      if(categoria === 'Todos'){
-
-        renderizarProdutos(todosProdutos);
-
-        return;
-
-      }
-
-      const filtrados =
-
-      todosProdutos.filter(
-
-        produto => produto.category === categoria
-
-      );
+      const filtrados = categoria === 'Todos'
+        ? todosProdutos
+        : todosProdutos.filter(p => p.category === categoria);
 
       renderizarProdutos(filtrados);
-
     }
 
     function buscarProdutos(){
+      const valor = document.getElementById('searchInput').value.toLowerCase();
 
-      const valor =
+      // mantém categoria ativa ao buscar
+      const catAtiva = document.querySelector('.categories button.active');
+      const cat = catAtiva ? catAtiva.textContent.trim().replace(/^\S+\s*/,'') : 'Todos';
 
-      document
-      .getElementById('searchInput')
-      .value
-      .toLowerCase();
+      const base = cat === 'Todos'
+        ? todosProdutos
+        : todosProdutos.filter(p => p.category === cat);
 
-      const filtrados =
-
-      todosProdutos.filter(produto =>
-
-        produto.name
-        .toLowerCase()
-        .includes(valor)
-
+      const filtrados = base.filter(p =>
+        p.name.toLowerCase().includes(valor)
       );
 
       renderizarProdutos(filtrados);
-
     }
 
     function renderizarProdutos(produtos){
+      document.getElementById('productsCount').innerHTML =
+        `<span>${produtos.length}</span> produto${produtos.length !== 1 ? 's' : ''}`;
 
-      document.getElementById('productsCount')
-      .innerHTML = `${produtos.length} produtos`;
-
-      const container =
-      document.getElementById('products');
-
+      const container = document.getElementById('products');
       container.innerHTML = '';
 
       produtos.forEach(produto => {
-
         container.innerHTML += `
-
           <div class="card">
-
-            ${
-              produto.badge
-              ?
-              `
-              <div class="${getBadgeClass(produto.badge)}">
-                ${produto.badge}
-              </div>
-              `
-              :
-              ''
-            }
 
             <div class="card-top">
 
-              <img src="${produto.image}" />
+              ${produto.badge
+                ? `<div class="${getBadgeClass(produto.badge)}">${produto.badge}</div>`
+                : ''}
+
+              <img src="${produto.image}" alt="${produto.name}" />
 
             </div>
 
             <div class="card-content">
 
-              <div class="product-name">
+              ${produto.category
+                ? `<div class="category">${iconeCategoria(produto.category)} ${produto.category}</div>`
+                : ''}
 
-                ${produto.name}
+              <div class="product-name">${produto.name}</div>
 
-              </div>
-
-              ${
-                produto.description
-                ?
-                `
-                <div class="description">
-
-                  ${produto.description}
-
-                </div>
-                `
-                :
-                ''
-              }
-
-              ${
-                produto.category
-                ?
-                `
-                <div class="category">
-
-                  ${produto.category}
-
-                </div>
-                `
-                :
-                ''
-              }
+              ${produto.description
+                ? `<div class="description">${produto.description}</div>`
+                : ''}
 
               <div class="buttons">
-
-                ${
-                  produto.shopee_link
-                  ?
-                  `
-                  <a
-                    href="${produto.shopee_link}"
-                    target="_blank"
-                    class="btn shopee"
-                  >
-                    Shopee
-                  </a>
-                  `
-                  :
-                  ''
-                }
-
-                ${
-                  produto.mercadolivre_link
-                  ?
-                  `
-                  <a
-                    href="${produto.mercadolivre_link}"
-                    target="_blank"
-                    class="btn mercado"
-                  >
-                    Mercado Livre
-                  </a>
-                  `
-                  :
-                  ''
-                }
-
-                ${
-                  produto.amazon_link
-                  ?
-                  `
-                  <a
-                    href="${produto.amazon_link}"
-                    target="_blank"
-                    class="btn amazon"
-                  >
-                    Amazon
-                  </a>
-                  `
-                  :
-                  ''
-                }
-
-                ${
-                  produto.tiktok_link
-                  ?
-                  `
-                  <a
-                    href="${produto.tiktok_link}"
-                    target="_blank"
-                    class="btn tiktok"
-                  >
-                    TikTok Shop
-                  </a>
-                  `
-                  :
-                  ''
-                }
-
+                ${produto.shopee_link
+                  ? `<a href="${produto.shopee_link}" target="_blank" class="btn shopee">Shopee</a>`
+                  : ''}
+                ${produto.mercadolivre_link
+                  ? `<a href="${produto.mercadolivre_link}" target="_blank" class="btn mercado">Mercado Livre</a>`
+                  : ''}
+                ${produto.amazon_link
+                  ? `<a href="${produto.amazon_link}" target="_blank" class="btn amazon">Amazon</a>`
+                  : ''}
+                ${produto.tiktok_link
+                  ? `<a href="${produto.tiktok_link}" target="_blank" class="btn tiktok">TikTok Shop</a>`
+                  : ''}
               </div>
 
             </div>
-
           </div>
-
         `;
-
       });
+    }
 
+    if(localStorage.getItem('darkMode') === 'true'){
+      document.body.classList.add('dark');
+      document.querySelector('.theme-toggle').innerHTML = '☀️';
     }
 
     carregarProdutos();
@@ -1261,5 +646,4 @@
   </script>
 
 </body>
-
 </html>
